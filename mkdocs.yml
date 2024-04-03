@@ -1,1 +1,9 @@
-site_name: My Docs
+site_name: Super Ckkk
+nav:
+- "线性代数.md"
+- "数据结构基础.md"
+- "普通物理学.md"
+- "数学分析.md"
+theme:
+  name: material
+
