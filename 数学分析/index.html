@@ -30,6 +30,9 @@
     
       <link rel="stylesheet" href="../assets/stylesheets/main.7e359304.min.css">
       
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
       
 
 
@@ -51,6 +54,10 @@
     
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css">
     
+      <link rel="stylesheet" href="https://fonts.font.im/css?family=Roboto">
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ysabeau:ital">
+    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -61,7 +68,14 @@
   </head>
   
   
-    <body dir="ltr">
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -112,6 +126,32 @@
         </div>
       </div>
     </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
     
     
       <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
@@ -445,44 +485,7 @@ $$</p>
 $$</p>
 <p></font>
 推论10.1.1 <font face=STKaiti>若函数项级数$\sum_{n=1}^\infty u_n(x)$在$D$上一致收敛，则函数序列 $\lbrace u_n(x) \rbrace$ 在$D$上一致收敛于$u(x) \equiv 0$</font></p>
-<p>The isothermal compressibility, denoted by $ \kappa_T $, is defined as the fractional change in volume (( V )) per unit change in pressure (( P )) at constant temperature (( T )). Mathematically, it is given by:</p>
-<p>$$
-\kappa_T = -\frac{1}{V} \left(\frac{\partial V}{\partial P}\right)_T
-$$</p>
-<p>For a van der Waals gas, the equation of state is given by:</p>
-<p>$$
-\left(P + \frac{a}{V^2}\right)(V - b) = RT
-$$</p>
-<p>where ( P ) is the pressure, ( V ) is the volume, ( T ) is the temperature, ( R ) is the gas constant, ( a ) and ( b ) are van der Waals constants.</p>
-<p>Taking the derivative of the van der Waals equation of state with respect to pressure at constant temperature gives:</p>
-<p>$$
-\left(1 - \frac{2a}{V^3}\right)(V - b) - \left(P + \frac{a}{V^2}\right) = 0
-$$</p>
-<p>Rearranging terms:</p>
-<p>$$
-\frac{V - b - 2a(V - b)/V^3}{P + a/V^2} = 1
-$$
-Differentiating both sides with respect to ( P ) at constant temperature:</p>
-<p>$$
-\frac{\partial}{\partial P} \left( \frac{V - b - 2a(V - b)/V^3}{P + a/V^2} \right) = 0
-$$</p>
-<p>Applying the quotient rule and chain rule, we find:</p>
-<p>$$
-\frac{1}{V} \left(1 - \frac{2a}{V^3}\right) - \frac{V - b - 2a(V - b)/V^3}{(P + a/V^2)^2} \left(-\frac{a}{V^3}\right) = 0
-$$</p>
-<p>Simplifying this expression gives:</p>
-<p>$$
-\frac{1}{V} \left(1 - \frac{2a}{V^3}\right) + \frac{(V - b - 2a(V - b)/V^3)a}{(P + a/V^2)^2 V^3} = 0
-$$</p>
-<p>Now, we can express ( \kappa_T ) in terms of ( (V, T) ) for the van der Waals gas:</p>
-<p>$$
-\kappa_T = -\frac{1}{V} \left(1 - \frac{2a}{V^3}\right)
-$$</p>
-<p>To determine the high-temperature limit, we can consider the condition where ( a/V^2 ) becomes negligible compared to ( P ) in the denominator. In this limit, the van der Waals gas approaches the behavior of an ideal gas. Therefore, for high temperatures, we have:</p>
-<p>$$
-\lim_{{T \to \infty}} \kappa_T = -\frac{1}{V}
-$$</p>
-<p>Comparing this to the isothermal compressibility of an ideal gas $ \kappa_{T, \text{ideal}} = -\frac{1}{V} $, we see that the high-temperature limit of the isothermal compressibility for the van der Waals gas approaches that of the ideal gas.</p>
+<p></font></p>
 <script type="text/javascript" async
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
