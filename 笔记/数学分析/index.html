@@ -10,7 +10,7 @@
         <meta name="author" content="CKKK">
       
       
-        <link rel="canonical" href="https://superckkk.github.io/%E6%95%B0%E7%90%86%E5%9F%BA%E7%A1%80/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/">
+        <link rel="canonical" href="https://superckkk.github.io/%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/">
       
       
         <link rel="prev" href="../../ZJU_AI/FDS/">
@@ -263,7 +263,7 @@
   
     
   
-  数理基础
+  笔记
 
         </a>
       </li>
@@ -372,9 +372,7 @@
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
         
           
           
@@ -428,9 +426,7 @@
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -496,6 +492,8 @@
       
         
       
+        
+      
     
     
       
@@ -516,7 +514,7 @@
             
   
   <span class="md-ellipsis">
-    数理基础
+    笔记
   </span>
   
 
@@ -526,7 +524,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
-            数理基础
+            笔记
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -647,6 +645,27 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -675,9 +694,7 @@
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -719,9 +736,7 @@
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
         
           
           <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
@@ -861,45 +876,45 @@
 :material-circle-edit-outline: 约 573 个字 :material-clock-time-two-outline: 预计阅读时间 2 分钟
 </div>
 <h2 id="_1">数项级数</h2>
-<p>定理（级数收敛的必要条件）:<font face=STKaiti> 设级数$\sum_{n=1}^\infty x_n$收敛，则其通项公式所构成的数列$\lbrace x_n \rbrace $是无穷小量,即 :</p>
+<p>定理（级数收敛的必要条件）:<font face=STKaiti> 设级数<span class="arithmatex">\(\sum_{n=1}^\infty x_n\)</span>收敛，则其通项公式所构成的数列$\lbrace x_n \rbrace $是无穷小量,即 :</p>
 <p>$$
 \lim_{n \to \infty} x_n = 0
 $$
 </font>
-定理9.3.2'(比较判别法的极限形式) <font face=STKaiti> 设$\sum_{n=1}^\infty x_n$与$\sum_{n=1}^\infty y_n$是两个正项级数，且:
+定理9.3.2'(比较判别法的极限形式) <font face=STKaiti> 设<span class="arithmatex">\(\sum_{n=1}^\infty x_n\)</span>与<span class="arithmatex">\(\sum_{n=1}^\infty y_n\)</span>是两个正项级数，且:
 $$
 \lim_{n \to \infty} {x_n \over y_n}=l\qquad(0 \le l \le +\infty)
 $$
 则:
-<br>若 $ 0 \le l \lt +\infty $,则当$\sum_{n=1}^\infty y_n$收敛时,$\sum_{n=1}^\infty x_n$也收敛;</br>
-若 $ 0 \lt l \le +\infty $,则当$\sum_{n=1}^\infty y_n$发散时,$\sum_{n=1}^\infty x_n$也发散.
-<br>所以当$ 0 \lt l \lt +\infty $ 时，$\sum_{n=1}^\infty x_n$与$\sum_{n=1}^\infty y_n$同时收敛或同时发散</br>
+<br>若 $ 0 \le l \lt +\infty <span class="arithmatex">\(,则当\)</span>\sum_{n=1}^\infty y_n<span class="arithmatex">\(收敛时,\)</span>\sum_{n=1}^\infty x_n$也收敛;</br>
+若 $ 0 \lt l \le +\infty <span class="arithmatex">\(,则当\)</span>\sum_{n=1}^\infty y_n<span class="arithmatex">\(发散时,\)</span>\sum_{n=1}^\infty x_n<span class="arithmatex">\(也发散.
+&lt;br&gt;所以当\)</span> 0 \lt l \lt +\infty $ 时，<span class="arithmatex">\(\sum_{n=1}^\infty x_n\)</span>与<span class="arithmatex">\(\sum_{n=1}^\infty y_n\)</span>同时收敛或同时发散</br>
 </font>
-定理9.3.3(Cauchy判别法): $\quad$ <font face=STKaiti> 设$\sum_{n=1}^\infty x_n$是正项级数,$r=\overline{\lim_{n \to \infty}} \sqrt[n]x_n$,则
-<br> 当$r \lt 1 $时，级数$\sum_{n=1}^\infty x_n$收敛;</br>
-当$r \gt 1 $时，级数$\sum_{n=1}^\infty x_n$发散;
-<br> 当$r=1$时，判别法失效，即级数可能收敛,也可能发散</br>
+定理9.3.3(Cauchy判别法): <span class="arithmatex">\(\quad\)</span> <font face=STKaiti> 设<span class="arithmatex">\(\sum_{n=1}^\infty x_n\)</span>是正项级数,<span class="arithmatex">\(r=\overline{\lim_{n \to \infty}} \sqrt[n]x_n\)</span>,则
+<br> 当<span class="arithmatex">\(r \lt 1 <span class="arithmatex">\(时，级数\)</span>\sum_{n=1}^\infty x_n\)</span>收敛;</br>
+当<span class="arithmatex">\(r \gt 1 <span class="arithmatex">\(时，级数\)</span>\sum_{n=1}^\infty x_n\)</span>发散;
+<br> 当<span class="arithmatex">\(r=1\)</span>时，判别法失效，即级数可能收敛,也可能发散</br>
 </font></p>
 <h2 id="_2">函数项级数</h2>
-<p>定义10.1.1 <font face=STKaiti>设$u_n(x)(n=1,2,3,\cdots)$,在$E$上定义.对于任意固定的$x_0 \in E$,若数项级数$\sum_{n=1}^\infty u_n(x_0)$收敛,则称函数项级数$\sum_{n=1}^\infty u_n(x)$在点$x_0$收敛，或称$x_0$是$\sum_{n=1}^\infty u_n(x)$的收敛点
-<br>函数项级数$\sum_{n=1}^\infty u_n(x)$的收敛点全体所构成的集合称为$\sum_{n=1}^\infty u_n(x)$的收敛域</br>
+<p>定义10.1.1 <font face=STKaiti>设<span class="arithmatex">\(u_n(x)(n=1,2,3,\cdots)\)</span>,在<span class="arithmatex">\(E\)</span>上定义.对于任意固定的<span class="arithmatex">\(x_0 \in E\)</span>,若数项级数<span class="arithmatex">\(\sum_{n=1}^\infty u_n(x_0)\)</span>收敛,则称函数项级数<span class="arithmatex">\(\sum_{n=1}^\infty u_n(x)\)</span>在点<span class="arithmatex">\(x_0\)</span>收敛，或称<span class="arithmatex">\(x_0\)</span>是<span class="arithmatex">\(\sum_{n=1}^\infty u_n(x)\)</span>的收敛点
+<br>函数项级数<span class="arithmatex">\(\sum_{n=1}^\infty u_n(x)\)</span>的收敛点全体所构成的集合称为<span class="arithmatex">\(\sum_{n=1}^\infty u_n(x)\)</span>的收敛域</br>
 </font>
-定义10.1.2<font face=STKaiti>设$ \lbrace S_n(x) \rbrace (x \in D)$是一函数序列，若对任意给定的$\varepsilon \gt 0$,存在仅与$\epsilon$有关的正整数$N(\varepsilon)$,当$n \lt N(\varepsilon)$时,
+定义10.1.2<font face=STKaiti>设$ \lbrace S_n(x) \rbrace (x \in D)<span class="arithmatex">\(是一函数序列，若对任意给定的\)</span>\varepsilon \gt 0<span class="arithmatex">\(,存在仅与\)</span>\epsilon<span class="arithmatex">\(有关的正整数\)</span>N(\varepsilon)<span class="arithmatex">\(,当\)</span>n \lt N(\varepsilon)$时,
 $$
 \lvert S_n(x)-S(n)\rvert \lt \varepsilon
 $$
-对一切$x \in D$成立，则称$\lbrace S_n(x)\rbrace$在D上一致收敛于$S(x)$,记为$S_n(x){\overset{D} {\Rightarrow}} S(x)$.
+对一切<span class="arithmatex">\(x \in D\)</span>成立，则称<span class="arithmatex">\(\lbrace S_n(x)\rbrace\)</span>在D上一致收敛于<span class="arithmatex">\(S(x)\)</span>,记为<span class="arithmatex">\(S_n(x){\overset{D} {\Rightarrow}} S(x)\)</span>.
 符号化表述:</p>
-<p>$$
+<div class="arithmatex">\[
 ``S_n(x){\overset{D} {\Rightarrow}} S(x)" \Leftrightarrow \forall \varepsilon \gt 0,\exists N,\forall n &gt; N,\forall x \in D: \lvert S_n(x)-S(x)\rvert &lt; \varepsilon ;
-$$</p>
-<p>若函数项级数 $\sum_{n=1}^\infty u_n(x)(x \in D)$ 的部分和函数序列$\lbrace S_n(x) \rbrace$,其中$S_n(x)=\sum_{k=1}^n u_k(x)$,在$D$上一致收敛于$S(x)$,则我们称$\sum_{n=1}^\infty u_n(x)$在$D$上一致收敛于$S(x)$.
+\]</div>
+<p>若函数项级数 <span class="arithmatex">\(\sum_{n=1}^\infty u_n(x)(x \in D)\)</span> 的部分和函数序列<span class="arithmatex">\(\lbrace S_n(x) \rbrace\)</span>,其中<span class="arithmatex">\(S_n(x)=\sum_{k=1}^n u_k(x)\)</span>,在<span class="arithmatex">\(D\)</span>上一致收敛于<span class="arithmatex">\(S(x)\)</span>,则我们称<span class="arithmatex">\(\sum_{n=1}^\infty u_n(x)\)</span>在<span class="arithmatex">\(D\)</span>上一致收敛于<span class="arithmatex">\(S(x)\)</span>.
 符号化表述:</p>
-<p>$$
+<div class="arithmatex">\[
 ``\sum_{n=1}^\infty u_n(x) 在D上一致收敛于 S(x)"\Leftrightarrow \forall \varepsilon &gt; 0,\exists N,\forall n &gt; N,\forall x \in D:\lvert \sum_{k=1}^n u_k(x) - S(x) \rvert = \lvert S_n(x)-S(x) \rvert &lt; \varepsilon.
-$$</p>
+\]</div>
 <p></font>
-推论10.1.1 <font face=STKaiti>若函数项级数$\sum_{n=1}^\infty u_n(x)$在$D$上一致收敛，则函数序列 $\lbrace u_n(x) \rbrace$ 在$D$上一致收敛于$u(x) \equiv 0$</font></p>
+推论10.1.1 <font face=STKaiti>若函数项级数<span class="arithmatex">\(\sum_{n=1}^\infty u_n(x)\)</span>在<span class="arithmatex">\(D\)</span>上一致收敛，则函数序列 <span class="arithmatex">\(\lbrace u_n(x) \rbrace\)</span> 在<span class="arithmatex">\(D\)</span>上一致收敛于<span class="arithmatex">\(u(x) \equiv 0\)</span></font></p>
 <p></font></p>
 <script type="text/javascript" async
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
@@ -931,7 +946,7 @@ MathJax.Hub.Config({
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-07-09T13:08:07+00:00" locale="zh"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-07-09</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-07-10T09:49:07+00:00" locale="zh"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-07-10</span>
   </span>
 
     
@@ -941,7 +956,7 @@ MathJax.Hub.Config({
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-07-09T13:08:07+00:00" locale="zh"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-07-09</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-07-10T09:49:07+00:00" locale="zh"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-07-10</span>
   </span>
 
     
@@ -993,7 +1008,7 @@ MathJax.Hub.Config({
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top", "navigation.indexes", "navigation.expand"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top", "navigation.indexes"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
@@ -1001,6 +1016,12 @@ MathJax.Hub.Config({
         <script src="../../js/timeago.min.js"></script>
       
         <script src="../../js/timeago_mkdocs_material.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>
