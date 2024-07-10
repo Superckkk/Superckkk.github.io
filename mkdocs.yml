@@ -1,10 +1,77 @@
-site_name: Super Ckkk
+site_name: CKKK'notebook
+site_url: https://superckkk.github.io/
+site_author: CKKK
+
 nav:
-  - "线性代数.md"
-  - "数据结构基础.md"
-  - "普通物理学.md"
-  - "数学分析.md"
-  - "随便写写.md"
+  - Home:
+    - index.md
+  - ZJU_AI:
+    - ZJU_AI/FDS.md
+  - 笔记: 
+    - Note/Mathematical_analysis.md
+    - Note/linear_algebra.md
+    - Note/general_physics.md
+    - Note/Python.md
+  - 杂项:
+    - 鬼灭之刃:
+      - 杂项/鬼灭之刃/Q&A.md 
+  - 摘录.md
+
+extra_css:
+  - stylesheets/extra.css 
+  - https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.1.0/style.css
+  - https://fonts.font.im/css?family=Roboto
+  - https://fonts.googleapis.com/css2?family=Ysabeau:ital
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
 theme:
   name: material
+  logo: logo.jpg #网站logo
+  favicon: logo.jpg
+  features:
+    - navigation.tabs #一级导航在横着的导航栏
+    - navigation.top #Back to top 按钮
+    - navigation.indexes
+    # - navigation.expand 二级导航栏默认展开
+    # - content.code.annotate 
+  palette: 
+    # Palette toggle for light mode
+    - scheme: default #浅色模式
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+      primary: blue grey
+    # Palette toggle for dark mode
+    - scheme: slate #深色模式
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+      primary: black
+
+markdown_extensions:
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      linenums: true
+      auto_title: true #为代码块添加标题
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.arithmatex:
+      generic: true
+
+
+plugins:
+  - search
+  - statistics
+  - git-revision-date-localized: 
+      locale: zh
+      enable_creation_date: true
+      type: timeago
+
 

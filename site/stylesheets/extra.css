@@ -1,0 +1,15 @@
+:root {
+    --md-text-font: "Ysabeau", "LXGW WenKai Screen"; 
+    --md-code-font: "Ysabeau", "LXGW WenKai Screen";
+  }
+  
+  body {
+      font-family: "Ysabeau","LXGW WenKai", sans-serif;
+      /* Lite version */
+      /* font-family: "LXGW WenKai Lite", sans-serif; */
+      /* TC version */
+      /* font-family: "LXGW WenKai TC", sans-serif; */
+      /* Screen version */
+      /* font-family: "LXGW WenKai Screen", sans-serif; */
+    }
+  

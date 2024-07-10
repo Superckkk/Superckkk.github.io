@@ -46,63 +46,7 @@ $$
 </font>
 推论10.1.1 <font face=STKaiti>若函数项级数$\sum_{n=1}^\infty u_n(x)$在$D$上一致收敛，则函数序列 $\lbrace u_n(x) \rbrace$ 在$D$上一致收敛于$u(x) \equiv 0$</font>
 
-
-The isothermal compressibility, denoted by $ \kappa_T $, is defined as the fractional change in volume (( V )) per unit change in pressure (( P )) at constant temperature (( T )). Mathematically, it is given by:
-
-$$
-\kappa_T = -\frac{1}{V} \left(\frac{\partial V}{\partial P}\right)_T
-$$
-
-For a van der Waals gas, the equation of state is given by:
-
-$$
-\left(P + \frac{a}{V^2}\right)(V - b) = RT
-$$
-
-where ( P ) is the pressure, ( V ) is the volume, ( T ) is the temperature, ( R ) is the gas constant, ( a ) and ( b ) are van der Waals constants.
-
-Taking the derivative of the van der Waals equation of state with respect to pressure at constant temperature gives:
-
-$$
-\left(1 - \frac{2a}{V^3}\right)(V - b) - \left(P + \frac{a}{V^2}\right) = 0
-$$
-
-Rearranging terms:
-
-$$
-\frac{V - b - 2a(V - b)/V^3}{P + a/V^2} = 1
-$$
-Differentiating both sides with respect to ( P ) at constant temperature:
-
-$$
-\frac{\partial}{\partial P} \left( \frac{V - b - 2a(V - b)/V^3}{P + a/V^2} \right) = 0
-$$
-
-Applying the quotient rule and chain rule, we find:
-
-$$
-\frac{1}{V} \left(1 - \frac{2a}{V^3}\right) - \frac{V - b - 2a(V - b)/V^3}{(P + a/V^2)^2} \left(-\frac{a}{V^3}\right) = 0
-$$
-
-Simplifying this expression gives:
-
-$$
-\frac{1}{V} \left(1 - \frac{2a}{V^3}\right) + \frac{(V - b - 2a(V - b)/V^3)a}{(P + a/V^2)^2 V^3} = 0
-$$
-
-Now, we can express ( \kappa_T ) in terms of ( (V, T) ) for the van der Waals gas:
-
-$$
-\kappa_T = -\frac{1}{V} \left(1 - \frac{2a}{V^3}\right)
-$$
-
-To determine the high-temperature limit, we can consider the condition where ( a/V^2 ) becomes negligible compared to ( P ) in the denominator. In this limit, the van der Waals gas approaches the behavior of an ideal gas. Therefore, for high temperatures, we have:
-
-$$
-\lim_{{T \to \infty}} \kappa_T = -\frac{1}{V}
-$$
-
-Comparing this to the isothermal compressibility of an ideal gas $ \kappa_{T, \text{ideal}} = -\frac{1}{V} $, we see that the high-temperature limit of the isothermal compressibility for the van der Waals gas approaches that of the ideal gas.
+</font>
 <script type="text/javascript" async
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
