@@ -94,4 +94,145 @@ for value in student_0.values():
     print(f"value:{value}")
 ```
 这三个循环分别遍历了字典中的键值对，键，和值。.items方法会返回一个键值对，并将键和值分别赋值给指定的变量key和value，.keys方法则只返回键，.values方法则只返回值。我们可以任意修改变量名称，是其更符合实际使用场景。值得一提的是，for循环在遍历时默认遍历所有的键，因此`for key in student_0.keys()`和`for key in student_0`的效果是一样的。
-##
+- 集合：   
+当我们想访问字典中的元素且希望不包含重复元素时，可以使用集合。集合是Python中一个重要的数据类型，集合中的元素是唯一的，并且没有顺序。集合中的元素可以是任何Python对象。
+```python
+favorite_languages = {
+    'jen': 'python',
+    'sarah': 'c',
+    'edward': 'ruby',
+    'phil': 'python',
+    }
+for language in set(favorite_languages.values())
+    print(language.title())
+```
+输出的结果为：Python,C,Ruby.可以看到每种语言都只出现了一次。    
+可以用一对花括号直接创建集合：
+```python
+languages = {'python', 'c', 'ruby', 'java'}
+```
+可以看到集合和字典很像，区别在于集合中没有键值对，且其中的每个元素都是独一无二的。
+## 用户输入
+- input函数：
+input函数接收一个字符串作为参数，并显示在屏幕上，等待用户输入。值得注意的是，input函数会将用户的输入作为字符串返回。
+```python
+name = input("Please enter your name:") #prompt可以直接写在input 的括号中
+print(f"Hello,{name}!")
+prompt = "Please enter your age:"
+age = input(prompt) #prompt也可以写在变量中，再将变量传给input函数
+print(f"You are {age} years old.")
+age = int(age) #使用int()函数将字符串转换为整数
+```
+## 函数
+- 如果函数接收一个列表作为参数，那么在函数中对列表的修改将是永久的，就像C语言中向函数传递指针一样。 
+但是，我们也可以通过向函数传递列表的副本避免对列表的修改：
+```python
+function_name(list_name[:])
+```
+list_name[:]是由切片表示法创建的列表的副本
+- 传递任意数量的参数：
+我们可以在形参前加上*，使得函数可以接收任意数量的实参：
+```python 
+def make_pizza(*toppings):
+```
+括号中的*让Python创建一个名为toppings的空元组，并将收到的所有值都封装到这个元组中。值得注意的是，如果我们要使用变长参数，那么函数中的形参必须位于所有形参的最后，否则编译器将无法将实参与形参一一对应。
+- 使用任意数量的关键字实参（原书的这个标题一直读不懂）
+我们可以在形参前加上**，这会让Python创建一个空字典，并将接收到的所有键值对封装到这个字典中。
+```python
+def build_profile(first, last, **user_info):
+    user_info['first_name'] = first
+    user_info['last_name'] = last
+    return user_info
+user_profile = build_profile('albert', 'einstein', location='princeton', field='physics')
+print(user_profile)
+```
+输出结果为：
+```bash
+{'location': 'princeton', 'field': 'physics', 'first_name': 'albert', 'last_name': 'einstein'}  
+```
+可以看到，Python将键值对location:'princeton'和field:'physics'封装到字典user_info中，并将键first_name和last_name的值分别设置为'albert'和'einstein'。
+一个常见的形参名是\*\*kwargs，它被⽤于收集任意数量的关键字实参
+## 类
+>“⾯向对象编程（object-oriented programming，OOP）是最有效的软件编写⽅法之⼀。在⾯向对象编程中，你编写表⽰现实世界中的事物和情
+景的类（class），并基于这些类来创建对象（object）。在编写类时，你要定义⼀批对象都具备的通⽤⾏为。在基于类创建对象时，每个对
+象都⾃动具备这种通⽤⾏为。然后，你可根据需要赋予每个对象独特的个性。使⽤⾯向对象编程可模拟现实情景，逼真程度到达了令⼈惊讶的地步。”
+- 类的创建：创建类时，必须使用class关键字，类名必须以大写字母开头，类名通常以驼峰命名法（CamelCase）来命名，类名应该与文件名相同。
+```python
+class Dog: #创建一个Dog类
+    def __init__(self, name, age):#Dog的名字和年龄
+        self.name = name
+        self.age = age
+    
+    def sit(self): #模拟小狗收到命令时蹲下
+        print(f"{self.name} is now sitting.")
+
+    def roll_over(self): #模拟小狗收到命令时打滚
+        print(f"{self.name} rolled over!")
+```
+    - __init__()方法：
+    类中的函数称为方法，而__init__()是一个特殊方法，在创建对象时自动执行。在__init__()方法中，self参数是必须的，它代表类的实例本身，必须位于其他参数的前面。但我们无需向self传递实参，因为每个与实例相关联的方法调用都会自动传递实参self，该参数让实例能够访问类中的属性和方法。__init__()方法中定义的变量有self前缀时，可供类中的所有方法使用，可通过类的任意实例访问。像这样可以通过实例访问的变量称为属性（attribute）
+- 创建实例和调用方法：
+```python
+my_dog = Dog('willie', 6)
+print(f"My dog's name is {my_dog.name}.")
+print(f"My dog is {my_dog.age} years old.")
+my_dog.sit() #可以使用点号调用类中定义的方法
+my_dog.roll_over()
+```
+输出结果为：
+```bash
+My dog's name is willie.
+My dog is 6 years old.
+willie is now sitting.
+willie rolled over!
+```
+- 继承：
+如果要编写的类是一个既有的类的特殊版本，可以使用继承（inheritance）来简化代码。
+```python
+class Car:
+    def __init__(self, make, model, year): #初始化描述汽车的属性
+        self.make = make
+        self.model = model
+        self.year = year
+        self.odometer_reading = 0
+    
+    def get_descriptive_name(self):
+        long_name = f"{self.year} {self.make} {self.model}"
+        return long_name.title()
+    
+    def read_odometer(self): #打印出汽车的里程表
+        print(f"This car has {self.odometer_reading} miles on it.")
+    
+    def update_odometer(self, mileage): #更新里程表
+        if mileage >= self.odometer_reading:
+            self.odometer_reading = mileage
+        else:
+            print("You can't roll back an odometer!")
+    
+    def increment_odometer(self, miles): #增加里程表读数
+        self.odometer_reading += miles
+
+class ElectricCar(Car): #ElectricCar类继承自Car类
+    def __init__(self, make, model, year):
+        super().__init__(make, model, year) #初始化父类的属性
+        self.battery_size = 70 #新增属性“battery_size”
+    
+    def describe_battery(self): #打印电池容量
+        print(f"This car has a {self.battery_size}-kWh battery.")
+    
+    def fill_gas_tank(self): #重写父类的方法
+        print("This car doesn't need a gas tank!")
+
+```
+super()是一个特殊的函数，用于调用父类的方法。父类有时也被称为超类（superclass）。如果父类中的某些方法对子类不适用，可以在子类中重写这个方法。
+
+## 文件和异常
+-读取文件：
+假设在C:\Coding\Python\pi.txt中写入了$\pi$的前几位。
+```python
+from path;ib import Path
+path = Path('C:\\Coding\\Python\\pi.txt')
+contents = path.read_text()
+print(contents)
+```
+

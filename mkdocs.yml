@@ -8,9 +8,9 @@ nav:
   - ZJU_AI:
     - ZJU_AI/FDS.md
   - 笔记: 
-    - Note/Mathematical_analysis.md
-    - Note/linear_algebra.md
-    - Note/general_physics.md
+    # - Note/Mathematical_analysis.md
+    # - Note/linear_algebra.md
+    # - Note/general_physics.md
     - Note/Python.md
   - 杂项:
     - 鬼灭之刃:
