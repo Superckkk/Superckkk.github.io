@@ -156,6 +156,7 @@ print(user_profile)
 >“⾯向对象编程（object-oriented programming，OOP）是最有效的软件编写⽅法之⼀。在⾯向对象编程中，你编写表⽰现实世界中的事物和情
 景的类（class），并基于这些类来创建对象（object）。在编写类时，你要定义⼀批对象都具备的通⽤⾏为。在基于类创建对象时，每个对
 象都⾃动具备这种通⽤⾏为。然后，你可根据需要赋予每个对象独特的个性。使⽤⾯向对象编程可模拟现实情景，逼真程度到达了令⼈惊讶的地步。”
+
 - 类的创建：创建类时，必须使用class关键字，类名必须以大写字母开头，类名通常以驼峰命名法（CamelCase）来命名，类名应该与文件名相同。
 ```python
 class Dog: #创建一个Dog类
@@ -227,7 +228,7 @@ class ElectricCar(Car): #ElectricCar类继承自Car类
 super()是一个特殊的函数，用于调用父类的方法。父类有时也被称为超类（superclass）。如果父类中的某些方法对子类不适用，可以在子类中重写这个方法。
 
 ## 文件和异常
--读取文件：
+- 读取文件：
 假设在C:\Coding\Python\pi.txt中写入了$\pi$的前几位。
 ```python
 from path;ib import Path
