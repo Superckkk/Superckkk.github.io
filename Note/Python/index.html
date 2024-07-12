@@ -1116,8 +1116,10 @@ list_name[:]是由切片表示法创建的列表的副本</li>
 <blockquote>
 <p>“⾯向对象编程（object-oriented programming，OOP）是最有效的软件编写⽅法之⼀。在⾯向对象编程中，你编写表⽰现实世界中的事物和情
 景的类（class），并基于这些类来创建对象（object）。在编写类时，你要定义⼀批对象都具备的通⽤⾏为。在基于类创建对象时，每个对
-象都⾃动具备这种通⽤⾏为。然后，你可根据需要赋予每个对象独特的个性。使⽤⾯向对象编程可模拟现实情景，逼真程度到达了令⼈惊讶的地步。”
-- 类的创建：创建类时，必须使用class关键字，类名必须以大写字母开头，类名通常以驼峰命名法（CamelCase）来命名，类名应该与文件名相同。
+象都⾃动具备这种通⽤⾏为。然后，你可根据需要赋予每个对象独特的个性。使⽤⾯向对象编程可模拟现实情景，逼真程度到达了令⼈惊讶的地步。”</p>
+</blockquote>
+<ul>
+<li>类的创建：创建类时，必须使用class关键字，类名必须以大写字母开头，类名通常以驼峰命名法（CamelCase）来命名，类名应该与文件名相同。
 <div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1137,10 +1139,12 @@ list_name[:]是由切片表示法创建的列表的副本</li>
 
     <span class="k">def</span> <span class="nf">roll_over</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1">#模拟小狗收到命令时打滚</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> rolled over!&quot;</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-    - <strong>init</strong>()方法：
-    类中的函数称为方法，而__init__()是一个特殊方法，在创建对象时自动执行。在__init__()方法中，self参数是必须的，它代表类的实例本身，必须位于其他参数的前面。但我们无需向self传递实参，因为每个与实例相关联的方法调用都会自动传递实参self，该参数让实例能够访问类中的属性和方法。<strong>init</strong>()方法中定义的变量有self前缀时，可供类中的所有方法使用，可通过类的任意实例访问。像这样可以通过实例访问的变量称为属性（attribute）
-- 创建实例和调用方法：
+</code></pre></div></td></tr></table></div><ul>
+<li><strong>init</strong>()方法：
+类中的函数称为方法，而__init__()是一个特殊方法，在创建对象时自动执行。在__init__()方法中，self参数是必须的，它代表类的实例本身，必须位于其他参数的前面。但我们无需向self传递实参，因为每个与实例相关联的方法调用都会自动传递实参self，该参数让实例能够访问类中的属性和方法。<strong>init</strong>()方法中定义的变量有self前缀时，可供类中的所有方法使用，可通过类的任意实例访问。像这样可以通过实例访问的变量称为属性（attribute）</li>
+</ul>
+</li>
+<li>创建实例和调用方法：
 <div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
@@ -1159,8 +1163,8 @@ list_name[:]是由切片表示法创建的列表的副本</li>
 My<span class="w"> </span>dog<span class="w"> </span>is<span class="w"> </span><span class="m">6</span><span class="w"> </span>years<span class="w"> </span>old.
 willie<span class="w"> </span>is<span class="w"> </span>now<span class="w"> </span>sitting.
 willie<span class="w"> </span>rolled<span class="w"> </span>over!
-</code></pre></div></td></tr></table></div>
-- 继承：
+</code></pre></div></td></tr></table></div></li>
+<li>继承：
 如果要编写的类是一个既有的类的特殊版本，可以使用继承（inheritance）来简化代码。
 <div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -1228,10 +1232,11 @@ willie<span class="w"> </span>rolled<span class="w"> </span>over!
     <span class="k">def</span> <span class="nf">fill_gas_tank</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1">#重写父类的方法</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This car doesn&#39;t need a gas tank!&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-super()是一个特殊的函数，用于调用父类的方法。父类有时也被称为超类（superclass）。如果父类中的某些方法对子类不适用，可以在子类中重写这个方法。</p>
-</blockquote>
+super()是一个特殊的函数，用于调用父类的方法。父类有时也被称为超类（superclass）。如果父类中的某些方法对子类不适用，可以在子类中重写这个方法。</li>
+</ul>
 <h2 id="_7">文件和异常</h2>
-<p>-读取文件：
+<ul>
+<li>读取文件：
 假设在C:\Coding\Python\pi.txt中写入了<span class="arithmatex">\(\pi\)</span>的前几位。
 <div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -1240,7 +1245,8 @@ super()是一个特殊的函数，用于调用父类的方法。父类有时也�
 <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;C:</span><span class="se">\\</span><span class="s1">Coding</span><span class="se">\\</span><span class="s1">Python</span><span class="se">\\</span><span class="s1">pi.txt&#39;</span><span class="p">)</span>
 <span class="n">contents</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div></p>
+</code></pre></div></td></tr></table></div></li>
+</ul>
 
 
 
@@ -1263,7 +1269,7 @@ super()是一个特殊的函数，用于调用父类的方法。父类有时也�
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-07-12T01:16:01+00:00" locale="zh"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-07-12</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-07-12T01:17:36+00:00" locale="zh"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-07-12</span>
   </span>
 
     
