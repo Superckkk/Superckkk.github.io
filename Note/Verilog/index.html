@@ -10,13 +10,9 @@
         <meta name="author" content="CKKK">
       
       
-        <link rel="canonical" href="https://superckkk.github.io/ZJU_AI/FDS/">
+        <link rel="canonical" href="https://superckkk.github.io/Note/Verilog/">
       
       
-        <link rel="prev" href="../..">
-      
-      
-        <link rel="next" href="../ADS/">
       
       
       <link rel="icon" href="../../logo.jpg">
@@ -24,7 +20,7 @@
     
     
       
-        <title>FDS - CKKK'notebook</title>
+        <title>Verilog - CKKK'notebook</title>
       
     
     
@@ -87,11 +83,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#fds" class="md-skip">
-          Skip to content
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -121,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              FDS
+              Verilog
             
           </span>
         </div>
@@ -234,13 +225,11 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../ZJU_AI/FDS/" class="md-tabs__link">
           
   
     
@@ -260,7 +249,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../Note/Python/" class="md-tabs__link">
+        <a href="../Python/" class="md-tabs__link">
           
   
     
@@ -411,10 +400,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -425,20 +412,17 @@
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -449,7 +433,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             ZJU_AI
@@ -460,19 +444,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../ZJU_AI/FDS/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -481,7 +456,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -494,7 +468,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADS/" class="md-nav__link">
+      <a href="../../ZJU_AI/ADS/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -566,7 +540,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Note/Python/" class="md-nav__link">
+      <a href="../Python/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -587,7 +561,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Note/ProbabilityTheory/" class="md-nav__link">
+      <a href="../ProbabilityTheory/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -765,8 +739,6 @@
   
   
   
-    
-  
   
 </nav>
                   </div>
@@ -781,10 +753,37 @@
                   
 
 
-<h1 id="fds">FDS</h1>
+  <h1>Verilog</h1>
+
 <div markdown="1" style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
-:material-circle-edit-outline: 约 1 个字 
+:material-circle-edit-outline: 约 227 个字 :material-clock-time-two-outline: 预计阅读时间 1 分钟
 </div>
+<p>信号类型：线网类型wire，寄存器类型reg
+连续赋值语句（分为显式和隐式）
+    连续赋值语句的赋值目标只能是线网类型（wire）
+    连续赋值语句不能出现在过程块中
+    多个连续赋值语句之间是并行的，与位置顺序无关
+行为级建模：
+    语句类别：
+        - 过程语句：initial，always
+        - 赋值语句：过程连续赋值assign，过程赋值=、&lt;=
+        - 条件语句：if-else，case、casez、casex
+        - 循环语句：forever，repeat
+        - 语句块：串行语句块begin-end，并行语句块fork-join
+        可综合的：always，begin-end，=，&lt;=，if-else，case，casez，casex（可综合的即为可形成电路的或可编译的）
+    always语句块
+        从语法描述角度，相对于initial过程块，always语句块的触发状态是一直存在的，只要满足always后面的敏感事件列表，就执行过程块。
+        语法格式：
+            always @(&lt;敏感事件列表&gt;) 
+                语句块
+        如：
+        always @(a)                     // a发生改变为触发条件
+        always @(a or b)                // a或b发生改变为触发条件
+        always @(posedge clk)           // clk的上升沿到来为触发条件
+        always @(negedge clk)           // clk的下降沿到来为触发条件
+        always @(posedge clk or negedge rst)            // clk的上升沿到来或rst的下降沿到来为触发条件
+同步：做完一件事后才能做另外一件事
+异步：可以同时做多件事</p>
 
 
 
@@ -817,7 +816,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-07-04T08:40:01+00:00" locale="zh"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-07-04</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-09-15T12:25:44+00:00" locale="zh"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-09-15</span>
   </span>
 
     
