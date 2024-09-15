@@ -231,7 +231,7 @@ super()是一个特殊的函数，用于调用父类的方法。父类有时也�
 - 读取文件：
 假设在C:\Coding\Python\pi.txt中写入了$\pi$的前几位。
 ```python
-from path;ib import Path
+from path import Path
 path = Path('C:\\Coding\\Python\\pi.txt')
 contents = path.read_text()
 print(contents)
