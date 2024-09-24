@@ -547,6 +547,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#chapter-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter 3: 摊还分析
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter 4: 红黑树
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -840,6 +858,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#chapter-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter 3: 摊还分析
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chapter-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chapter 4: 红黑树
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -857,7 +893,7 @@
 
 <h1 id="ads">ADS</h1>
 <div markdown="1" style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
-:material-circle-edit-outline: 约 487 个字 :fontawesome-solid-code: 73 行代码 :material-clock-time-two-outline: 预计阅读时间 3 分钟
+:material-circle-edit-outline: 约 1675 个字 :fontawesome-solid-code: 85 行代码 :material-clock-time-two-outline: 预计阅读时间 7 分钟
 </div>
 
 <h2 id="chapter-1-avl">Chapter 1: AVL树</h2>
@@ -867,12 +903,133 @@
 <p>若将需要重新平衡的节点叫做a，则破坏平衡的情况有以下四种：</p>
 <ul>
 <li>LL：对a的左儿子的左子树进行一次插入</li>
-<li>RR：对a的右儿子的右字数进行一次插入</li>
+<li>RR：对a的右儿子的右子树进行一次插入</li>
 <li>LR：对a的左儿子的右子树进行一次插入</li>
 <li>RL：对a的右儿子的左子树进行一次插入
 其中LL，RR两种情况下只需要一次旋转，而RL，LR则需要两次旋转。</li>
 </ul>
-<p>代码实现：
+<p>代码实现：</p>
+<ul>
+<li>
+<p>函数即树的结构声明：
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">C</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="cp">#ifndef _AvlTree_H</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">AvlNode</span><span class="p">;</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">AvlNode</span><span class="w"> </span><span class="o">*</span><span class="n">Position</span><span class="p">;</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">AvlNode</span><span class="w"> </span><span class="o">*</span><span class="n">AvlTree</span><span class="p">;</span>
+
+<span class="n">AvlTree</span><span class="w"> </span><span class="nf">MakeEmpty</span><span class="p">(</span><span class="n">AvlTree</span><span class="w"> </span><span class="n">T</span><span class="p">);</span>
+<span class="n">Position</span><span class="w"> </span><span class="nf">Find</span><span class="p">(</span><span class="n">ElementType</span><span class="w"> </span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">AvlTree</span><span class="w"> </span><span class="n">T</span><span class="p">);</span>
+<span class="n">Position</span><span class="w"> </span><span class="nf">FindMin</span><span class="p">(</span><span class="n">AvlTree</span><span class="w"> </span><span class="n">T</span><span class="p">);</span>
+<span class="n">Position</span><span class="w"> </span><span class="nf">FindMax</span><span class="p">(</span><span class="n">AvlTree</span><span class="w"> </span><span class="n">T</span><span class="p">);</span>
+<span class="n">AvlTree</span><span class="w"> </span><span class="nf">Insert</span><span class="p">(</span><span class="n">ElementType</span><span class="w"> </span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">AvlTree</span><span class="w"> </span><span class="n">T</span><span class="p">);</span>
+<span class="n">AvlTree</span><span class="w"> </span><span class="nf">Delete</span><span class="p">(</span><span class="n">ElementType</span><span class="w"> </span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">AvlTree</span><span class="w"> </span><span class="n">T</span><span class="p">);</span>
+<span class="n">ElementType</span><span class="w"> </span><span class="nf">Retrieve</span><span class="p">(</span><span class="n">Position</span><span class="w"> </span><span class="n">P</span><span class="p">);</span>
+
+<span class="cp">#endif</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">AvlNode</span><span class="p">{</span><span class="w"> </span><span class="c1">//结点声明</span>
+<span class="w">    </span><span class="n">ElementType</span><span class="w"> </span><span class="n">Element</span><span class="p">;</span>
+<span class="w">    </span><span class="n">AvlTree</span><span class="w"> </span><span class="n">Left</span><span class="p">;</span>
+<span class="w">    </span><span class="n">AvlTree</span><span class="w"> </span><span class="n">Right</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">Height</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">Height</span><span class="p">(</span><span class="n">Position</span><span class="w"> </span><span class="n">P</span><span class="p">){</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">P</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">P</span><span class="o">-&gt;</span><span class="n">Height</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div></p>
+</li>
+<li>
+<p>各种旋转
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">C</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">Position</span><span class="w"> </span><span class="nf">SingleRotateWithLeft</span><span class="p">(</span><span class="n">Position</span><span class="w"> </span><span class="n">K2</span><span class="p">){</span><span class="c1">//K2有左孩子，其左孩子旋转后为新的父节点</span>
+<span class="w">    </span><span class="n">Position</span><span class="w"> </span><span class="n">K1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">K1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">K2</span><span class="o">-&gt;</span><span class="n">Left</span><span class="p">;</span>
+<span class="w">    </span><span class="n">K2</span><span class="o">-&gt;</span><span class="n">Left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">K1</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">;</span>
+<span class="w">    </span><span class="n">K1</span><span class="o">-&gt;</span><span class="n">Right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">K2</span><span class="p">;</span>
+<span class="w">    </span><span class="n">K2</span><span class="o">-&gt;</span><span class="n">Height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Max</span><span class="p">(</span><span class="n">Height</span><span class="p">(</span><span class="n">K2</span><span class="o">-&gt;</span><span class="n">Left</span><span class="p">),</span><span class="w"> </span><span class="n">Height</span><span class="p">(</span><span class="n">K2</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">K1</span><span class="o">-&gt;</span><span class="n">Height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Max</span><span class="p">(</span><span class="n">Height</span><span class="p">(</span><span class="n">K1</span><span class="o">-&gt;</span><span class="n">Left</span><span class="p">),</span><span class="w"> </span><span class="n">K2</span><span class="o">-&gt;</span><span class="n">Height</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">K1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">Position</span><span class="w"> </span><span class="nf">SingleRotateWithRight</span><span class="p">(</span><span class="n">Position</span><span class="w"> </span><span class="n">K1</span><span class="p">){</span><span class="c1">//K1有右孩子，其右孩子旋转后为新的父节点</span>
+<span class="w">    </span><span class="n">Position</span><span class="w"> </span><span class="n">K2</span><span class="p">;</span>
+<span class="w">    </span><span class="n">K2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">K1</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">;</span>
+<span class="w">    </span><span class="n">K1</span><span class="o">-&gt;</span><span class="n">Left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">K2</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">;</span>
+<span class="w">    </span><span class="n">K2</span><span class="o">-&gt;</span><span class="n">Left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">K1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">K2</span><span class="o">-&gt;</span><span class="n">Height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Max</span><span class="p">(</span><span class="n">Height</span><span class="p">(</span><span class="n">K2</span><span class="o">-&gt;</span><span class="n">Left</span><span class="p">),</span><span class="w"> </span><span class="n">Height</span><span class="p">(</span><span class="n">K2</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">K1</span><span class="o">-&gt;</span><span class="n">Height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Max</span><span class="p">(</span><span class="n">Height</span><span class="p">(</span><span class="n">K1</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">),</span><span class="w"> </span><span class="n">K2</span><span class="o">-&gt;</span><span class="n">Height</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">K2</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">Position</span><span class="w"> </span><span class="nf">DoubleRotateWithLeft</span><span class="p">(</span><span class="n">Position</span><span class="w"> </span><span class="n">K3</span><span class="p">){</span><span class="c1">//K3有左孩子，其左孩子的右孩子旋转后为新的父节点</span>
+<span class="w">    </span><span class="n">K3</span><span class="o">-&gt;</span><span class="n">Left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SingleRotateWithRight</span><span class="p">(</span><span class="n">K3</span><span class="o">-&gt;</span><span class="n">Left</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">SingleRotateWithLeft</span><span class="p">(</span><span class="n">K3</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">Position</span><span class="w"> </span><span class="nf">DoubleRotateWithRight</span><span class="p">(</span><span class="n">Position</span><span class="w"> </span><span class="n">K1</span><span class="p">){</span><span class="c1">//K1有右孩子，其右孩子的左孩子旋转后为新的父节点</span>
+<span class="w">    </span><span class="n">K1</span><span class="o">-&gt;</span><span class="n">Right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SingleRotateWithLeft</span><span class="p">(</span><span class="n">K1</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">SingleRotateWithRight</span><span class="p">(</span><span class="n">K1</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div></p>
+</li>
+<li>
+<p>插入</p>
+</li>
+</ul>
 <div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">C</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -902,80 +1059,7 @@
 <span class="normal">27</span>
 <span class="normal">28</span>
 <span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="cp">#ifndef _AvlTree_H</span>
-
-<span class="k">struct</span><span class="w"> </span><span class="nc">AvlNode</span><span class="p">;</span>
-<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">AvlNode</span><span class="w"> </span><span class="o">*</span><span class="n">Position</span><span class="p">;</span>
-<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">AvlNode</span><span class="w"> </span><span class="o">*</span><span class="n">AvlTree</span><span class="p">;</span>
-
-<span class="n">AvlTree</span><span class="w"> </span><span class="nf">MakeEmpty</span><span class="p">(</span><span class="n">AvlTree</span><span class="w"> </span><span class="n">T</span><span class="p">);</span>
-<span class="n">Position</span><span class="w"> </span><span class="nf">Find</span><span class="p">(</span><span class="n">ElementType</span><span class="w"> </span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">AvlTree</span><span class="w"> </span><span class="n">T</span><span class="p">);</span>
-<span class="n">Position</span><span class="w"> </span><span class="nf">FindMin</span><span class="p">(</span><span class="n">AvlTree</span><span class="w"> </span><span class="n">T</span><span class="p">);</span>
-<span class="n">Position</span><span class="w"> </span><span class="nf">FindMax</span><span class="p">(</span><span class="n">AvlTree</span><span class="w"> </span><span class="n">T</span><span class="p">);</span>
-<span class="n">AvlTree</span><span class="w"> </span><span class="nf">Insert</span><span class="p">(</span><span class="n">ElementType</span><span class="w"> </span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">AvlTree</span><span class="w"> </span><span class="n">T</span><span class="p">);</span>
-<span class="n">AvlTree</span><span class="w"> </span><span class="nf">Delete</span><span class="p">(</span><span class="n">ElementType</span><span class="w"> </span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">AvlTree</span><span class="w"> </span><span class="n">T</span><span class="p">);</span>
-<span class="n">ElementType</span><span class="w"> </span><span class="nf">Retrieve</span><span class="p">(</span><span class="n">Position</span><span class="w"> </span><span class="n">P</span><span class="p">);</span>
-
-<span class="cp">#endif</span>
-
-<span class="k">struct</span><span class="w"> </span><span class="nc">AvlNode</span><span class="p">{</span><span class="w"> </span><span class="c1">//结点声明</span>
-<span class="w">    </span><span class="n">ElementType</span><span class="w"> </span><span class="n">Element</span><span class="p">;</span>
-<span class="w">    </span><span class="n">AvlTree</span><span class="w"> </span><span class="n">Left</span><span class="p">;</span>
-<span class="w">    </span><span class="n">AvlTree</span><span class="w"> </span><span class="n">Right</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">Height</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">int</span><span class="w"> </span><span class="n">Height</span><span class="p">(</span><span class="n">Position</span><span class="w"> </span><span class="n">P</span><span class="p">){</span>
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">P</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
-<span class="w">    </span><span class="k">else</span><span class="w"> </span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">P</span><span class="o">-&gt;</span><span class="n">Height</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="n">Insert</span><span class="p">(</span><span class="n">ElementType</span><span class="w"> </span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">AvlTree</span><span class="w"> </span><span class="n">T</span><span class="p">){</span>
+<span class="normal">30</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">Insert</span><span class="p">(</span><span class="n">ElementType</span><span class="w"> </span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">AvlTree</span><span class="w"> </span><span class="n">T</span><span class="p">){</span>
 <span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">){</span>
 <span class="w">        </span><span class="n">T</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">AvlNode</span><span class="p">));</span>
 <span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">){</span>
@@ -1005,22 +1089,58 @@
 <span class="w">    </span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Max</span><span class="p">(</span><span class="n">Height</span><span class="p">(</span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Left</span><span class="p">),</span><span class="w"> </span><span class="n">Height</span><span class="p">(</span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">T</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="n">Position</span><span class="w"> </span><span class="n">SingleRotateWithLeft</span><span class="p">(</span><span class="n">Position</span><span class="w"> </span><span class="n">K2</span><span class="p">){</span><span class="c1">//K2有左孩子，其左孩子旋转后为新的父节点</span>
-<span class="w">    </span><span class="n">Position</span><span class="w"> </span><span class="n">K1</span><span class="p">;</span>
-<span class="w">    </span><span class="n">K1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">K2</span><span class="o">-&gt;</span><span class="n">Left</span><span class="p">;</span>
-<span class="w">    </span><span class="n">K2</span><span class="o">-&gt;</span><span class="n">Left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">K1</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">;</span>
-<span class="w">    </span><span class="n">K1</span><span class="o">-&gt;</span><span class="n">Right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">K2</span><span class="p">;</span>
-<span class="w">    </span><span class="n">K2</span><span class="o">-&gt;</span><span class="n">Height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Max</span><span class="p">(</span><span class="n">Height</span><span class="p">(</span><span class="n">K2</span><span class="o">-&gt;</span><span class="n">Left</span><span class="p">),</span><span class="w"> </span><span class="n">Height</span><span class="p">(</span><span class="n">K2</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<span class="w">    </span><span class="n">K1</span><span class="o">-&gt;</span><span class="n">Height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Max</span><span class="p">(</span><span class="n">Height</span><span class="p">(</span><span class="n">K1</span><span class="o">-&gt;</span><span class="n">Left</span><span class="p">),</span><span class="w"> </span><span class="n">K2</span><span class="o">-&gt;</span><span class="n">Height</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">K1</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="n">Position</span><span class="w"> </span><span class="n">DoubleRotateWithLeft</span><span class="p">(</span><span class="n">Position</span><span class="w"> </span><span class="n">K3</span><span class="p">){</span><span class="c1">//K3有左孩子，其左孩子的右孩子旋转后为新的父节点</span>
-<span class="w">    </span><span class="n">K3</span><span class="o">-&gt;</span><span class="n">Left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SingleRotateWithRight</span><span class="p">(</span><span class="n">K3</span><span class="o">-&gt;</span><span class="n">Left</span><span class="p">);</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">SingleRotateWithLeft</span><span class="p">(</span><span class="n">K3</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div></td></tr></table></div></p>
+</code></pre></div></td></tr></table></div>
 <h2 id="chapter-2">Chapter 2: 伸展树</h2>
-<p>伸展树(Splay Tree)，是一种自平衡的二叉查找树，在访问伸展树中的某一个结点后，会通过一系列操作将该结点移动到树的根结点，使得再次访问该结点所需要的时间减少。一种简单的想法是在找到待访问结点后不断应用单旋转，直到将该结点移动到树的根结点。但是该方法存在较大的局限性。当面对退化成链表的二叉搜索树时，在访问完所有结点后，树又会恢复成原来的模样，且在过程中始终处于这种极端情况下，这无法减少多次访问结点所需的时间。</p>
+<p>伸展树(Splay Tree)，是一种自平衡的二叉查找树，在访问伸展树中的某一个结点后，会通过一系列操作将该结点移动到树的根结点，使得再次访问该结点所需要的时间减少。</p>
+<p>一种简单的想法是在找到待访问结点后不断应用单旋转，直到将该结点移动到树的根结点。但是该方法存在较大的局限性。当面对退化成链表的二叉搜索树时，在访问完所有结点后，树又会恢复成原来的模样，且在过程中始终处于这种极端情况下，这无法减少多次访问结点所需的时间。</p>
+<p>于是引入了伸展操作，其操作方法同样基于旋转。令X是待访问的结点，若其同时具有父结点P和祖父结点G，有两种对称的情况：X和P一个为左儿子，另一个为右儿子(zig-zag)；或是X和P都为左儿子或都为右儿子(zig-zig)，我们作如下变换：
+<img alt="alt text" src="../Capture_20240917_144757.jpg" /></p>
+<h2 id="chapter-3">Chapter 3: 摊还分析</h2>
+<p>一般的分析是对单次的操作给出最坏的时间界，但通常情况下，最坏的情况不会时常发生。例如有时我们可以证明，对于某一操作，任意<span class="arithmatex">\(M\)</span>次操作总共花费<span class="arithmatex">\(O(MlogN)\)</span>最坏情形时间，因此在长期运行中就像每次操作花费<span class="arithmatex">\(O(logN)\)</span>时间一样。这种无法保证具体每次操作所花费时间，但可以帮助我们分析多次操作的最坏情形的时间界被称作摊还时间界(amortized time bound)。摊还时间界比最坏情形界弱，比平均情形界强。
+摊还分析共有三种分析方法：</p>
+<ul>
+<li>聚合分析（aggregate analysis）
+以栈的相关操作为例。可以对栈S进行两个操作：puhs(S,x)、pop(S)，两个操作均花费<span class="arithmatex">\(O(1)\)</span>时间，因此n个push和pop操作实际会花费<span class="arithmatex">\(\Theta(n)\)</span>时间。现在引入新操作multipop(S,k)：从栈S中弹出k个栈中的元素。假设栈的大小为n，则multipop在最坏情形下会花费<span class="arithmatex">\(O(n)\)</span>时间，若有n个push、pop、multipop操作，操作对象为一空栈，按最坏情形分析，则会花费<span class="arithmatex">\(O(n^2)\)</span>时间。然而，multipop和pop操作在栈为空时无法被执行，因此n个操作所花费的时间取决于push的次数。所以n个操作所花费的时间应为<span class="arithmatex">\(O(n)\)</span>，平均下来每个操作所花费的摊还时间为<span class="arithmatex">\(O(n)/n = O(1)\)</span>。</li>
+<li>
+<p>核算法（accounting method）
+核算法对每个操作赋予一个代价（charges），每个操作所被赋予的代价可能大于也可能小于其实际花费的时间，n个操作所花费的代价与实际花费的时间被称为n个操作的credit，需要时刻保证credit为正值。将操作的摊还代价记作<span class="arithmatex">\(\hat{c_i}\)</span>，实际代价记为<span class="arithmatex">\(c_i\)</span>，则需要保证：</p>
+<div class="arithmatex">\[credit = \sum_{i=1}^n\hat{c_i} - \sum_{i=1}^n c\geq 0\]</div>
+<p>同样以栈为例，假设栈中元素数量为s，则对一个空栈来说，push、pop、multipop的实际代价分别为1，1，min（k，s）。而一种摊还代价的设计为：push的摊还代价为2，pop和multipop的摊还代价均为0。同样是因为pop和multipop的操作前提是栈非空，即之前进行过push操作。</p>
+<p>一种理解核算法的方式是，假设每个操作都需要花费一定数目的钱（摊还代价），相对于标准定价（实际花费时间）来说，一个操作可以多付也可以少付，而少付的前提是前面的操作多付出的部分足以抵扣这一次少付的部分。</p>
+</li>
+<li>
+<p>势能法（potential method）</p>
+</li>
+</ul>
+<h2 id="chapter-4">Chapter 4: 红黑树</h2>
+<p>红黑树是一种大致平衡的二叉查找树，其操作较为复杂，但也具有良好的效率，可以在<span class="arithmatex">\(O(logN)\)</span>时间内完成查找，插入，删除等操作。其每个结点需要储存五个信息：父节点，左儿子，右儿子，颜色，键值。若一个结点没有左儿子或右儿子，则指向哨兵结点NIL。红黑树需要满足以下五条性质：</p>
+<ul>
+<li>Every node is either red or black</li>
+<li>The root is black</li>
+<li>Every leaf(NIL) is black</li>
+<li>If a node is red, then both its children are black</li>
+<li>For each node, all simple paths from the node to descendant leaf contain the same number of black nodes</li>
+</ul>
+<p>如图为一棵红黑树：
+<img alt="alt text" src="../%7B023D4E55-CE0B-4A3E-92B6-049550F5D7B4%7D.png" /></p>
+<p>从某个节点出发到达一个叶节点的任意一条简单路径上包含的黑色节点的数目被称作该结点的黑高（black-height），简记作<span class="arithmatex">\(bh(x)\)</span>，红黑树还具有以下两条性质：</p>
+<ul>
+<li>A red-black tree with <span class="arithmatex">\(n\)</span> internal nodes has height at most <span class="arithmatex">\(2\lg(n+1)\)</span></li>
+<li>
+<p><span class="arithmatex">\(bh(root) \geq h/2\)</span></p>
+</li>
+<li>
+<p>插入
+红黑树的插入情况大致有以下几种及其对称情况：
+<img alt="alt text" src="../%7BD60CADA2-7D30-4452-B8C0-043CEDCE1EC8%7D.png" /></p>
+</li>
+<li>case 1：
+这种情况下我们只需改变冲突节点的颜色即可，即将父亲节点与叔叔节点染黑，将祖父节点染红。</li>
+<li>case 2：
+这种情况需要利用AVL树中类似的旋转操作，将其转化为case 3</li>
+<li>case 3：
+先染色再旋转。将父亲节点染黑，将祖父节点染红，然后进行一次右旋。</li>
+</ul>
 
 
 
