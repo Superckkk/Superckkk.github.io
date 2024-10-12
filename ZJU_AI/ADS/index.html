@@ -565,6 +565,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#b" class="md-nav__link">
+    <span class="md-ellipsis">
+      B+树
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      堆
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -876,6 +894,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#b" class="md-nav__link">
+    <span class="md-ellipsis">
+      B+树
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      堆
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -893,7 +929,7 @@
 
 <h1 id="ads">ADS</h1>
 <div markdown="1" style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
-:material-circle-edit-outline: 约 1675 个字 :fontawesome-solid-code: 85 行代码 :material-clock-time-two-outline: 预计阅读时间 7 分钟
+:material-circle-edit-outline: 约 1791 个字 :fontawesome-solid-code: 256 行代码 :material-clock-time-two-outline: 预计阅读时间 9 分钟
 </div>
 
 <h2 id="chapter-1-avl">Chapter 1: AVL树</h2>
@@ -1030,7 +1066,7 @@
 <p>插入</p>
 </li>
 </ul>
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">C</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<p><div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">C</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -1090,11 +1126,367 @@
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">T</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
+- 删除
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">C</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">Standardize</span><span class="p">(</span><span class="n">AvlTree</span><span class="w"> </span><span class="n">T</span><span class="p">);</span><span class="c1">//将树恢复平衡</span>
+<span class="n">Delete</span><span class="p">(</span><span class="n">ElementType</span><span class="w"> </span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">AvlTree</span><span class="w"> </span><span class="n">T</span><span class="p">){</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">){</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Element</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">X</span><span class="p">){</span>
+<span class="w">        </span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Delete</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="n">X</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Element</span><span class="p">){</span>
+<span class="w">        </span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Delete</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Left</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="k">else</span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Left</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">){</span>
+<span class="w">            </span><span class="n">Position</span><span class="w"> </span><span class="n">TmpCell</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Left</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Left</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">;</span>
+<span class="w">            </span><span class="n">free</span><span class="p">(</span><span class="n">T</span><span class="p">);</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">TmpCell</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span><span class="k">else</span><span class="p">{</span>
+<span class="w">            </span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Element</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">findMin</span><span class="p">(</span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">);</span>
+<span class="w">            </span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Delete</span><span class="p">(</span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Element</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Standardize</span><span class="p">(</span><span class="n">T</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div></p>
 <h2 id="chapter-2">Chapter 2: 伸展树</h2>
 <p>伸展树(Splay Tree)，是一种自平衡的二叉查找树，在访问伸展树中的某一个结点后，会通过一系列操作将该结点移动到树的根结点，使得再次访问该结点所需要的时间减少。</p>
 <p>一种简单的想法是在找到待访问结点后不断应用单旋转，直到将该结点移动到树的根结点。但是该方法存在较大的局限性。当面对退化成链表的二叉搜索树时，在访问完所有结点后，树又会恢复成原来的模样，且在过程中始终处于这种极端情况下，这无法减少多次访问结点所需的时间。</p>
 <p>于是引入了伸展操作，其操作方法同样基于旋转。令X是待访问的结点，若其同时具有父结点P和祖父结点G，有两种对称的情况：X和P一个为左儿子，另一个为右儿子(zig-zag)；或是X和P都为左儿子或都为右儿子(zig-zig)，我们作如下变换：
 <img alt="alt text" src="../Capture_20240917_144757.jpg" /></p>
+<p>代码实现:</p>
+<ul>
+<li>
+<p>结构声明:
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">C</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="cp">#ifndef _SplayTree_H</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">SplayTreeNode</span><span class="p">;</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">SplayTreeNode</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SplayTree</span><span class="p">;</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">SplayTreeNode</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Position</span><span class="p">;</span>
+
+<span class="n">SplayTree</span><span class="w"> </span><span class="nf">MakeEmpty</span><span class="p">();</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">Zig</span><span class="p">(</span><span class="n">SplayTree</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">Zag</span><span class="p">(</span><span class="n">SplayTree</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">ZigZig</span><span class="p">(</span><span class="n">SplayTree</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">ZagZag</span><span class="p">(</span><span class="n">SplayTree</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">ZigZag</span><span class="p">(</span><span class="n">SplayTree</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">ZagZig</span><span class="p">(</span><span class="n">SplayTree</span><span class="p">);</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">isLeftChild</span><span class="p">(</span><span class="n">SplayTree</span><span class="p">);</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">isRightChild</span><span class="p">(</span><span class="n">SplayTree</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">Splay</span><span class="p">(</span><span class="n">SplayTree</span><span class="p">);</span>
+<span class="n">SplayTree</span><span class="w"> </span><span class="nf">Find</span><span class="p">(</span><span class="n">SplayTree</span><span class="p">,</span><span class="w"> </span><span class="n">ElementType</span><span class="p">);</span>
+<span class="n">SplayTree</span><span class="w"> </span><span class="nf">Insert</span><span class="p">(</span><span class="n">SplayTree</span><span class="p">,</span><span class="w"> </span><span class="n">ElementType</span><span class="p">);</span>
+<span class="n">SplayTree</span><span class="w"> </span><span class="nf">Delete</span><span class="p">(</span><span class="n">SplayTree</span><span class="p">,</span><span class="w"> </span><span class="n">ElementType</span><span class="p">);</span>
+<span class="cp">#endif</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">SplayTreeNode</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SplayTree</span><span class="p">,</span><span class="n">Position</span><span class="p">;</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">SplayTreeNode</span><span class="p">{</span>
+<span class="w">    </span><span class="n">ElementType</span><span class="w"> </span><span class="n">Element</span><span class="p">;</span>
+<span class="w">    </span><span class="n">SplayTree</span><span class="w"> </span><span class="n">Left</span><span class="p">;</span>
+<span class="w">    </span><span class="n">SplayTree</span><span class="w"> </span><span class="n">Right</span><span class="p">;</span>
+<span class="w">    </span><span class="n">SplayTree</span><span class="w"> </span><span class="n">Parent</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div></td></tr></table></div></p>
+</li>
+<li>
+<p>伸展:
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">C</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">Zig</span><span class="p">(</span><span class="n">SplayTree</span><span class="w"> </span><span class="n">T</span><span class="p">){</span>
+<span class="w">    </span><span class="n">SplayTree</span><span class="w"> </span><span class="n">Parent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Parent</span><span class="p">;</span>
+<span class="w">    </span><span class="n">SplayTree</span><span class="w"> </span><span class="n">GrandParent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Parent</span><span class="o">-&gt;</span><span class="n">Parent</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">GrandParent</span><span class="p">){</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">GrandParent</span><span class="o">-&gt;</span><span class="n">Left</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Parent</span><span class="p">){</span>
+<span class="w">            </span><span class="n">GrandParent</span><span class="o">-&gt;</span><span class="n">Left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span><span class="k">else</span><span class="p">{</span>
+<span class="w">            </span><span class="n">GrandParent</span><span class="o">-&gt;</span><span class="n">Right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Parent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GrandParent</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Parent</span><span class="o">-&gt;</span><span class="n">Parent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="p">;</span>
+<span class="w">    </span><span class="n">Parent</span><span class="o">-&gt;</span><span class="n">Left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">){</span>
+<span class="w">        </span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Right</span><span class="o">-&gt;</span><span class="n">Parent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Parent</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Parent</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">ZigZig</span><span class="p">(</span><span class="n">SplayTree</span><span class="w"> </span><span class="n">T</span><span class="p">){</span>
+<span class="w">    </span><span class="n">Zig</span><span class="p">(</span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Parent</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Zig</span><span class="p">(</span><span class="n">T</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">ZigZag</span><span class="p">(</span><span class="n">SplayTree</span><span class="w"> </span><span class="n">T</span><span class="p">){</span>
+<span class="w">    </span><span class="n">Zag</span><span class="p">(</span><span class="n">T</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Zig</span><span class="p">(</span><span class="n">T</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">Splay</span><span class="p">(</span><span class="n">SplayTree</span><span class="w"> </span><span class="n">T</span><span class="p">){</span>
+<span class="w">    </span><span class="n">SplayTree</span><span class="w"> </span><span class="n">Parent</span><span class="p">;</span>
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="n">Parent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="o">-&gt;</span><span class="n">Parent</span><span class="p">){</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">Parent</span><span class="o">-&gt;</span><span class="n">Parent</span><span class="p">){</span>
+<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">isLeftChild</span><span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">isLeftChild</span><span class="p">(</span><span class="n">T</span><span class="p">)){</span>
+<span class="w">                </span><span class="n">ZigZig</span><span class="p">(</span><span class="n">T</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">(...){</span>
+<span class="w">                </span><span class="p">...</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span><span class="k">else</span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">isRightChild</span><span class="p">(</span><span class="n">T</span><span class="p">)){</span>
+<span class="w">                </span><span class="n">Zag</span><span class="p">(</span><span class="n">T</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span><span class="k">else</span><span class="p">{</span>
+<span class="w">                </span><span class="n">Zig</span><span class="p">(</span><span class="n">T</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div></p>
+</li>
+<li>
+<p>插入:
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">C</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">SplayTree</span><span class="w"> </span><span class="nf">Insert</span><span class="p">(</span><span class="n">SplayTree</span><span class="w"> </span><span class="n">tree</span><span class="p">,</span><span class="w"> </span><span class="n">ElementType</span><span class="w"> </span><span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">SplayTree</span><span class="w"> </span><span class="n">curr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tree</span><span class="p">,</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tree</span><span class="p">;</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">next</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">curr</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">CreatSplayTreeNode</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="w">            </span><span class="k">else</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">curr</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CreatSplayTreeNode</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="w">                    </span><span class="n">next</span><span class="o">-&gt;</span><span class="n">parent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">curr</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">curr</span><span class="o">-&gt;</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">next</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">Splay</span><span class="p">(</span><span class="n">next</span><span class="p">);</span>
+<span class="w">                    </span><span class="k">return</span><span class="w"> </span><span class="n">next</span><span class="p">;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">                </span><span class="k">else</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CreatSplayTreeNode</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="w">                    </span><span class="n">next</span><span class="o">-&gt;</span><span class="n">parent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">curr</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">curr</span><span class="o">-&gt;</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">next</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">Splay</span><span class="p">(</span><span class="n">next</span><span class="p">);</span>
+<span class="w">                    </span><span class="k">return</span><span class="w"> </span><span class="n">next</span><span class="p">;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">curr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">next</span><span class="p">;</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">curr</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)</span>
+<span class="w">                </span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">curr</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span>
+<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">curr</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)</span>
+<span class="w">                </span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">curr</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+<span class="w">            </span><span class="k">else</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="n">Splay</span><span class="p">(</span><span class="n">curr</span><span class="p">);</span><span class="w"> </span><span class="c1">// Equal to Find(curr, data)</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">curr</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div></p>
+</li>
+<li>
+<p>删除:
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">C</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">SplayTree</span><span class="w"> </span><span class="nf">Delete</span><span class="p">(</span><span class="n">SplayTree</span><span class="w"> </span><span class="n">tree</span><span class="p">,</span><span class="w"> </span><span class="n">ElementType</span><span class="w"> </span><span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tree</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Empty tree&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">tree</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">Find</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">left</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">SplayTree</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">left</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">left</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+<span class="w">            </span><span class="n">temp</span><span class="o">-&gt;</span><span class="n">parent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="w">        </span><span class="n">free</span><span class="p">(</span><span class="n">tree</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">temp</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Find the largest node in the left subtree</span>
+<span class="w">        </span><span class="n">SplayTree</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span>
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">temp</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">)</span>
+<span class="w">            </span><span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temp</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+<span class="w">        </span><span class="n">Splay</span><span class="p">(</span><span class="n">temp</span><span class="p">);</span>
+<span class="w">        </span><span class="n">temp</span><span class="o">-&gt;</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+<span class="w">        </span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">right</span><span class="o">-&gt;</span><span class="n">parent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">temp</span><span class="p">;</span>
+<span class="w">        </span><span class="n">free</span><span class="p">(</span><span class="n">tree</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">temp</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">tree</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div></p>
+</li>
+</ul>
 <h2 id="chapter-3">Chapter 3: 摊还分析</h2>
 <p>一般的分析是对单次的操作给出最坏的时间界，但通常情况下，最坏的情况不会时常发生。例如有时我们可以证明，对于某一操作，任意<span class="arithmatex">\(M\)</span>次操作总共花费<span class="arithmatex">\(O(MlogN)\)</span>最坏情形时间，因此在长期运行中就像每次操作花费<span class="arithmatex">\(O(logN)\)</span>时间一样。这种无法保证具体每次操作所花费时间，但可以帮助我们分析多次操作的最坏情形的时间界被称作摊还时间界(amortized time bound)。摊还时间界比最坏情形界弱，比平均情形界强。
 摊还分析共有三种分析方法：</p>
@@ -1141,6 +1533,15 @@
 <li>case 3：
 先染色再旋转。将父亲节点染黑，将祖父节点染红，然后进行一次右旋。</li>
 </ul>
+<h2 id="b">B+树</h2>
+<p>B+树在不同的地方定义略有不同，即使是ADS的几个不同老师所讲的B+树也并不完全一样。下面的内容来自ADS课程的PPT:</p>
+<blockquote>
+<p>A B+ tree of order M is a tree with the following structral properties:
+- The root is either a leaf or has between 2 and M children.
+- All nonleaf nodes (except the root) have between <span class="arithmatex">\(\lceil\)</span> M/2 <span class="arithmatex">\(\rceil\)</span> and M children.
+- All leaves are at the same depth</p>
+</blockquote>
+<h2 id="_1">堆</h2>
 
 
 
