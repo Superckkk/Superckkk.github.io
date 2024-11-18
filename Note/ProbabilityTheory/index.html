@@ -1319,7 +1319,7 @@
 
 <h1 id="_1">概率论</h1>
 <div markdown="1" style="margin-top: -30px; font-size: 0.75em; opacity: 0.7;">
-:material-circle-edit-outline: 约 796 个字 :material-clock-time-two-outline: 预计阅读时间 3 分钟
+:material-circle-edit-outline: 约 1406 个字 :material-clock-time-two-outline: 预计阅读时间 5 分钟
 </div>
 
 <h2 id="_2">第一章 事件及其概率</h2>
@@ -1471,19 +1471,31 @@ $$\Omega = \lbrace (\varphi,x)\mid 0\leq \varphi \leq\pi,0 \leq x \leq \frac a2\
 </ul>
 </li>
 <li><span class="arithmatex">\(P(\xi = k+1) = {{p(n-k)} \over {q(k+1)}}P(\xi = k)\)</span></li>
-<li>泊松定理:若存在正常数<span class="arithmatex">\(\lambda\)</span>,当<span class="arithmatex">\(n \to \infty\)</span>时,有<span class="arithmatex">\(np_n \to \lambda\)</span>,则
-$$
-\lim_{n \to \infty} b(k;n,p) = {\lambda^k \over k!}e^{-\lambda},k = 0,1,2,\cdots
-$$</li>
 </ol>
 </li>
-<li>
-<p>泊松分布:
+<li>泊松分布:
     简记作<span class="arithmatex">\(\xi \sim P(\lambda)\)</span>,<span class="arithmatex">\(\lambda\)</span>称为它的参数,也即<span class="arithmatex">\(\xi\)</span>的平均值
     $$
     P(\xi = k) = \frac{\lambda^k}{k!}e^{-\lambda}, \lambda &gt; 0 ,k = 0,1,2,\cdots,
-    $$</p>
-</li>
+    $$
+    泊松定理:假设<span class="arithmatex">\(S_n \sim B(n,p_n)\)</span>若存在正常数<span class="arithmatex">\(\lambda\)</span>,当<span class="arithmatex">\(n \to \infty\)</span>时,有<span class="arithmatex">\(np_n \to \lambda\)</span>,则
+    $$
+    P(S_n = k) \to  {\lambda^k \over k!}e^{-\lambda} = P(X=k),k = 0,1,2,\cdots,n \to \infty
+    $$
+    $$
+    \mathscr{PF}:
+    $$
+    $$
+    \begin{aligned}P(S_n = k) &amp;= C_n^kp_n^k(1-p_n)^{n-k}\\
+                  &amp;= {n! \over k!(n-k)!}p_n^k(1-p_n^{n-k})\\
+                  &amp;= {1 \over k!}n(n-1)\cdots(n-k+1){1 \over n^k}(np_n)^k(1-{\lambda \over n})^{n-k}\\
+                  &amp;= {1 \over k!}1(1-\frac{1}{n})(1-\frac{2}{n})\cdots(1-\frac{k-1}{n})\lambda^k(1-{\lambda \over n})^{n-k}\\
+    \end{aligned}
+    $$
+    $$
+    while n \to \infty,1(1-\frac{1}{n})(1-\frac{2}{n})\cdots(1-\frac{k-1}{n}) = 1,and\ we\ know\ that:
+    \newline e^x = (1+\frac{x}{n})^n,n\to\infty,so\ P(S_n = k) = \frac{1}{k!}\lambda^ke^{-\lambda}
+    $$</li>
 <li>
 <p>几何分布:
     $$
@@ -1526,18 +1538,102 @@ $$</li>
                         1, &amp; x \geq b.
             \end{cases}
     $$</li>
+<li>指数分布:
+    简记作<span class="arithmatex">\(\xi \sim exp(\lambda)\)</span>
+    $$
+    p(x) = \begin{cases} \lambda e^{-\lambda x}, &amp; x \geq 0 \\
+                       0, &amp; \text{else} 
+            \end{cases}
+    $$</li>
+<li><span class="arithmatex">\(\Gamma\)</span>分布:
+    简记作<span class="arithmatex">\(\xi \sim \Gamma(\lambda,r)\)</span>
+    其密度函数为:
+    $$
+    p(x) = \begin{cases} {\lambda^r \over {\Gamma(r)}}x^{r-1}e^{-\lambda x}, &amp; x \geq 0 \\
+                      0, &amp; \text{else} 
+            \end{cases}
+        \lambda &gt; 0,r &gt; 0
+    $$
+    其中<span class="arithmatex">\(\Gamma(r)\)</span>是第二型欧拉积分，当<span class="arithmatex">\(r\)</span>为整数时，<span class="arithmatex">\(\Gamma(r) = (r-1)!\)</span>
+    值得注意的是，<span class="arithmatex">\(\Gamma\)</span>分布是可加的，若<span class="arithmatex">\(X_1 \sim \Gamma(\lambda,r1),X_2 \sim \Gamma(\lambda,r2)\)</span>,则<span class="arithmatex">\(X_1 + X_2 \sim \Gamma(\lambda,r1+r2)\)</span>
+    而又易知指数分布是<span class="arithmatex">\(\Gamma(\lambda,1)\)</span>对应的特殊情况，所以服从指数分布的随机变量相加所得到的随机变量服从<span class="arithmatex">\(\Gamma\)</span>分布。</li>
 <li>正态分布:
     简记作<span class="arithmatex">\(\xi \sim N(a,\sigma^2)\)</span>
     $$
     p(x) = {1 \over {\sqrt{2 \pi}\sigma}}e^{-{{(x-a)^2} \over {2\sigma^2}}}, -\infty &lt; x &lt; \infty
     $$
     需能够熟练证明<span class="arithmatex">\(\int_{-\infty}^\infty p(x)dx = 1\)</span>
-    <span class="arithmatex">\(a = 0,\sigma = 1\)</span>时,称为标准正态分布</li>
+    <span class="arithmatex">\(a = 0,\sigma = 1\)</span>时,称为标准正态分布<ul>
+<li>高斯积分:
+$$
+\int_{-\infty}^{+\infty}e^{-\frac{1}{2}ax^2}dx=\sqrt{\frac{2\pi}{a}}
+$$
+$$
+\int_{-\infty}^{+\infty}x^{2n}e^{-\frac{1}{2}ax^2}dx=\sqrt{2\pi}a^{-\frac{2n+1}{2}}(2n-1)!!
+$$
+$$
+\int_{0}^{+\infty}x^{2n+1}e^{-\frac{1}{2}ax^2}dx=2^nn!a^{-n-1}
+$$
+$$
+\int_{-\infty}^{+\infty}e^{-\frac{1}{2}ax^2+Jx}dx =\sqrt{\frac{2\pi}{a}}e^{\frac{J^2}{2a}}
+$$
+$$
+\int_{-\infty}^{+\infty}e^{-\frac{1}{2}ax^2+iJx}dx =\sqrt{\frac{2\pi}{a}}e^{-\frac{J^2}{2a}}
+$$
+$$
+\int_{-\infty}^{+\infty}e^{i(\frac{1}{2}ax^2+Jx)}dx =\sqrt{\frac{2\pi i}{a}}e^{-i\frac{J^2}{2a}}
+$$
+$$
+\int_{-\infty}^{+\infty}e^{-\frac{1}{2}x^TKx}d^nx=\sqrt{\frac{(2\pi)^n}{detK}} （K是对称矩阵，以下同理）
+$$
+$$
+\int_{-\infty}^{+\infty}e^{-\frac{1}{2}x^TKx+Jx}d^nx=\sqrt{\frac{(2\pi)^n}{detK}}e^{\frac{1}{2}JK^{-1}J}
+$$
+$$
+\int_{-\infty}^{+\infty}e^{-\frac{1}{2}x^TKx+iJx}d^nx=\sqrt{\frac{(2\pi)^n}{detK}}e^{-\frac{1}{2}JK^{-1}J}
+$$
+$$
+\int_{-\infty}^{+\infty}e^{i(\frac{1}{2}x^TKx+Jx)}d^nx=\sqrt{\frac{(2\pi i)^n}{detK}}e^{-\frac{i}{2}JK^{-1}J}
+$$
+误差函数： <span class="arithmatex">\(erf(x)=\frac{2}{\sqrt{\pi}}\int_0^xexp(-y^2)dy\)</span></li>
+</ul>
+</li>
+<li>定义2.4:
+    若随机变量<span class="arithmatex">\(\xi\)</span>可取某个区间中的一切值，并且存在某个非负的可积函数<span class="arithmatex">\(p(x)\)</span>，使分布函数<span class="arithmatex">\(F(x)\)</span>满足：
+    $$
+    F(x) = \int_{-\infty}^x p(y)dy, -\infty &lt; x &lt; \infty
+    $$
+    则称<span class="arithmatex">\(\xi\)</span>为连续型随机变量，称<span class="arithmatex">\(p(x)\)</span>为<span class="arithmatex">\(\xi\)</span>的概率密度函数，简称为密度函数</li>
 </ul>
 <h3 id="_11">随机向量</h3>
+<ul>
+<li><span class="arithmatex">\(n\)</span>维随机向量<span class="arithmatex">\(\bf{\xi}(\omega)\)</span>:<span class="arithmatex">\(\bf{\xi}(\omega) = {\xi_1(\omega),\xi_2(\omega),\cdots,\xi_n(\omega)}\)</span></li>
+<li>边际分布: 对某一个下标求和</li>
+<li>边际分布函数: 
+    $$
+    F_\xi(x) = P(\xi \leq x) = F(x,\infty),F_\eta(y) = P(\eta \leq y) = F(\infty,y) 
+    $$</li>
+<li>连续型分布: 
+    $$
+    F(x_1,\cdots,x_n) = \int_{-\infty}^{x_1} \cdots \int_{-\infty}^{x_n}p(y_1,\cdots,y_n)dy_1 \cdots dy_n
+    $$</li>
+<li>联合密度函数:<span class="arithmatex">\(p(x_1,\cdots,x_n)\)</span></li>
+<li>边际密度:
+    $$
+    p_\xi(u) = \int_{-\infty}^{\infty} p(u,v)dv,p_\eta(v) = \int_{-\infty}^{\infty}p(u,v)du
+    $$</li>
+</ul>
 <h3 id="_12">随机变量的独立性</h3>
 <h3 id="_13">条件分布</h3>
 <h3 id="_14">随机变量的函数及其分布</h3>
+<ul>
+<li>随机向量的变换:
+    若<span class="arithmatex">\((X,Y)\)</span>具有密度函数<span class="arithmatex">\(p_{(X,Y)}(x,y)\)</span>,<span class="arithmatex">\(U = f(X,Y),V = f(X,Y)\)</span>,如何求<span class="arithmatex">\((U,V)\)</span>的密度函数?
+    <span class="arithmatex">\(\newline\)</span>如果存在函数<span class="arithmatex">\(g_1,g_2\)</span>，使得<span class="arithmatex">\(X = g_1(U,V),Y = g_2(U,V)\)</span>,Jacobi行列式<span class="arithmatex">\(|J|\)</span> = <span class="arithmatex">\(\begin{vmatrix} \frac{\partial (g_1,g_2)}{\partial (U,V)} \end{vmatrix}\)</span>,则:
+    $$
+    p_{(U,V)}(u,v) = p_{(X,Y)}(g_1^{-1}(u,v),g_2^{-1}(u,v))|J|
+    $$</li>
+</ul>
 <h3 id="_15">补充与注记</h3>
 <h2 id="_16">第三章 数字特征与特征函数</h2>
 <h3 id="_17">数学期望</h3>
