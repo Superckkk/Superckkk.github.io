@@ -1,0 +1,21 @@
+{
+  "articles": [
+    {
+      "title": "理论计算机科学导引",
+      "subtitle": "TCS",
+      "content": "Language and Automaton\n\nBoolean Function\n我们将输入和输出都扩展至任意长度，即.而如果我们要讨论这类函数的可计算性,只需要考虑输出长度为1的函数即可,这样的函数叫做布尔函数(Boolean function).意即：\n[\n\n 对于任意的函数,存在一个布尔函数,使得一个用于计算函数的Python程序可以被用来计算函数，反之亦然。\n\n \n Comment[Output:]\n Assign[res][[]]\n Assign[][0]\n While(, {\n Comment[res.append(BF)]\n Assign[][]\n })\n Return[res]\n }\n )\n }\n )\n ]\n]\n\nLanguage\n\n可以看到的是：一个布尔函数自然会对应一个字符串的集合，这个集合我们称之为language，其是那些函数值为1的输入的集合。\n[\n ,\n [Boolean function],[],[Language],\n table.hline(start: 0),\n [],[],[],\n [],[],[],\n table.hline(start: 0)\n",
+      "url": "/笔记/TCS/note.html",
+      "tags": [],
+      "date": "2026-01-12"
+    },
+    {
+      "title": "线性回归入门",
+      "subtitle": "从零开始理解",
+      "content": "线性\n\n这是一个测试文档。",
+      "url": "/笔记/机器学习/01-线性回归.html",
+      "tags": [],
+      "date": "2026-01-12"
+    }
+  ],
+  "generated_at": "2026-01-12T21:59:07.690228"
+}

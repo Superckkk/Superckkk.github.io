@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light-gray">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>关于我 - CKKK&#39;s Space</title>
+  <meta name="description" content="Welcome">
+  <meta name="author" content="CKKK">
+  
+  <!-- 字体 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome 图标 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- 样式 -->
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <!-- 阅读进度条 -->
+  <div class="reading-progress"></div>
+  
+  <!-- 搜索遮罩层 -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-modal">
+      <div class="search-header">
+        <div class="search-input-wrapper">
+          <i class="fas fa-search"></i>
+          <input type="text" id="searchInput" placeholder="搜索文章..." autocomplete="off">
+          <kbd>ESC</kbd>
+        </div>
+        <button class="search-close" id="searchClose">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="search-results" id="searchResults">
+        <div class="search-hint">输入关键词开始搜索...</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 横向导航栏 -->
+  <header class="top-navbar">
+    <a href="/" class="logo">CKKK&#39;s Space</a>
+    
+    <nav>
+      
+      <a href="/笔记/" 
+         class="">
+        📚 笔记
+      </a>
+      
+      <a href="/关于我/" 
+         class="active">
+        👤 关于我
+      </a>
+      
+      <a href="/杂项/" 
+         class="">
+        📦 杂项
+      </a>
+      
+    </nav>
+    
+    <div class="navbar-actions">
+      <!-- 搜索按钮 -->
+      <button class="search-btn" id="searchBtn" title="搜索 (Ctrl+K)">
+        <i class="fas fa-search"></i>
+      </button>
+      
+      <!-- 主题切换器 -->
+      <div class="theme-switcher">
+        <button class="theme-btn active" data-theme="light-gray" title="浅灰"></button>
+        <button class="theme-btn" data-theme="light-blue" title="浅蓝"></button>
+        <button class="theme-btn" data-theme="light-pink" title="浅粉"></button>
+        <button class="theme-btn" data-theme="dark" title="深色"></button>
+      </div>
+    </div>
+    
+    <button class="mobile-menu-btn">☰</button>
+  </header>
+  
+  <div class="main-container">
+    <!-- 侧边导航栏 -->
+    
+    
+    <!-- 正文区域 -->
+    <main class="content-area no-sidebar">
+      
+<div class="about-page fade-in">
+  <div class="about-container">
+    
+    <!-- 左侧：个人信息 -->
+    <aside class="profile-side">
+      <div class="profile-sticky">
+        <!-- 头像 -->
+        <img src="/static/images/avatar.jpg" alt="Avatar" class="avatar" 
+             onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=CKKK'">
+        
+        <h1 class="my-name">CKKK</h1>
+        <p class="my-title">学生<br>中长跑/摄影/音乐</p>
+        
+        <!-- 社交图标 -->
+        <div class="social-links">
+          
+          <a href="https://github.com/Superckkk" class="social-btn" title="GitHub" 
+             target="_blank" rel="noopener">
+            <i class="fab fa-github"></i>
+          </a>
+          
+          <a href="https://twitter.com/yourusername" class="social-btn" title="Twitter" 
+             target="_blank" rel="noopener">
+            <i class="fab fa-twitter"></i>
+          </a>
+          
+          <a href="mailto:your@email.com" class="social-btn" title="Email" 
+             >
+            <i class="fas fa-envelope"></i>
+          </a>
+          
+          <a href="#" class="social-btn" title="WeChat" 
+             >
+            <i class="fab fa-weixin"></i>
+          </a>
+          
+        </div>
+      </div>
+    </aside>
+
+    <!-- 右侧：2x2 网格卡片 -->
+    <main class="content-side">
+      
+      <div class="info-card">
+        <div class="card-icon"><i class="fas fa-user-astronaut"></i></div>
+        <h3 class="card-title">关于我</h3>
+        <div class="card-desc">人工智能专业本科生，目前就读于浙江大学图灵班</div>
+      </div>
+      
+      <div class="info-card">
+        <div class="card-icon"><i class="fas fa-code"></i></div>
+        <h3 class="card-title">技术栈</h3>
+        <div class="card-desc"><strong>编程语言:</strong> Gemini,DeepSeek,claude<br>
+<strong>框架:</strong> <br>
+<strong>工具:</strong> Git, Docker, Typst
+</div>
+      </div>
+      
+      <div class="info-card">
+        <div class="card-icon"><i class="fas fa-project-diagram"></i></div>
+        <h3 class="card-title">研究方向</h3>
+        <div class="card-desc">主要研究方向包括利用大模型完成课程大作业的技巧。</div>
+      </div>
+      
+      <div class="info-card">
+        <div class="card-icon"><i class="fas fa-camera-retro"></i></div>
+        <h3 class="card-title">兴趣爱好</h3>
+        <div class="card-desc">完成半马之人<br>
+通关《只狼》复兴mod之人
+</div>
+      </div>
+      
+    </main>
+    
+  </div>
+</div>
+
+    </main>
+  </div>
+  
+  <!-- Fuse.js 搜索库 -->
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+  <script src="/static/js/main.js"></script>
+  <script src="/static/js/search.js"></script>
+</body>
+</html>
