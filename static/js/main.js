@@ -79,6 +79,31 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
   
+  // ========== 返回顶部按钮 ==========
+  const BackToTop = {
+    init() {
+      const btn = document.getElementById('backToTop');
+      if (!btn) return;
+      
+      // 监听滚动，控制按钮显示/隐藏
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          btn.classList.add('visible');
+        } else {
+          btn.classList.remove('visible');
+        }
+      });
+      
+      // 点击返回顶部
+      btn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    }
+  };
+  
   // ========== 平滑滚动 ==========
   const SmoothScroll = {
     init() {
@@ -99,5 +124,6 @@ document.addEventListener('DOMContentLoaded', function() {
   SidebarManager.init();
   MobileMenu.init();
   ReadingProgress.init();
+  BackToTop.init();
   SmoothScroll.init();
 });

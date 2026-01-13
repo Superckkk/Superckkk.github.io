@@ -936,3 +936,61 @@ body {
     transform: translateY(0);
   }
 }
+
+/* ========== 返回顶部按钮 ========== */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: var(--color-secondary);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  z-index: 999;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background-color: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
+  transform: translateY(-3px);
+}
+
+.back-to-top:active {
+  transform: translateY(0);
+}
+
+/* 深色模式下的返回顶部按钮 */
+[data-theme="dark"] .back-to-top {
+  background-color: var(--color-secondary);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+}
