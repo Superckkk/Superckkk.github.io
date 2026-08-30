@@ -1,145 +1,37 @@
-<!-- templates/index.html -->
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light-gray">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>首页 - CKKK&#39;s Space</title>
-  <meta name="description" content="Welcome">
-  <meta name="author" content="CKKK">
-  
-  <!-- 网页图标 -->
-  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
-  <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
-  <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
-  
-  <!-- 字体 -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Font Awesome 图标 -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- 样式 -->
-  <link rel="stylesheet" href="/static/css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CKKK · 学习记录</title>
+<link rel="stylesheet" href="vendor/lxgw/lxgwwenkaiscreen.css">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<link rel="stylesheet" href="style.css?v=11">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>C</text></svg>">
 </head>
 <body>
-  <!-- 阅读进度条 -->
-  <div class="reading-progress"></div>
-  
-  <!-- 搜索遮罩层 -->
-  <div class="search-overlay" id="searchOverlay">
-    <div class="search-modal">
-      <div class="search-header">
-        <div class="search-input-wrapper">
-          <i class="fas fa-search"></i>
-          <input type="text" id="searchInput" placeholder="搜索文章..." autocomplete="off">
-          <kbd>ESC</kbd>
-        </div>
-        <button class="search-close" id="searchClose">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <div class="search-results" id="searchResults">
-        <div class="search-hint">输入关键词开始搜索...</div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- 横向导航栏 -->
-  <header class="top-navbar">
-    <a href="/" class="logo">CKKK&#39;s Space</a>
-    
-    <nav>
-      
-      <a href="/笔记/" 
-         class="">
-        📚 笔记
-      </a>
-      
-      <a href="/关于我/" 
-         class="">
-        👤 关于我
-      </a>
-      
-      <a href="/杂项/" 
-         class="">
-        📦 杂项
-      </a>
-      
-    </nav>
-    
-    <div class="navbar-actions">
-      <!-- 搜索按钮 -->
-      <button class="search-btn" id="searchBtn" title="搜索 (Ctrl+K)">
-        <i class="fas fa-search"></i>
-      </button>
-      
-      <!-- 主题切换器 -->
-      <div class="theme-switcher">
-        <button class="theme-btn active" data-theme="light-gray" title="浅灰"></button>
-        <button class="theme-btn" data-theme="light-blue" title="浅蓝"></button>
-        <button class="theme-btn" data-theme="light-pink" title="浅粉"></button>
-        <button class="theme-btn" data-theme="dark" title="深色"></button>
-      </div>
-    </div>
-    
-    <button class="mobile-menu-btn">☰</button>
-  </header>
-  
-  <div class="main-container">
-    <!-- 侧边导航栏 -->
-    
-    
-    <!-- 正文区域 -->
-    <main class="content-area no-sidebar">
-      
-<div class="home-hero fade-in">
-  <h1>🌸 CKKK&#39;s Space</h1>
-  <p>Welcome</p>
-</div>
-
-<div class="article-container">
-  <h2 style="font-family: var(--font-serif); margin-bottom: 1.5rem;">最近更新</h2>
-  
-  <div class="article-list">
-    
-    <a href="/笔记/TCS/note.html" class="article-card">
-      <h3>理论计算机科学导引</h3>
-      
-      <p>TCS</p>
-      
-      <div class="card-meta">
-        📅 2026-01-12 · 📝 8835 字 · ⏱️ 29 分钟
-      </div>
-    </a>
-    
-    <a href="/笔记/机器学习/01-线性回归.html" class="article-card">
-      <h3>线性回归入门</h3>
-      
-      <p>从零开始理解</p>
-      
-      <div class="card-meta">
-        📅 2026-01-12 · 📝 10 字 · ⏱️ 1 分钟
-      </div>
-    </a>
-    
-  </div>
-</div>
-
-    </main>
-  </div>
-  
-  <!-- 返回顶部按钮 -->
-  <button class="back-to-top" id="backToTop" title="返回顶部">
-    <i class="fas fa-chevron-up"></i>
+<header class="topnav">
+  <a class="logo" href="#/">CKKK</a>
+  <nav class="links" id="nav">
+    <a href="#/" data-route="home">首页</a>
+    <a href="#/notes" data-route="notes">笔记</a>
+    <a href="#/ques" data-route="ques">题库</a>
+    <a href="#/projects" data-route="projects">项目</a>
+    <a href="#/about" data-route="about">关于</a>
+  </nav>
+  <button id="theme-toggle" class="icon-btn" aria-label="切换深浅色" title="切换深浅色（T）">
+    <span class="theme-icon" aria-hidden="true"></span>
   </button>
-  
-  <!-- Fuse.js 搜索库 -->
-  <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
-  <script src="/static/js/main.js"></script>
-  <script src="/static/js/search.js"></script>
+</header>
+
+<main id="view"></main>
+
+<footer class="site-foot" id="site-foot"></footer>
+<button id="back-top" class="back-top" aria-label="回到顶部" title="回到顶部">↑</button>
+<div class="kbd-hint" id="kbd-hint">题库内：← → 切题 · 空格 展开答案 · M 标记已掌握 · / 搜索 · T 换色</div>
+
+<script src="site.config.js"></script>
+<script src="data.js"></script>
+<script src="app.js?v=10"></script>
 </body>
 </html>
