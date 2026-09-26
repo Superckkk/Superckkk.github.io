@@ -19,8 +19,12 @@ const FLOWS = {
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
 async function fetchText(url) {
-  const r = await fetch(url, { cache: "no-store" });
-  if (!r.ok) throw new Error(`文件不存在或读取失败：${url}（HTTP ${r.status}）`);
+  let r = await fetch(url, { cache: "no-store" }).catch(() => null);
+  if (!r || !r.ok) {
+    await new Promise((res) => setTimeout(res, 400)); // 瞬时网络/服务抖动自动重试一次
+    r = await fetch(url, { cache: "no-store" }).catch(() => null);
+  }
+  if (!r || !r.ok) throw new Error(`文件不存在或读取失败：${esc(url)}（${r ? "HTTP " + r.status : "网络连接失败"}）`);
   return r.text();
 }
 
@@ -85,8 +89,11 @@ function renderHome() {
 
 function renderError(msg) {
   stopTimer();
+  document.body.classList.remove("has-submitbar");
   app.innerHTML = `<div class="notice">出错了：${msg}</div>
+    <button class="btn-secondary" id="retry-btn">重试</button>
     <a class="btn-secondary" href="#/" style="text-align:center;text-decoration:none">返回首页</a>`;
+  document.getElementById("retry-btn").onclick = route;
 }
 
 // ---------- 筛选节点 ----------
