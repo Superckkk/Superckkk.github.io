@@ -37,7 +37,7 @@ detail: 本次为自助初筛，6–7 岁孩子的听口水平需要老师面对
 advice: 添加课程顾问微信，预约一次免费线下评估。
 
 ## branch:pu2-ok
-congrats: Congratulations
+congrats: Congratulations!
 level: 已达到 PU2 班入学水平
 detail: 可以直接开始 PU2（Yr1 起点）系统学习。
 advice: 顾问可协助确认开班时间与预约试听。

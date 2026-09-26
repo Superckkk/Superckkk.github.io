@@ -167,7 +167,7 @@ body.has-submitbar #app { padding-bottom: 92px; }
   background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
   padding: 32px 22px 26px; text-align: center; margin-bottom: 16px;
 }
-.congrats { color: var(--ink); font-family: var(--serif-score); font-size: 19px; font-weight: 400; letter-spacing: .04em; margin: 0 0 8px; }
+.congrats { color: var(--ink); font-family: var(--serif-score); font-size: 26px; font-weight: 400; letter-spacing: .04em; margin: 0 0 8px; }
 .result-level { font-size: 20px; font-weight: 700; line-height: 1.55; margin: 0; overflow-wrap: anywhere; }
 .total-band { font-size: 13px; color: var(--sub); margin: 14px 0 0; }
 .total-band b {

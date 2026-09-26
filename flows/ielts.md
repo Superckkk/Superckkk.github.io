@@ -39,13 +39,13 @@ intro: 30 分钟 · 听力 10 + 阅读 8 + 语言运用 12 · 自动出分
 ```
 
 ## branch:fce-exempt
-congrats: Congratulations
+congrats: Congratulations!
 level: FCE 已通过，免测直通 L1 进阶班
 detail: 按入学测规则，FCE 通过者可免于作答本卷。
 advice: 建议尽快与课程顾问确认班型与开课时间。
 
 ## branch:pet-excellent
-congrats: Congratulations
+congrats: Congratulations!
 level: PET 优秀，免测直通 L1 进阶班
 detail: 按入学测规则，PET 优秀成绩可替代入学测试。
 advice: 建议与顾问老师预约口语人工测评，完善分班信息。
@@ -61,13 +61,13 @@ detail: 建议报读 FOUNDATION 预备班，并同步搭配 RE 阅读课程。
 advice: 阅读单项低于 4 时直接进 L1 会明显吃力，先补单项更划算。
 
 ## branch:l1
-congrats: Congratulations
+congrats: Congratulations!
 level: 达到 L1 进阶班入学水平（4.5–5.0）
 detail: 听、读、写（语言运用）三科均衡达标。
 advice: 建议预约口语人工测评后确认学位。
 
 ## branch:wechat
-congrats: Congratulations
+congrats: Congratulations!
 level: 定位分 5.5，超出本系统常规分班范围
 detail: 该分数段班型安排需顾问老师单独评估。
 advice: 请添加顾问微信，获取个性化课程方案。
