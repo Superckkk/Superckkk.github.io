@@ -13,6 +13,8 @@
   --radius: 8px;
   /* 试卷衬线：英文 Times（题干/选项/文章），中文回退宋体——传统试卷混排 */
   --serif-en: "Times New Roman", Georgia, "Songti SC", "SimSun", serif;
+  /* 成绩/徽章展示衬线：Georgia 老式数字风格（与成绩大数字同族） */
+  --serif-score: Georgia, "Times New Roman", "Songti SC", "SimSun", serif;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
@@ -165,11 +167,11 @@ body.has-submitbar #app { padding-bottom: 92px; }
   background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
   padding: 32px 22px 26px; text-align: center; margin-bottom: 16px;
 }
-.congrats { color: var(--sub); font-size: 12px; letter-spacing: .5em; text-indent: .5em; margin: 0 0 10px; }
+.congrats { color: var(--ink); font-family: var(--serif-score); font-size: 19px; font-weight: 400; letter-spacing: .04em; margin: 0 0 8px; }
 .result-level { font-size: 20px; font-weight: 700; line-height: 1.55; margin: 0; overflow-wrap: anywhere; }
 .total-band { font-size: 13px; color: var(--sub); margin: 14px 0 0; }
 .total-band b {
-  color: var(--ink); font-family: Georgia, "Times New Roman", "Songti SC", "SimSun", serif;
+  color: var(--ink); font-family: var(--serif-score);
   font-size: 54px; font-weight: 400; font-variant-numeric: tabular-nums; margin: 0 6px 0 0;
 }
 .bars-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px 8px; margin-bottom: 16px; }
@@ -177,7 +179,7 @@ body.has-submitbar #app { padding-bottom: 92px; }
 .bar-row { display: grid; grid-template-columns: 4.5em 1fr 3.2em; align-items: center; gap: 12px; margin-bottom: 16px; font-size: 14px; }
 .bar-track { background: #ececea; border-radius: 999px; height: 5px; overflow: hidden; }
 .bar-fill { height: 100%; border-radius: 999px; background: var(--ink); }
-.bar-val { text-align: right; font-family: Georgia, "Times New Roman", serif; font-size: 16px; font-variant-numeric: tabular-nums; }
+.bar-val { text-align: right; font-family: var(--serif-score); font-size: 16px; font-variant-numeric: tabular-nums; }
 .copy-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 16px; font-size: 15px; }
 .copy-card h3 { margin: 0 0 8px; font-size: 15px; }
 .copy-card p { margin: 0 0 8px; overflow-wrap: anywhere; }
