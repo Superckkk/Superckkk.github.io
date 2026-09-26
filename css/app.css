@@ -1,0 +1,194 @@
+/* Hippo 英语测评 · 纸感编辑风（frontend-design skill v3）
+   方向：安静、克制、纸感——近黑白灰 + 细线分区，无图标无渐变；
+   大分数用衬线数字做锚点；黑色是唯一强调色，暗红只给倒计时告急。 */
+:root {
+  --bg: #f7f7f5;
+  --card: #ffffff;
+  --ink: #191a1c;
+  --sub: #74777d;
+  --line: #e5e5e1;
+  --line-strong: #d6d6d1;
+  --accent: #191a1c;
+  --danger: #b3261e;
+  --radius: 8px;
+  /* 试卷衬线：英文 Times（题干/选项/文章），中文回退宋体——传统试卷混排 */
+  --serif-en: "Times New Roman", Georgia, "Songti SC", "SimSun", serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.75 system-ui, -apple-system, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- 顶栏 ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; justify-content: space-between; align-items: center;
+  min-height: 52px; padding: 8px 20px;
+  background: rgba(247, 247, 245, .92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.brand { font-weight: 700; font-size: 15px; letter-spacing: .02em; color: var(--ink); text-decoration: none; }
+.timer {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  font-weight: 700; font-size: 15px; color: var(--ink);
+}
+.timer.hurry { color: var(--danger); animation: blink 1s step-end infinite; }
+@keyframes blink { 50% { opacity: .35; } }
+
+#app { max-width: 620px; margin: 0 auto; padding: 20px 20px 48px; }
+.foot { text-align: center; color: var(--sub); font-size: 12px; padding: 20px 20px calc(20px + env(safe-area-inset-bottom)); }
+.loading { color: var(--sub); text-align: center; padding: 48px 0; }
+
+/* ---------- 首页：列表式，细线分区 ---------- */
+.home-title { font-size: 21px; font-weight: 700; letter-spacing: .01em; margin: 8px 0 20px; }
+.entry-list { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.entry-card {
+  display: block; padding: 18px 20px;
+  text-decoration: none; color: inherit;
+  border-top: 1px solid var(--line);
+}
+.entry-card:first-child { border-top: 0; }
+.entry-card:active { background: #f2f2ef; }
+.entry-card h2 { margin: 0 0 3px; font-size: 16px; font-weight: 700; }
+.entry-card .tag { font-size: 12px; font-weight: 400; color: var(--sub); letter-spacing: .08em; margin-left: 8px; }
+.entry-card p { margin: 0; color: var(--sub); font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+.entry-card .last-line { margin-top: 6px; font-size: 12px; color: var(--sub); font-variant-numeric: tabular-nums; }
+.home-note { color: var(--sub); font-size: 12px; margin: 16px 2px 0; }
+
+/* ---------- 提示与筛选 ---------- */
+.notice {
+  background: var(--card); border: 1px solid var(--line-strong); color: #6d6d68;
+  border-radius: var(--radius); padding: 12px 16px; font-size: 13px; margin-bottom: 16px;
+  overflow-wrap: anywhere;
+}
+.screen-q {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 24px 20px;
+}
+.screen-q h2 { margin: 0 0 18px; font-size: 17px; font-weight: 700; }
+.option-btn {
+  display: flex; align-items: center; width: 100%; min-height: 52px; text-align: left;
+  margin: 0 0 10px; background: var(--card);
+  border: 1px solid var(--line-strong); border-radius: var(--radius);
+  padding: 12px 16px; font-size: 16px; font-weight: 500; color: var(--ink); cursor: pointer;
+}
+.option-btn:last-child { margin-bottom: 0; }
+.option-btn:active { background: #f2f2ef; border-color: var(--ink); }
+
+/* ---------- 试卷 ---------- */
+section.module {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 18px 20px; margin-bottom: 16px;
+}
+section.module > h2 {
+  display: flex; align-items: baseline; gap: 10px;
+  margin: 0 0 4px; font-size: 15px; font-weight: 700; letter-spacing: .02em;
+}
+.sec-no { font-size: 12px; font-weight: 400; color: var(--sub); font-variant-numeric: tabular-nums; letter-spacing: .1em; }
+section.module .instructions { color: var(--ink); font-family: var(--serif-en); font-size: 16px; margin-bottom: 12px; }
+section.module .instructions p { margin: 0 0 8px; }
+
+.audio-row {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+  border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 12px;
+  background: #fbfbf9;
+}
+.audio-row audio { flex: 1; min-width: 0; height: 40px; }
+.audio-row .plays-left { font-size: 12px; color: var(--sub); white-space: nowrap; }
+.audio-missing {
+  font-size: 13px; color: #8f6400; background: #fbf7ee;
+  border: 1px dashed var(--line-strong); border-radius: var(--radius);
+  padding: 10px 12px; margin-bottom: 12px; overflow-wrap: anywhere;
+}
+
+.q { padding: 16px 0; border-top: 1px solid var(--line); }
+.q .stem { margin: 0 0 10px; font-size: 16px; font-family: var(--serif-en); }
+.q .stem p { margin: 0; }
+.blank { color: var(--ink); letter-spacing: 2px; }
+.q .opts { display: flex; flex-direction: column; gap: 8px; }
+.q label.opt {
+  display: flex; gap: 10px; align-items: flex-start; min-height: 48px;
+  border: 1px solid var(--line-strong); border-radius: var(--radius);
+  padding: 11px 14px; cursor: pointer; font-size: 16px; line-height: 1.4; font-family: var(--serif-en);
+}
+.q label.opt:active { background: #f2f2ef; }
+.q label.opt.checked { border-color: var(--ink); background: #f4f4f1; }
+.q input[type="radio"] { width: 18px; height: 18px; margin: 3px 0 0; accent-color: var(--ink); flex: 0 0 auto; }
+.q input[type="text"] {
+  width: 100%; border: 1px solid var(--line-strong); border-radius: var(--radius);
+  padding: 12px 14px; font-size: 16px; color: var(--ink); background: var(--card);
+  font-family: var(--serif-en);
+}
+.q input[type="text"]:focus { outline: none; border-color: var(--ink); box-shadow: 0 0 0 3px rgba(25, 26, 28, .07); }
+.q input::placeholder { color: #a3a6ab; }
+
+/* ---------- 吸底交卷栏 ---------- */
+.submit-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+  background: rgba(247, 247, 245, .94);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid var(--line);
+  padding: 10px 20px calc(10px + env(safe-area-inset-bottom));
+}
+.submit-bar .bar-inner {
+  max-width: 620px; margin: 0 auto;
+  display: flex; align-items: center; gap: 16px;
+}
+.submit-bar .progress-note { flex: 1; margin: 0; font-size: 13px; color: var(--sub); white-space: nowrap; font-variant-numeric: tabular-nums; }
+body.has-submitbar #app { padding-bottom: 92px; }
+
+/* ---------- 按钮 ---------- */
+.btn-primary {
+  display: block; width: 100%; min-height: 50px; border: 0; border-radius: var(--radius);
+  background: var(--accent); color: #fff; font-size: 16px; font-weight: 700; letter-spacing: .12em; text-indent: .12em;
+  padding: 12px 20px; cursor: pointer;
+}
+.btn-primary:active { background: #000; }
+.btn-secondary {
+  display: block; width: 100%; min-height: 46px; margin-top: 10px;
+  border: 1px solid var(--line-strong); border-radius: var(--radius);
+  background: var(--card); color: var(--ink); font-size: 15px;
+  padding: 11px 20px; cursor: pointer; text-align: center; text-decoration: none;
+}
+.btn-secondary:active { background: #f2f2ef; }
+.progress-note { color: var(--sub); font-size: 13px; margin: 10px 2px; }
+
+/* ---------- 结果页 ---------- */
+.result-head {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 32px 22px 26px; text-align: center; margin-bottom: 16px;
+}
+.congrats { color: var(--sub); font-size: 12px; letter-spacing: .5em; text-indent: .5em; margin: 0 0 10px; }
+.result-level { font-size: 20px; font-weight: 700; line-height: 1.55; margin: 0; overflow-wrap: anywhere; }
+.total-band { font-size: 13px; color: var(--sub); margin: 14px 0 0; }
+.total-band b {
+  color: var(--ink); font-family: Georgia, "Times New Roman", "Songti SC", "SimSun", serif;
+  font-size: 54px; font-weight: 400; font-variant-numeric: tabular-nums; margin: 0 6px 0 0;
+}
+.bars-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px 8px; margin-bottom: 16px; }
+.bars-card h3 { margin: 0 0 16px; font-size: 12px; font-weight: 400; color: var(--sub); letter-spacing: .15em; }
+.bar-row { display: grid; grid-template-columns: 4.5em 1fr 3.2em; align-items: center; gap: 12px; margin-bottom: 16px; font-size: 14px; }
+.bar-track { background: #ececea; border-radius: 999px; height: 5px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 999px; background: var(--ink); }
+.bar-val { text-align: right; font-family: Georgia, "Times New Roman", serif; font-size: 16px; font-variant-numeric: tabular-nums; }
+.copy-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 16px; font-size: 15px; }
+.copy-card h3 { margin: 0 0 8px; font-size: 15px; }
+.copy-card p { margin: 0 0 8px; overflow-wrap: anywhere; }
+.qr-card { text-align: center; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px 16px; margin-bottom: 16px; }
+.qr-card img { width: 150px; height: 150px; max-width: 55%; object-fit: contain; filter: grayscale(1); }
+.qr-card p { color: var(--sub); font-size: 13px; margin: 12px 0 0; }
+.pending-note { font-size: 12px; color: var(--sub); border: 1px dashed var(--line-strong); border-radius: var(--radius); padding: 10px 12px; margin: 0 0 16px; }
+
+@media (min-width: 720px) {
+  #app { padding-top: 28px; }
+}
+
+/* UI 元素不受正文 1.75 行高影响（评审第 6 条） */
+button, .btn-secondary, .tag, .topbar, .entry-card h2, .sec-no { line-height: 1.4; }

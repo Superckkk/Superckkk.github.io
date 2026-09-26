@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160">
+  <rect width="160" height="160" rx="12" fill="#eef0f6"/>
+  <rect x="20" y="20" width="40" height="40" rx="4" fill="none" stroke="#b6bccd" stroke-width="6"/>
+  <rect x="100" y="20" width="40" height="40" rx="4" fill="none" stroke="#b6bccd" stroke-width="6"/>
+  <rect x="20" y="100" width="40" height="40" rx="4" fill="none" stroke="#b6bccd" stroke-width="6"/>
+  <rect x="34" y="34" width="12" height="12" fill="#b6bccd"/>
+  <rect x="114" y="34" width="12" height="12" fill="#b6bccd"/>
+  <rect x="34" y="114" width="12" height="12" fill="#b6bccd"/>
+  <text x="80" y="92" text-anchor="middle" font-size="12" fill="#8a91a5" font-family="sans-serif">替换为</text>
+  <text x="80" y="110" text-anchor="middle" font-size="12" fill="#8a91a5" font-family="sans-serif">顾问二维码</text>
+</svg>

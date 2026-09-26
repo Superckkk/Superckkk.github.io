@@ -1,0 +1,310 @@
+// 流程引擎 + UI。hash 路由：#/ielts #/pu #/level，#/ 为首页。
+import { parseExam, parseFlow, mdToHtml } from "./md-parser.js";
+import { gradeExam, evaluateBranches } from "./scoring.js";
+
+const app = document.getElementById("app");
+const timerEl = document.getElementById("timer");
+
+const state = {
+  flow: null, node: null, exam: null, score: null,
+  answers: {}, forcedBranch: null, timerId: null, deadline: 0,
+};
+
+const FLOWS = {
+  ielts: { name: "雅思入学测", desc: "30 分钟 · 听力+阅读+语言运用 · 自动出分与班型建议", tag: "样卷就绪" },
+  pu: { name: "新生入学测（PU2/PU3）", desc: "6–7 岁 · 词汇+语法+阅读 · 达标自动续附加卷", tag: "占位样题" },
+  level: { name: "阶段定位测（K/P 自查）", desc: "自选 KET/PET 阶段 · 判断能否进阶", tag: "占位样题" },
+};
+
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+async function fetchText(url) {
+  const r = await fetch(url, { cache: "no-store" });
+  if (!r.ok) throw new Error(`文件不存在或读取失败：${url}（HTTP ${r.status}）`);
+  return r.text();
+}
+
+// ---------- 路由 ----------
+function route() {
+  stopTimer();
+  document.body.classList.remove("has-submitbar");
+  const h = location.hash.replace(/^#\/?/, "").split("?")[0];
+  if (!h) return renderHome();
+  if (FLOWS[h]) return startFlow(h);
+  renderError(`未知页面：#/${esc(h)}`);
+}
+window.addEventListener("hashchange", route);
+
+async function startFlow(id) {
+  try {
+    const flow = parseFlow(await fetchText(`flows/${id}.md`));
+    state.flow = flow;
+    state.score = null;
+    state.forcedBranch = null;
+    enterNode(flow.graph.start);
+  } catch (e) { renderError(e.message); }
+}
+
+function enterNode(nodeId) {
+  document.body.classList.remove("has-submitbar");
+  const node = state.flow.graph.nodes[nodeId];
+  if (!node) return renderError(`流程缺少节点：${esc(nodeId)}`);
+  state.node = node;
+  if (node.type === "screen") return renderScreen(node);
+  if (node.type === "exam") return loadExam(node);
+  if (node.type === "router") {
+    const hit = evaluateBranches(node.branches, ctxForRules());
+    if (!hit) return renderError("分支路由未命中任何规则");
+    state.forcedBranch = hit.branch || null;
+    return enterNode(hit.goto);
+  }
+  if (node.type === "result") return renderResult();
+  renderError(`未知节点类型：${esc(node.type)}`);
+}
+
+function ctxForRules() {
+  return state.score || { total: null, modules: {} };
+}
+
+// ---------- 首页 ----------
+function renderHome() {
+  let last = {};
+  try { last = JSON.parse(localStorage.getItem("hippo-results") || "{}"); } catch { /* 忽略 */ }
+  app.innerHTML = `
+    <h1 class="home-title">自助英语水平测评</h1>
+    <div class="entry-list">
+      ${Object.entries(FLOWS).map(([id, f]) => `
+        <a class="entry-card" href="#/${id}">
+          <h2>${esc(f.name)}<span class="tag">${esc(f.tag)}</span></h2>
+          <p>${esc(f.desc)}</p>
+          ${last[id] ? `<p class="last-line">上次结果 ${esc(String(last[id].total ?? "—"))} · ${esc(last[id].date)}</p>` : ""}
+        </a>`).join("")}
+    </div>
+    <p class="home-note">测评结果仅供课程顾问参考，不构成正式入学承诺。</p>`;
+}
+
+function renderError(msg) {
+  stopTimer();
+  app.innerHTML = `<div class="notice">出错了：${msg}</div>
+    <a class="btn-secondary" href="#/" style="text-align:center;text-decoration:none">返回首页</a>`;
+}
+
+// ---------- 筛选节点 ----------
+function renderScreen(node) {
+  app.innerHTML = `
+    <div class="screen-q">
+      <h2>${esc(node.question)}</h2>
+      ${node.options.map((o, i) => `<button class="option-btn" data-i="${i}">${esc(o.label)}</button>`).join("")}
+    </div>`;
+  app.querySelectorAll(".option-btn").forEach((btn) => {
+    btn.onclick = () => {
+      const opt = node.options[Number(btn.dataset.i)];
+      state.forcedBranch = opt.branch || null;
+      enterNode(opt.goto);
+    };
+  });
+}
+
+// ---------- 答题节点 ----------
+async function loadExam(node) {
+  try {
+    state.exam = parseExam(await fetchText(node.exam));
+    state.answers = {};
+    renderExam(node);
+  } catch (e) { renderError(e.message); }
+}
+
+function renderExam(node) {
+  const exam = state.exam;
+  app.innerHTML = `
+    <h1 class="home-title">${esc(exam.title)}</h1>
+    ${exam.timeLimit ? `<p class="progress-note">限时 ${exam.timeLimit} 分钟，到时自动交卷。</p>` : ""}
+    ${exam.sections.map((sec, si) => `
+      <section class="module" data-section="${si}">
+        <h2><span class="sec-no">${String(si + 1).padStart(2, "0")}</span>${esc(sec.title)}</h2>
+        ${sec.instructions.trim() ? `<div class="instructions">${mdToHtml(sec.instructions.trim())}</div>` : ""}
+        ${sec.audio ? audioBlockHtml(sec, si) : ""}
+        ${sec.questions.map((q) => questionHtml(q)).join("")}
+      </section>`).join("")}
+    <div class="submit-bar">
+      <div class="bar-inner">
+        <p class="progress-note" id="answered-note"></p>
+        <button class="btn-primary" id="submit-btn">交卷</button>
+      </div>
+    </div>`;
+  document.body.classList.add("has-submitbar");
+  app.querySelectorAll(".q input").forEach((el) => {
+    el.addEventListener("change", () => {
+      if (el.type === "radio") el.closest(".q").querySelectorAll("label.opt").forEach((l) => l.classList.toggle("checked", l.querySelector("input").checked));
+      updateAnsweredNote();
+    });
+    el.addEventListener("input", updateAnsweredNote);
+  });
+  document.getElementById("submit-btn").onclick = submitExam;
+  updateAnsweredNote();
+  if (exam.timeLimit) startTimer(exam.timeLimit * 60, submitExam);
+  bindAudio();
+}
+
+async function bindAudio() {
+  const exam = state.exam;
+  const boxes = [...app.querySelectorAll(".audio-box")];
+  for (const box of boxes) {
+    const sec = exam.sections[Number(box.dataset.section)];
+    // 先探测音频是否存在（占位阶段文件常缺），缺失直接显示待上传提示
+    try {
+      const head = await fetch(sec.audio, { method: "HEAD", cache: "no-store" });
+      if (!head.ok) throw new Error();
+    } catch {
+      box.innerHTML = `<div class="audio-missing">听力音频待上传：${esc(sec.audio)}（该模块暂不计分，补齐后自动参与）</div>`;
+      continue;
+    }
+    const audio = box.querySelector("audio");
+    const left = box.querySelector(".plays-left");
+    if (!audio) continue;
+    let used = 0;
+    const max = sec.plays || 1;
+    audio.addEventListener("error", () => {
+      box.innerHTML = `<div class="audio-missing">音频加载失败：${esc(sec.audio)}</div>`;
+    });
+    audio.addEventListener("play", () => {
+      used++;
+      left.textContent = `剩余 ${Math.max(0, max - used)} 遍`;
+      if (used > max) { audio.pause(); audio.removeAttribute("src"); box.insertAdjacentHTML("beforeend", `<div class="audio-missing">播放次数已用完</div>`); }
+    });
+  }
+}
+
+function audioBlockHtml(sec, si) {
+  return `<div class="audio-row audio-box" data-section="${si}">
+    <audio controls preload="none" src="${esc(sec.audio)}"></audio>
+    <span class="plays-left">可播 ${sec.plays} 遍</span>
+  </div>`;
+}
+
+function questionHtml(q) {
+  const stem = `<div class="stem">${q.stemHtml || mdToHtml(q.display)}</div>`;
+  if (q.type === "choice") {
+    const letters = "ABCDEFGH";
+    return `<div class="q" data-q="${esc(q.id)}">${stem}<div class="opts">
+      ${q.options.map((o, i) => `
+        <label class="opt"><input type="radio" name="ans-${esc(q.id)}" value="${letters[i]}"><span>${letters[i]}. ${esc(o || "/")}</span></label>`).join("")}
+    </div></div>`;
+  }
+  if (q.type === "tf") {
+    return `<div class="q" data-q="${esc(q.id)}">${stem}<div class="opts">
+      <label class="opt"><input type="radio" name="ans-${esc(q.id)}" value="T"><span>T · 正确</span></label>
+      <label class="opt"><input type="radio" name="ans-${esc(q.id)}" value="F"><span>F · 错误</span></label>
+    </div></div>`;
+  }
+  // fill
+  const hint = q.maxWords ? `（不超过 ${q.maxWords} 个词）` : "";
+  return `<div class="q" data-q="${esc(q.id)}">${stem}
+    <input type="text" name="ans-${esc(q.id)}" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="输入答案${hint}">
+  </div>`;
+}
+
+function collectAnswers() {
+  const out = {};
+  for (const q of state.exam.questions) {
+    const box = app.querySelector(`.q[data-q="${CSS.escape(q.id)}"]`);
+    if (!box) continue;
+    const el = box.querySelector("input");
+    if (!el) continue;
+    if (el.type === "radio") {
+      const checked = box.querySelector("input:checked");
+      out[q.id] = checked ? checked.value : "";
+    } else {
+      out[q.id] = el.value;
+    }
+  }
+  return out;
+}
+
+function updateAnsweredNote() {
+  state.answers = collectAnswers();
+  const total = state.exam.questions.length;
+  const done = Object.values(state.answers).filter((v) => v !== "").length;
+  const note = document.getElementById("answered-note");
+  if (note) note.textContent = `已作答 ${done} / ${total} 题`;
+}
+
+function submitExam() {
+  state.answers = collectAnswers();
+  state.score = gradeExam(state.exam, state.answers);
+  stopTimer();
+  enterNode(state.node.then);
+}
+
+// ---------- 计时 ----------
+function startTimer(seconds, onEnd) {
+  stopTimer();
+  state.deadline = Date.now() + seconds * 1000;
+  timerEl.hidden = false;
+  const tick = () => {
+    const left = Math.max(0, Math.round((state.deadline - Date.now()) / 1000));
+    timerEl.textContent = `${String(Math.floor(left / 60)).padStart(2, "0")}:${String(left % 60).padStart(2, "0")}`;
+    timerEl.classList.toggle("hurry", left <= 300);
+    if (left <= 0) { stopTimer(); onEnd(); }
+  };
+  tick();
+  state.timerId = setInterval(tick, 500);
+}
+function stopTimer() {
+  if (state.timerId) clearInterval(state.timerId);
+  state.timerId = null;
+  timerEl.hidden = true;
+  timerEl.classList.remove("hurry");
+}
+
+// ---------- 结果页 ----------
+function renderResult() {
+  const flow = state.flow;
+  const ctx = ctxForRules();
+  const branchId = state.forcedBranch
+    || (evaluateBranches(flow.graph.rules || [], ctx) || {}).id;
+  const copy = flow.branchCopy[branchId] || { lines: {}, body: "" };
+  const L = copy.lines;
+  const modules = ctx.modules || {};
+  const pendingCount = (ctx.pending || []).length;
+
+  if (ctx.total != null) {
+    try {
+      const all = JSON.parse(localStorage.getItem("hippo-results") || "{}");
+      all[flow.id] = { date: new Date().toLocaleDateString("zh-CN"), total: ctx.total, branch: branchId };
+      localStorage.setItem("hippo-results", JSON.stringify(all));
+    } catch { /* 忽略 */ }
+  }
+
+  app.innerHTML = `
+    <div class="result-head">
+      ${L.congrats ? `<p class="congrats">${esc(L.congrats)}</p>` : ""}
+      <p class="result-level">${esc(L.level || "测评完成")}</p>
+      ${ctx.total != null ? `<p class="total-band">定位分 <b>${ctx.total.toFixed(1)}</b> / 9.0</p>` : ""}
+    </div>
+    ${Object.values(modules).some((m) => m.raw != null) ? `
+      <div class="bars-card"><h3>分项得分（0–9 级分）</h3>
+        ${Object.values(modules).map((m) => m.raw == null ? "" : `
+          <div class="bar-row">
+            <span>${esc(m.name)}</span>
+            <div class="bar-track"><div class="bar-fill" style="width:${(m.shown / 9 * 100).toFixed(1)}%"></div></div>
+            <span class="bar-val">${m.shown.toFixed(1)}</span>
+          </div>`).join("")}
+      </div>` : ""}
+    <div class="copy-card">
+      ${L.detail ? `<p>${esc(L.detail)}</p>` : ""}
+      ${L.advice ? `<p><strong>建议：</strong>${esc(L.advice)}</p>` : ""}
+      ${copy.body.trim() ? mdToHtml(copy.body.trim()) : ""}
+      ${L.action ? `<p>${esc(L.action)}</p>` : ""}
+    </div>
+    <div class="qr-card">
+      <img src="assets/qr-placeholder.svg" alt="课程顾问微信二维码" onerror="this.style.display='none'">
+      <p>${esc(L.action || "添加课程顾问微信，将本结果页拿给老师做进一步分析")}</p>
+    </div>
+    ${pendingCount ? `<p class="pending-note">注：${pendingCount} 道听力题因音频/答案未上传暂未计分，当前分数按其余模块折算。</p>` : ""}
+    <button class="btn-primary" id="again-btn">重新测一次</button>
+    <a class="btn-secondary" href="#/" style="text-align:center;text-decoration:none;display:block;box-sizing:border-box">返回首页</a>`;
+  document.getElementById("again-btn").onclick = () => { location.hash = `#/${flow.id}`; route(); };
+}
+
+route();
