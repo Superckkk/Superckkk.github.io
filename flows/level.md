@@ -46,7 +46,7 @@ detail: 建议系统学习 KET 班，先补词汇与基础语法。
 advice: 把结果页拿给顾问，确认开班时间。
 
 ## branch:ket-pass
-congrats: 恭喜！
+congrats: Congratulations
 level: 达到 KET 通过水平
 detail: KET 阶段内容已能应付，可按计划备考 KET 正式考试。
 advice: 考完 KET 后即可衔接 PET 班。
@@ -63,7 +63,7 @@ detail: 建议报读 PET 班系统备考，重点补阅读与写作基础。
 advice: 结果页可直接出示给课程顾问。
 
 ## branch:pet-pass
-congrats: 恭喜！
+congrats: Congratulations
 level: 达到 PET 通过水平 —— 建议报 FCE 班
 detail: PET 阶段目标已达成，FCE 班是自然的下一步。
 advice: 预约顾问确认 FCE 班学位。

@@ -304,14 +304,21 @@ function renderResult() {
       ${copy.body.trim() ? mdToHtml(copy.body.trim()) : ""}
       ${L.action ? `<p>${esc(L.action)}</p>` : ""}
     </div>
-    <div class="qr-card">
-      <img src="assets/qr-placeholder.svg" alt="课程顾问微信二维码" onerror="this.style.display='none'">
-      <p>${esc(L.action || "添加课程顾问微信，将本结果页拿给老师做进一步分析")}</p>
-    </div>
+    <button class="btn-primary" id="qr-btn">添加课程顾问微信</button>
+    <p class="cta-hint">${esc(L.action || "将本结果页出示给顾问老师，获取进一步分析")}</p>
     ${pendingCount ? `<p class="pending-note">注：${pendingCount} 道听力题因音频/答案未上传暂未计分，当前分数按其余模块折算。</p>` : ""}
-    <button class="btn-primary" id="again-btn">重新测一次</button>
-    <a class="btn-secondary" href="#/" style="text-align:center;text-decoration:none;display:block;box-sizing:border-box">返回首页</a>`;
+    <button class="btn-secondary" id="again-btn">重新测一次</button>
+    <a class="btn-secondary" href="#/" style="text-align:center;text-decoration:none;display:block;box-sizing:border-box">返回首页</a>
+    <div class="qr-overlay" id="qr-overlay" hidden>
+      <p class="qr-title">课程顾问微信</p>
+      <img src="assets/qr-placeholder.svg" alt="课程顾问微信二维码" onerror="this.style.display='none'">
+      <p class="cta-hint">长按识别二维码，添加顾问微信<br>将测评结果拿给老师做进一步分析</p>
+      <button class="btn-secondary" id="qr-back" style="margin-top:6px">返回结果</button>
+    </div>`;
   document.getElementById("again-btn").onclick = () => { location.hash = `#/${flow.id}`; route(); };
+  const overlay = document.getElementById("qr-overlay");
+  document.getElementById("qr-btn").onclick = () => { overlay.hidden = false; window.scrollTo(0, 0); };
+  document.getElementById("qr-back").onclick = () => { overlay.hidden = true; };
 }
 
 route();

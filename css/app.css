@@ -181,9 +181,17 @@ body.has-submitbar #app { padding-bottom: 92px; }
 .copy-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 16px; font-size: 15px; }
 .copy-card h3 { margin: 0 0 8px; font-size: 15px; }
 .copy-card p { margin: 0 0 8px; overflow-wrap: anywhere; }
-.qr-card { text-align: center; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px 16px; margin-bottom: 16px; }
-.qr-card img { width: 150px; height: 150px; max-width: 55%; object-fit: contain; filter: grayscale(1); }
-.qr-card p { color: var(--sub); font-size: 13px; margin: 12px 0 0; }
+.cta-hint { color: var(--sub); font-size: 12px; text-align: center; margin: 10px 0 14px; }
+.qr-overlay {
+  position: fixed; inset: 0; z-index: 60; overflow-y: auto;
+  background: var(--bg);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 32px 24px calc(32px + env(safe-area-inset-bottom));
+}
+.qr-overlay[hidden] { display: none; }
+.qr-overlay img { width: 250px; height: 250px; max-width: 72vw; max-height: 45vh; object-fit: contain; margin: 18px 0 6px; }
+.qr-overlay .btn-secondary { min-width: 200px; }
+.qr-title { font-size: 13px; color: var(--sub); letter-spacing: .4em; text-indent: .4em; margin: 0; }
 .pending-note { font-size: 12px; color: var(--sub); border: 1px dashed var(--line-strong); border-radius: var(--radius); padding: 10px 12px; margin: 0 0 16px; }
 
 @media (min-width: 720px) {
