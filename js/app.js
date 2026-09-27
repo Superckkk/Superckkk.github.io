@@ -338,6 +338,13 @@ function renderResult() {
     .map((m) => (L[`note-${m.id}`] ? `<p><b>${MOD_ICONS[m.id] || ""} ${esc(m.name)}</b>${esc(L[`note-${m.id}`])}</p>` : ""))
     .join("");
 
+  // 副推荐：前缀连接词（or / +）小字号，班型名与主推荐同字号
+  const reco2Raw = String(L.recommend2 || "");
+  const c2 = reco2Raw.match(/^([A-Za-z+＋]{1,3})\s+(.+)$/);
+  const reco2Html = !reco2Raw ? "" : c2
+    ? `<p class="reco-main reco-alt"><span class="reco-conn">${esc(c2[1])}</span>${esc(c2[2])}</p>`
+    : `<p class="reco-main reco-alt">${esc(reco2Raw)}</p>`;
+
   app.innerHTML = `
     <div class="rpt-head">
       ${L.congrats ? `<p class="rpt-congrats">${esc(L.congrats)}</p>` : ""}
@@ -359,7 +366,7 @@ function renderResult() {
     <section class="rpt-reco">
       <p class="rpt-sub">Recommendation</p>
       <p class="reco-main">${esc(L.recommend)}</p>
-      ${L.recommend2 ? `<p class="reco-main reco-alt">${esc(L.recommend2)}</p>` : ""}
+      ${reco2Html}
     </section>
     ${notes ? `<section class="rpt-notes"><h3>各模块能力分析</h3>${notes}</section>` : ""}
     ${L.detail ? `<p class="rpt-detail">${esc(L.detail)}</p>` : ""}
