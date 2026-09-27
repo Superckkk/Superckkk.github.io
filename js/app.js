@@ -384,13 +384,13 @@ function renderResult() {
     ${pendingCount ? `<p class="pending-note">注：${pendingCount} 道听力题因音频未上传暂未计分，当前分数按其余模块折算。</p>` : ""}
     <section class="qr-cta" id="qr-open">
       <p>添加剑桥考官<br><b>${esc(qrAction)}</b></p>
-      <img src="assets/qr-placeholder.svg" alt="课程顾问微信二维码">
+      <img src="assets/cambridge-examiner.jpg" alt="课程顾问微信二维码">
     </section>
     <button class="btn-secondary" id="again-btn">重新测一次</button>
     <a class="btn-secondary" href="#/" style="text-align:center;text-decoration:none;display:block;box-sizing:border-box">返回首页</a>
     <div class="qr-overlay" id="qr-overlay" hidden>
       <p class="qr-title">课程顾问微信</p>
-      <img src="assets/qr-placeholder.svg" alt="课程顾问微信二维码">
+      <img src="assets/cambridge-examiner.jpg" alt="课程顾问微信二维码">
       <p class="cta-hint">长按识别二维码，添加顾问微信<br>将测评结果拿给老师做进一步分析</p>
       <button class="btn-secondary" id="qr-back" style="margin-top:6px">返回结果</button>
     </div>`;
@@ -428,13 +428,13 @@ function renderResultLegacy(flow, branchId, copy, ctx, qrAction) {
     ${pendingCount ? `<p class="pending-note">注：${pendingCount} 道题因音频/答案未上传暂未计分，当前分数按其余模块折算。</p>` : ""}
     <section class="qr-cta" id="qr-open">
       <p>添加课程顾问<br><b>${esc(L.action || qrAction)}</b></p>
-      <img src="assets/qr-placeholder.svg" alt="课程顾问微信二维码">
+      <img src="assets/cambridge-examiner.jpg" alt="课程顾问微信二维码">
     </section>
     <button class="btn-secondary" id="again-btn">重新测一次</button>
     <a class="btn-secondary" href="#/" style="text-align:center;text-decoration:none;display:block;box-sizing:border-box">返回首页</a>
     <div class="qr-overlay" id="qr-overlay" hidden>
       <p class="qr-title">课程顾问微信</p>
-      <img src="assets/qr-placeholder.svg" alt="课程顾问微信二维码">
+      <img src="assets/cambridge-examiner.jpg" alt="课程顾问微信二维码">
       <p class="cta-hint">长按识别二维码，添加顾问微信<br>将测评结果拿给老师做进一步分析</p>
       <button class="btn-secondary" id="qr-back" style="margin-top:6px">返回结果</button>
     </div>`;
