@@ -236,3 +236,6 @@ button, .btn-secondary, .tag, .topbar, .entry-card h2, .sec-no { line-height: 1.
 .qr-cta p { flex: 1; margin: 0; font-size: 19px; font-weight: 800; line-height: 1.5; }
 .qr-cta p b { font-size: 19px; }
 .qr-cta img { width: 92px; height: 92px; flex: 0 0 auto; background: #fff; border-radius: 6px; padding: 6px; }
+
+/* 模块纯色图标：随品牌紫，与文字基线对齐 */
+.mod-ico { width: 1.05em; height: 1.05em; fill: var(--brand); vertical-align: -0.18em; margin-right: 5px; }
