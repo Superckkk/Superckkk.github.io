@@ -175,8 +175,8 @@ body.has-submitbar #app { padding-bottom: 92px; }
 .result-level { font-size: 20px; font-weight: 700; line-height: 1.55; margin: 0; overflow-wrap: anywhere; }
 .total-band { font-size: 13px; color: var(--sub); margin: 14px 0 0; }
 .total-band b {
-  color: var(--ink); font-family: var(--serif-score);
-  font-size: 54px; font-weight: 400; font-variant-numeric: tabular-nums; margin: 0 6px 0 0;
+  color: var(--ink);
+  font-size: 46px; font-weight: 800; font-variant-numeric: tabular-nums; margin: 0 6px 0 0;
 }
 .bars-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px 8px; margin-bottom: 16px; }
 .bars-card h3 { margin: 0 0 16px; font-size: 12px; font-weight: 400; color: var(--sub); letter-spacing: .15em; }
@@ -215,7 +215,7 @@ button, .btn-secondary, .tag, .topbar, .entry-card h2, .sec-no { line-height: 1.
 .gauge { position: relative; width: min(260px, 78%); margin: 4px auto 0; }
 .gauge-svg { display: block; width: 100%; }
 .gauge-mid { position: absolute; left: 0; right: 0; bottom: 2px; }
-.gauge-mid b { display: block; font-family: var(--serif-score); font-size: 44px; font-weight: 400; line-height: 1.05; }
+.gauge-mid b { display: block; font-size: 42px; font-weight: 800; line-height: 1.05; font-variant-numeric: tabular-nums; }
 .gauge-mid span { font-size: 14px; font-weight: 700; color: var(--ink); }
 .rpt-note { color: var(--sub); font-size: 12px; font-style: italic; text-align: center; margin: 12px 2px 14px; }
 .rpt-mods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }

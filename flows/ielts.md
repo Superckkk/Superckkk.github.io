@@ -50,6 +50,9 @@ headline: Approx. IELTS level
 congrats: 🎉 CONGRATULATIONS! 🎉
 show-total: 5.0+
 cefr: B2
+mod-listening: 5.0
+mod-reading: 5.0
+mod-writing: 5.0
 recommend: LEVEL 1 雅思基础
 recommend2: or LEVEL 2 雅思进阶
 qr-action: 进行全面定级

@@ -266,6 +266,7 @@ function stopTimer() {
 
 // ---------- 结果页 ----------
 const MOD_ICONS = { listening: "🎧", reading: "📖", writing: "✏️", vocab: "🔤", grammar: "🧩" };
+const MOD_NAMES = { listening: "Listening", reading: "Reading", writing: "Writing", vocab: "词汇", grammar: "语法" };
 const bandText = (v) => (v == null ? "—" : v >= 5 ? v.toFixed(1) + "+" : v.toFixed(1));
 
 // 半圆仪表盘 SVG（比例 = 分值/9，弧角 ≤180°，large-arc 恒为 0）
@@ -315,7 +316,16 @@ function renderResult() {
   const totalText = L["show-total"] || bandText(ctx.total);
   const totalNum = parseFloat(L["show-total"] || ctx.total) || 0;
   const cefr = L.cefr || cefrFor(ctx.total, flow.graph.cefrMap);
-  const modList = Object.values(modules).filter((m) => m.raw != null);
+  // 实考模块分；免测等无实考分支可由文案 mod-<id>: 值 指定展示分
+  let modList = Object.values(modules).filter((m) => m.raw != null);
+  if (!modList.length) {
+    modList = Object.keys(MOD_NAMES)
+      .map((id) => {
+        const v = parseFloat(L[`mod-${id}`]);
+        return isNaN(v) ? null : { id, name: MOD_NAMES[id], raw: v, shown: v };
+      })
+      .filter(Boolean);
+  }
   const notes = modList
     .map((m) => (L[`note-${m.id}`] ? `<p><b>${MOD_ICONS[m.id] || ""} ${esc(m.name)}</b>${esc(L[`note-${m.id}`])}</p>` : ""))
     .join("");
