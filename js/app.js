@@ -363,7 +363,7 @@ function renderResult() {
         <div class="gauge-mid"><b>${esc(totalText)}</b>${cefr ? `<span>CEFR: ${esc(cefr)}</span>` : ""}</div>
       </div>
     </div>
-    <p class="rpt-note">说明：本报告分数为 Hippo 入学测定级换算值（对标雅思分数段），非雅思官方考试成绩。</p>
+    <p class="rpt-note">说明：本报告分数为 Hippo 定级换算值（对标雅思分数段），非雅思官方考试成绩。</p>
     ${modList.length ? `<section class="rpt-mods">
       ${modList.map((m) => `
         <div class="mod-card">
