@@ -338,12 +338,21 @@ function renderResult() {
     .map((m) => (L[`note-${m.id}`] ? `<p><b>${MOD_ICONS[m.id] || ""} ${esc(m.name)}</b>${esc(L[`note-${m.id}`])}</p>` : ""))
     .join("");
 
-  // 副推荐：前缀连接词（or / +）小字号，班型名与主推荐同字号
+  // 副推荐：or 型双班型——两行左对齐，or 独占一行居中；+ 型保持同行小字号
   const reco2Raw = String(L.recommend2 || "");
   const c2 = reco2Raw.match(/^([A-Za-z+＋]{1,3})\s+(.+)$/);
-  const reco2Html = !reco2Raw ? "" : c2
-    ? `<p class="reco-main reco-alt"><span class="reco-conn">${esc(c2[1])}</span>${esc(c2[2])}</p>`
-    : `<p class="reco-main reco-alt">${esc(reco2Raw)}</p>`;
+  let reco2Html = "";
+  let dualLevels = false;
+  if (reco2Raw) {
+    if (c2 && /^or$/i.test(c2[1])) {
+      dualLevels = true;
+      reco2Html = `<p class="reco-conn-line">${esc(c2[1])}</p><p class="reco-main reco-alt">${esc(c2[2])}</p>`;
+    } else if (c2) {
+      reco2Html = `<p class="reco-main reco-alt"><span class="reco-conn">${esc(c2[1])}</span>${esc(c2[2])}</p>`;
+    } else {
+      reco2Html = `<p class="reco-main reco-alt">${esc(reco2Raw)}</p>`;
+    }
+  }
 
   app.innerHTML = `
     <div class="rpt-head">
@@ -365,8 +374,10 @@ function renderResult() {
     </section>` : ""}
     <section class="rpt-reco">
       <p class="rpt-sub">Recommendation</p>
-      <p class="reco-main">${esc(L.recommend)}</p>
-      ${reco2Html}
+      <div class="reco-lines${dualLevels ? " dual" : ""}">
+        <p class="reco-main">${esc(L.recommend)}</p>
+        ${reco2Html}
+      </div>
     </section>
     ${notes ? `<section class="rpt-notes"><h3>各模块能力分析</h3>${notes}</section>` : ""}
     ${L.detail ? `<p class="rpt-detail">${esc(L.detail)}</p>` : ""}

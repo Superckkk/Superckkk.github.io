@@ -217,7 +217,7 @@ button, .btn-secondary, .tag, .topbar, .entry-card h2, .sec-no { line-height: 1.
 .gauge-mid { position: absolute; left: 0; right: 0; bottom: 2px; }
 .gauge-mid b { display: block; font-size: 42px; font-weight: 800; line-height: 1.05; font-variant-numeric: tabular-nums; }
 .gauge-mid span { font-size: 14px; font-weight: 700; color: var(--ink); }
-.rpt-note { color: var(--sub); font-size: 12px; font-style: italic; text-align: center; margin: 12px 2px 14px; }
+.rpt-note { color: var(--sub); font-size: 9px; font-style: italic; text-align: center; margin: 12px 0 14px; }
 .rpt-mods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
 .mod-card { background: #e9e8ee; border-radius: var(--radius); text-align: center; padding: 12px 6px 14px; }
 .mod-name { font-size: 14px; font-weight: 700; margin: 0 0 6px; white-space: nowrap; }
@@ -226,8 +226,11 @@ button, .btn-secondary, .tag, .topbar, .entry-card h2, .sec-no { line-height: 1.
 .rpt-reco { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); text-align: center; padding: 18px 14px 22px; margin-bottom: 16px; }
 .rpt-reco .rpt-sub { margin: 0 0 10px; }
 .reco-main { color: var(--brand); font-size: 30px; font-weight: 800; line-height: 1.4; margin: 0; overflow-wrap: anywhere; }
+.reco-lines { display: inline-block; max-width: 100%; text-align: center; }
+.reco-lines.dual { text-align: left; }
 .reco-alt { margin-top: 2px; }
 .reco-conn { font-size: 17px; font-weight: 600; margin-right: 6px; }
+.reco-conn-line { color: var(--brand); font-size: 17px; font-weight: 600; text-align: center; margin: 4px 0; line-height: 1.3; }
 .rpt-notes { background: #e9e8ee; border-radius: var(--radius); padding: 16px 16px 6px; margin-bottom: 14px; font-size: 14px; }
 .rpt-notes h3 { text-align: center; font-size: 15px; font-weight: 700; margin: 0 0 12px; }
 .rpt-notes p { margin: 0 0 12px; line-height: 1.6; overflow-wrap: anywhere; }
