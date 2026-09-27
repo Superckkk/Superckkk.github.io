@@ -214,7 +214,7 @@ button, .btn-secondary, .tag, .topbar, .entry-card h2, .sec-no { line-height: 1.
 .rpt-sub { font-size: 14px; font-weight: 700; color: var(--ink); margin: 8px 0 0; }
 .gauge { position: relative; width: min(260px, 78%); margin: 4px auto 0; }
 .gauge-svg { display: block; width: 100%; }
-.gauge-mid { position: absolute; left: 0; right: 0; bottom: 2px; }
+.gauge-mid { position: absolute; left: 0; right: 0; bottom: 14px; }
 .gauge-mid b { display: block; font-size: 36px; font-weight: 800; line-height: 1.05; font-variant-numeric: tabular-nums; }
 .gauge-mid span { font-size: 14px; font-weight: 700; color: var(--ink); }
 .rpt-note { color: var(--sub); font-size: 9px; font-style: italic; text-align: center; margin: 12px 0 14px; }
