@@ -1,27 +1,33 @@
 ---
 id: ielts
 title: 雅思入学测
-intro: 30 分钟 · 听力 10 + 阅读 8 + 语言运用 12 · 自动出分
+intro: 30 分钟 · Listening + Reading + Writing · 自动出分与班型建议
 ---
 
 ```json
 {
   "start": "screen1",
+  "bandTable": {
+    "listening": { "below": 2.5, "steps": [[3, 3.0], [5, 3.5], [7, 4.0], [9, 4.5], [10, 5.0]] },
+    "reading":   { "below": 2.5, "steps": [[3, 3.0], [4, 3.5], [6, 4.0], [7, 4.5], [8, 5.0]] },
+    "writing":   { "below": 2.5, "steps": [[4, 3.0], [7, 3.5], [9, 4.0], [11, 4.5], [12, 5.0]] }
+  },
+  "cefrMap": { "3": "A1", "3.5": "A2", "4": "A2", "4.5": "B1", "5": "B2" },
   "nodes": {
     "screen1": {
       "type": "screen",
       "question": "孩子是否已通过以下考试？",
       "options": [
-        { "label": "FCE 已通过", "goto": "result", "branch": "fce-exempt" },
+        { "label": "FCE 已通过", "goto": "result", "branch": "page1-exempt" },
         { "label": "PET 已通过", "goto": "screen2" },
-        { "label": "暂无 PET/FCE 成绩", "goto": "test" }
+        { "label": "无 PET 或 FCE 成绩", "goto": "test" }
       ]
     },
     "screen2": {
       "type": "screen",
       "question": "PET 成绩是？",
       "options": [
-        { "label": "PET 优秀", "goto": "result", "branch": "pet-excellent" },
+        { "label": "PET 优秀", "goto": "result", "branch": "page1-exempt" },
         { "label": "PET 通过", "goto": "test" }
       ]
     },
@@ -29,50 +35,58 @@ intro: 30 分钟 · 听力 10 + 阅读 8 + 语言运用 12 · 自动出分
     "result": { "type": "result" }
   },
   "rules": [
-    { "id": "foundation", "when": { "totalMax": 4 } },
-    { "id": "foundation-re", "when": { "totalMin": 4.5, "totalMax": 4.5, "moduleMax": { "reading": 3.5 } } },
-    { "id": "l1", "when": { "totalMin": 4.5, "totalMax": 5, "moduleMin": { "listening": 4, "reading": 4, "grammar": 4 } } },
-    { "id": "wechat", "when": { "totalMin": 5.5 } },
-    { "id": "consult" }
+    { "id": "page5", "when": { "totalMax": 3.49 } },
+    { "id": "page2", "when": { "totalMax": 4.0 } },
+    { "id": "page3", "when": { "totalMax": 4.5, "moduleMax": { "reading": 3.55 } } },
+    { "id": "page4", "when": { "totalMin": 4.5, "moduleMin": { "listening": 4.0, "reading": 4.0, "writing": 4.0 } } },
+    { "id": "page1-exempt", "when": { "totalMin": 5.5 } },
+    { "id": "page2" }
   ]
 }
 ```
 
-## branch:fce-exempt
-congrats: Congratulations!
-level: FCE 已通过，免测直通 L1 进阶班
-detail: 按入学测规则，FCE 通过者可免于作答本卷。
-advice: 建议尽快与课程顾问确认班型与开课时间。
+## branch:page1-exempt
+headline: Approx. IELTS level
+congrats: 🎉 CONGRATULATIONS! 🎉
+show-total: 5.0+
+cefr: B2
+recommend: LEVEL 1 雅思基础
+recommend2: or LEVEL 2 雅思进阶
+qr-action: 进行全面定级
+detail: 免测直达：PET 优秀 / FCE 通过 / 定位 5.5+ 的学员可安排 L1 或更高起点。
 
-## branch:pet-excellent
-congrats: Congratulations!
-level: PET 优秀，免测直通 L1 进阶班
-detail: 按入学测规则，PET 优秀成绩可替代入学测试。
-advice: 建议与顾问老师预约口语人工测评，完善分班信息。
+## branch:page2
+headline: Your Mock Test Results
+recommend: Foundation 雅思预备
+qr-action: 获取详细报告
+note-listening: 辨音基础好，需要专项练习
+note-reading: 读得懂、提炼稍弱，是预备级重点提升项目
+note-writing: 基础语法零失误，复杂语法有待提升
+detail: 建议 3–6 个月夯实听力与语法基础，衔接雅思正课体系。
 
-## branch:foundation
-level: 当前定位：雅思 3.5–4.0 水平
-detail: 建议报读 FOUNDATION 预备班，先夯实听力与语法基础。
-advice: 预备班衔接 KET/PET 体系，3–6 个月可达雅思 4.5 入口水平。
+## branch:page3
+headline: Your Mock Test Results
+recommend: Foundation 雅思预备
+recommend2: + RE 2
+qr-action: 获取详细报告
+note-listening: 辨音基础非常好，关键词抓取准确
+note-reading: 整体能力强，阅读拖后腿，急需专项提升
+note-writing: 语法、词汇基础好，掌握牢固
+detail: 阅读单项低于 4，直接进 L1 会明显吃力；先补阅读单项更划算。
 
-## branch:foundation-re
-level: 当前定位：总分 4.5，但阅读单项偏弱
-detail: 建议报读 FOUNDATION 预备班，并同步搭配 RE 阅读课程。
-advice: 阅读单项低于 4 时直接进 L1 会明显吃力，先补单项更划算。
+## branch:page4
+headline: Your Mock Test Results
+congrats: 🎉 CONGRATULATIONS! 🎉
+recommend: LEVEL 1 雅思基础
+qr-action: 获取详细报告
+note-listening: 辨音基础非常好，关键词抓取准确
+note-reading: 关键信息理解准确，阅读能力强
+note-writing: 语法、词汇基础好，掌握牢固
+detail: 听、读、写三科均衡达标，建议预约口语人工测评后确认学位。
 
-## branch:l1
-congrats: Congratulations!
-level: 达到 L1 进阶班入学水平（4.5–5.0）
-detail: 听、读、写（语言运用）三科均衡达标。
-advice: 建议预约口语人工测评后确认学位。
-
-## branch:wechat
-congrats: Congratulations!
-level: 定位分 5.5，超出本系统常规分班范围
-detail: 该分数段班型安排需顾问老师单独评估。
-advice: 请添加顾问微信，获取个性化课程方案。
-
-## branch:consult
-level: 成绩处于班型交界区间
-detail: 自动判分结果需要结合口语水平综合判断。
-advice: 请将本页结果出示给课程顾问，获取人工复核。
+## branch:page5
+headline: Your Mock Test Results
+show-total: 3.0
+recommend: RE 1
+qr-action: 进行学习规划
+detail: 当前阶段建议先做学习规划，从词汇与基础听力起步。

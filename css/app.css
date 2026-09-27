@@ -1,8 +1,7 @@
-/* Hippo 英语测评 · 纸感编辑风（frontend-design skill v3）
-   方向：安静、克制、纸感——近黑白灰 + 细线分区，无图标无渐变；
-   大分数用衬线数字做锚点；黑色是唯一强调色，暗红只给倒计时告急。 */
+/* Hippo 英语测评 · 纸感编辑风 + 品牌紫（结果页设计稿）
+   布局克制纸感；强调色为设计稿主紫；暗红只给倒计时告急。 */
 :root {
-  --bg: #f7f7f5;
+  --bg: #f2f1f6;
   --card: #ffffff;
   --ink: #191a1c;
   --sub: #74777d;
@@ -10,6 +9,11 @@
   --line-strong: #d6d6d1;
   --accent: #191a1c;
   --danger: #b3261e;
+  /* 品牌紫（结果页设计稿主色）：按钮/选中态/进度全域使用 */
+  --brand: #5b4bc4;
+  --brand-deep: #493aa8;
+  --brand-soft: #e9e5f8;
+  --brand-line: #d9d2f2;
   --radius: 8px;
   /* 试卷衬线：英文 Times（题干/选项/文章），中文回退宋体——传统试卷混排 */
   --serif-en: "Times New Roman", Georgia, "Songti SC", "SimSun", serif;
@@ -31,7 +35,7 @@ body {
   position: sticky; top: 0; z-index: 20;
   display: flex; justify-content: space-between; align-items: center;
   min-height: 52px; padding: 8px 20px;
-  background: rgba(247, 247, 245, .92);
+  background: rgba(242, 241, 246, .94);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--line);
 }
@@ -57,7 +61,7 @@ body {
   border-top: 1px solid var(--line);
 }
 .entry-card:first-child { border-top: 0; }
-.entry-card:active { background: #f2f2ef; }
+.entry-card:active { background: var(--brand-soft); }
 .entry-card h2 { margin: 0 0 3px; font-size: 16px; font-weight: 700; }
 .entry-card .tag { font-size: 12px; font-weight: 400; color: var(--sub); letter-spacing: .08em; margin-left: 8px; }
 .entry-card p { margin: 0; color: var(--sub); font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
@@ -82,7 +86,7 @@ body {
   padding: 12px 16px; font-size: 16px; font-weight: 500; color: var(--ink); cursor: pointer;
 }
 .option-btn:last-child { margin-bottom: 0; }
-.option-btn:active { background: #f2f2ef; border-color: var(--ink); }
+.option-btn:active { background: var(--brand-soft); border-color: var(--brand); }
 
 /* ---------- 试卷 ---------- */
 section.module {
@@ -120,21 +124,21 @@ section.module .instructions p { margin: 0 0 8px; }
   border: 1px solid var(--line-strong); border-radius: var(--radius);
   padding: 11px 14px; cursor: pointer; font-size: 16px; line-height: 1.4; font-family: var(--serif-en);
 }
-.q label.opt:active { background: #f2f2ef; }
-.q label.opt.checked { border-color: var(--ink); background: #f4f4f1; }
-.q input[type="radio"] { width: 18px; height: 18px; margin: 3px 0 0; accent-color: var(--ink); flex: 0 0 auto; }
+.q label.opt:active { background: var(--brand-soft); }
+.q label.opt.checked { border-color: var(--brand); background: var(--brand-soft); }
+.q input[type="radio"] { width: 18px; height: 18px; margin: 3px 0 0; accent-color: var(--brand); flex: 0 0 auto; }
 .q input[type="text"] {
   width: 100%; border: 1px solid var(--line-strong); border-radius: var(--radius);
   padding: 12px 14px; font-size: 16px; color: var(--ink); background: var(--card);
   font-family: var(--serif-en);
 }
-.q input[type="text"]:focus { outline: none; border-color: var(--ink); box-shadow: 0 0 0 3px rgba(25, 26, 28, .07); }
+.q input[type="text"]:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-soft); }
 .q input::placeholder { color: #a3a6ab; }
 
 /* ---------- 吸底交卷栏 ---------- */
 .submit-bar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
-  background: rgba(247, 247, 245, .94);
+  background: rgba(242, 241, 246, .94);
   backdrop-filter: blur(8px);
   border-top: 1px solid var(--line);
   padding: 10px 20px calc(10px + env(safe-area-inset-bottom));
@@ -149,10 +153,10 @@ body.has-submitbar #app { padding-bottom: 92px; }
 /* ---------- 按钮 ---------- */
 .btn-primary {
   display: block; width: 100%; min-height: 50px; border: 0; border-radius: var(--radius);
-  background: var(--accent); color: #fff; font-size: 16px; font-weight: 700; letter-spacing: .12em; text-indent: .12em;
+  background: var(--brand); color: #fff; font-size: 16px; font-weight: 700; letter-spacing: .12em; text-indent: .12em;
   padding: 12px 20px; cursor: pointer;
 }
-.btn-primary:active { background: #000; }
+.btn-primary:active { background: var(--brand-deep); }
 .btn-secondary {
   display: block; width: 100%; min-height: 46px; margin-top: 10px;
   border: 1px solid var(--line-strong); border-radius: var(--radius);
@@ -178,7 +182,7 @@ body.has-submitbar #app { padding-bottom: 92px; }
 .bars-card h3 { margin: 0 0 16px; font-size: 12px; font-weight: 400; color: var(--sub); letter-spacing: .15em; }
 .bar-row { display: grid; grid-template-columns: 4.5em 1fr 3.2em; align-items: center; gap: 12px; margin-bottom: 16px; font-size: 14px; }
 .bar-track { background: #ececea; border-radius: 999px; height: 5px; overflow: hidden; }
-.bar-fill { height: 100%; border-radius: 999px; background: var(--ink); }
+.bar-fill { height: 100%; border-radius: 999px; background: var(--brand); }
 .bar-val { text-align: right; font-family: var(--serif-score); font-size: 16px; font-variant-numeric: tabular-nums; }
 .copy-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 16px; font-size: 15px; }
 .copy-card h3 { margin: 0 0 8px; font-size: 15px; }
@@ -202,3 +206,33 @@ body.has-submitbar #app { padding-bottom: 92px; }
 
 /* UI 元素不受正文 1.75 行高影响（评审第 6 条） */
 button, .btn-secondary, .tag, .topbar, .entry-card h2, .sec-no { line-height: 1.4; }
+
+/* ---------- 结果页设计稿组件（rpt-*） ---------- */
+.rpt-head { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); text-align: center; padding: 26px 18px 6px; margin-bottom: 10px; }
+.rpt-congrats { color: #1fa8c9; font-size: 21px; font-weight: 800; letter-spacing: .02em; margin: 0 0 4px; overflow-wrap: anywhere; }
+.rpt-title { font-size: 24px; font-weight: 800; margin: 2px 0 10px; overflow-wrap: anywhere; }
+.rpt-sub { font-size: 14px; font-weight: 700; color: var(--ink); margin: 8px 0 0; }
+.gauge { position: relative; width: min(260px, 78%); margin: 4px auto 0; }
+.gauge-svg { display: block; width: 100%; }
+.gauge-mid { position: absolute; left: 0; right: 0; bottom: 2px; }
+.gauge-mid b { display: block; font-family: var(--serif-score); font-size: 44px; font-weight: 400; line-height: 1.05; }
+.gauge-mid span { font-size: 14px; font-weight: 700; color: var(--ink); }
+.rpt-note { color: var(--sub); font-size: 12px; font-style: italic; text-align: center; margin: 12px 2px 14px; }
+.rpt-mods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+.mod-card { background: #e9e8ee; border-radius: var(--radius); text-align: center; padding: 12px 6px 14px; }
+.mod-name { font-size: 14px; font-weight: 700; margin: 0 0 6px; white-space: nowrap; }
+.ring-svg { width: 74px; max-width: 60%; display: block; margin: 0 auto; }
+.mod-score { display: block; font-size: 20px; font-weight: 800; color: var(--brand-deep); font-variant-numeric: tabular-nums; }
+.rpt-reco { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); text-align: center; padding: 18px 14px 22px; margin-bottom: 16px; }
+.rpt-reco .rpt-sub { margin: 0 0 10px; }
+.reco-main { color: var(--brand); font-size: 30px; font-weight: 800; line-height: 1.4; margin: 0; overflow-wrap: anywhere; }
+.reco-alt { font-size: 26px; margin-top: 2px; }
+.rpt-notes { background: #e9e8ee; border-radius: var(--radius); padding: 16px 16px 6px; margin-bottom: 14px; font-size: 14px; }
+.rpt-notes h3 { text-align: center; font-size: 15px; font-weight: 700; margin: 0 0 12px; }
+.rpt-notes p { margin: 0 0 12px; line-height: 1.6; overflow-wrap: anywhere; }
+.rpt-notes p b { margin-right: 10px; }
+.rpt-detail { color: var(--sub); font-size: 13px; text-align: center; margin: 0 6px 14px; }
+.qr-cta { display: flex; align-items: center; gap: 16px; background: #e9e8ee; border-radius: var(--radius); padding: 18px 18px; margin-bottom: 16px; cursor: pointer; }
+.qr-cta p { flex: 1; margin: 0; font-size: 19px; font-weight: 800; line-height: 1.5; }
+.qr-cta p b { font-size: 19px; }
+.qr-cta img { width: 92px; height: 92px; flex: 0 0 auto; background: #fff; border-radius: 6px; padding: 6px; }

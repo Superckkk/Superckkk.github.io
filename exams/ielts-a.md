@@ -2,11 +2,11 @@
 id: ielts-a
 title: 雅思水平测 · 卷 A
 timeLimit: 30
-modules: listening=听力 reading=阅读 grammar=语言运用
+modules: listening=Listening reading=Reading writing=Writing
 ---
 
 > 用时 30 分钟 ｜ 三模块：听力 10 + 阅读 8 + 语言运用 12 ｜ 口语由老师测
-> 本卷说明：阅读与语言运用共 20 题答案为整理卷面时推导，**请教研校对**；听力 10 题答案（answer: ???）待录音稿到位后填入。
+> 本卷说明：全卷 30 题答案已按《教师版》录入；听力音频（media/audio/ielts-part1/2.mp3）待录音后放入，未放音频前学生仍可作答。
 
 ## Listening · Part 1 {module: listening, audio: media/audio/ielts-part1.mp3, plays: 2}
 
@@ -14,38 +14,38 @@ You will hear a telephone conversation about renting a room. Complete the form. 
 
 Room Enquiry Form
 
-### l1 {id: l1, type: fill, answer: ???, maxWords: 3}
+### l1 {id: l1, type: fill, answer: "Watson", maxWords: 3}
 1. Family name: ______
 
-### l2 {id: l2, type: fill, answer: ???, maxWords: 3}
+### l2 {id: l2, type: fill, answer: "Mill Road", maxWords: 3}
 2. Road: ______
 
-### l3 {id: l3, type: fill, answer: ???, maxWords: 3}
+### l3 {id: l3, type: fill, answer: "360|£360|360 pounds", maxWords: 3}
 3. Monthly rent: £______
 
-### l4 {id: l4, type: fill, answer: ???, maxWords: 3}
+### l4 {id: l4, type: fill, answer: "third|3rd", maxWords: 3}
 4. Move-in date: ______ of October
 
-### l5 {id: l5, type: fill, answer: ???, maxWords: 3}
+### l5 {id: l5, type: fill, answer: "40|forty|£40", maxWords: 3}
 5. Bills (about): £______ a month
 
-### l6 {id: l6, type: fill, answer: ???, maxWords: 3}
+### l6 {id: l6, type: fill, answer: "Carter", maxWords: 3}
 6. Contact person: Mr______
 
 ## Listening · Part 2 {module: listening, audio: media/audio/ielts-part2.mp3, plays: 2}
 
 You will hear two friends talking. Choose the correct letter, A, B or C.
 
-### l7 {id: l7, type: choice, options: "8:30|9:00|9:20", answer: ???}
+### l7 {id: l7, type: choice, options: "8:30|9:00|9:20", answer: B}
 **7.** When will the two speakers meet?
 
-### l8 {id: l8, type: choice, options: "£8.50|£12|£6", answer: ???}
+### l8 {id: l8, type: choice, options: "£8.50|£12|£6", answer: A}
 **8.** How much will the boy pay for his ticket?
 
-### l9 {id: l9, type: choice, options: "Buy food in the museum café|Bring sandwiches|Go home for lunch", answer: ???}
+### l9 {id: l9, type: choice, options: "Buy food in the museum café|Bring sandwiches|Go home for lunch", answer: B}
 **9.** What will they do for lunch?
 
-### l10 {id: l10, type: choice, options: "He is ill.|He is visiting his grandmother.|He has to study.", answer: ???}
+### l10 {id: l10, type: choice, options: "He is ill.|He is visiting his grandmother.|He has to study.", answer: B}
 **10.** Why can't Ben come with them?
 
 ## Reading {module: reading}
@@ -90,7 +90,7 @@ There is good news. More young people now buy second-hand trainers online, and s
 ### r8 {id: r8, type: choice, options: "The life of a factory worker|What a £90 pair of trainers really costs|How to buy shoes online", answer: B}
 **8.** What is the best title for the passage?
 
-## 语言运用 {module: grammar}
+## 语言运用 · Writing {module: writing}
 
 **Choose the correct answer, A, B or C.**（语法答案为整理时推导，请教研校对）
 

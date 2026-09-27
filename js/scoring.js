@@ -87,8 +87,35 @@ export function ieltsRound(x) {
   return Math.round(x * 2) / 2;
 }
 
+// 进位取整（ceil 到 0.5）：复现结果页设计稿口径（页面3：avg 4.1667 → 4.5）
+export function ieltsRoundUp(x) {
+  return Math.ceil(x * 2 - 1e-9) / 2;
+}
+
+// 模块正确数 → 档位分（教师版换算表）。steps: [[正确数下限, band], ...] 升序
+export function lookupBand(correct, steps, below = 2.5) {
+  let band = below;
+  for (const [t, b] of steps) if (correct >= t) band = b;
+  return band;
+}
+
+// CEFR 等级查表：map 如 {"3":"A1","3.5":"A2","4":"A2","4.5":"B1","5":"B2"}
+export function cefrFor(total, map) {
+  if (total == null || !map) return null;
+  let hit = null;
+  for (const k of Object.keys(map)) {
+    const t = Number(k);
+    if (total >= t - 1e-9 && (hit == null || t > hit)) hit = t;
+  }
+  return hit == null ? null : map[hit];
+}
+
 // 整卷判分 → {modules: {id: {name, correct, gradable, total, raw, shown}}, total|null, pending[]}
-export function gradeExam(exam, answers) {
+// opts.bandTable: {moduleId: {steps:[[下限,band]...], below}} — 教师版换算表，缺省线性换算
+// opts.roundMode: "ceil"（默认，设计稿口径）| "round"（雅思官方口径）
+export function gradeExam(exam, answers, opts = {}) {
+  const bandTable = opts.bandTable || null;
+  const round = opts.roundMode === "round" ? ieltsRound : ieltsRoundUp;
   const mods = {};
   for (const q of exam.questions) {
     const id = q.module;
@@ -106,11 +133,14 @@ export function gradeExam(exam, answers) {
   }
   const bands = [];
   for (const m of Object.values(mods)) {
-    m.raw = m.gradable > 0 ? (m.correct / m.gradable) * 9 : null; // 默认线性换算 0-9，可被覆盖
+    const bt = bandTable && bandTable[m.id];
+    m.raw = m.gradable > 0
+      ? (bt ? lookupBand(m.correct, bt.steps, bt.below) : (m.correct / m.gradable) * 9)
+      : null;
     m.shown = m.raw == null ? null : ieltsRound(m.raw);
     if (m.raw != null) bands.push(m.raw);
   }
-  const total = bands.length ? ieltsRound(bands.reduce((a, b) => a + b, 0) / bands.length) : null;
+  const total = bands.length ? round(bands.reduce((a, b) => a + b, 0) / bands.length) : null;
   const pending = exam.questions.filter((q) => q.pending).map((q) => q.id);
   return { modules: mods, total, pending };
 }

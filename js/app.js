@@ -1,6 +1,6 @@
 // 流程引擎 + UI。hash 路由：#/ielts #/pu #/level，#/ 为首页。
 import { parseExam, parseFlow, mdToHtml } from "./md-parser.js";
-import { gradeExam, evaluateBranches } from "./scoring.js";
+import { gradeExam, evaluateBranches, cefrFor } from "./scoring.js";
 
 const app = document.getElementById("app");
 const timerEl = document.getElementById("timer");
@@ -238,7 +238,7 @@ function updateAnsweredNote() {
 
 function submitExam() {
   state.answers = collectAnswers();
-  state.score = gradeExam(state.exam, state.answers);
+  state.score = gradeExam(state.exam, state.answers, { bandTable: state.flow.graph.bandTable });
   stopTimer();
   enterNode(state.node.then);
 }
@@ -265,6 +265,31 @@ function stopTimer() {
 }
 
 // ---------- 结果页 ----------
+const MOD_ICONS = { listening: "🎧", reading: "📖", writing: "✏️", vocab: "🔤", grammar: "🧩" };
+const bandText = (v) => (v == null ? "—" : v >= 5 ? v.toFixed(1) + "+" : v.toFixed(1));
+
+// 半圆仪表盘 SVG（比例 = 分值/9，弧角 ≤180°，large-arc 恒为 0）
+function gaugeSvg(ratio) {
+  const r = 80, cx = 100, cy = 100;
+  const th = Math.PI * (1 - Math.min(Math.max(ratio, 0.02), 1));
+  const x = cx + r * Math.cos(th), y = cy - r * Math.sin(th);
+  return `<svg viewBox="0 0 200 108" class="gauge-svg" aria-hidden="true">
+    <path d="M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}" fill="none" stroke="#e4e2ee" stroke-width="18" stroke-linecap="round"/>
+    <path d="M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${x.toFixed(2)} ${y.toFixed(2)}" fill="none" stroke="var(--brand)" stroke-width="18" stroke-linecap="round"/>
+  </svg>`;
+}
+
+// 模块圆环 SVG
+function ringSvg(ratio) {
+  const C = 2 * Math.PI * 30;
+  const on = Math.min(Math.max(ratio, 0.03), 1) * C;
+  return `<svg viewBox="0 0 80 80" class="ring-svg" aria-hidden="true">
+    <circle cx="40" cy="40" r="30" fill="none" stroke="#e4e2ee" stroke-width="11"/>
+    <circle cx="40" cy="40" r="30" fill="none" stroke="var(--brand)" stroke-width="11"
+      stroke-dasharray="${on.toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 40 40)"/>
+  </svg>`;
+}
+
 function renderResult() {
   const flow = state.flow;
   const ctx = ctxForRules();
@@ -274,6 +299,7 @@ function renderResult() {
   const L = copy.lines;
   const modules = ctx.modules || {};
   const pendingCount = (ctx.pending || []).length;
+  const qrAction = L["qr-action"] || "添加课程顾问微信";
 
   if (ctx.total != null) {
     try {
@@ -283,6 +309,66 @@ function renderResult() {
     } catch { /* 忽略 */ }
   }
 
+  if (!L.recommend) return renderResultLegacy(flow, branchId, copy, ctx, qrAction);
+
+  // 新版式（结果页设计稿）
+  const totalText = L["show-total"] || bandText(ctx.total);
+  const totalNum = parseFloat(L["show-total"] || ctx.total) || 0;
+  const cefr = L.cefr || cefrFor(ctx.total, flow.graph.cefrMap);
+  const modList = Object.values(modules).filter((m) => m.raw != null);
+  const notes = modList
+    .map((m) => (L[`note-${m.id}`] ? `<p><b>${MOD_ICONS[m.id] || ""} ${esc(m.name)}</b>${esc(L[`note-${m.id}`])}</p>` : ""))
+    .join("");
+
+  app.innerHTML = `
+    <div class="rpt-head">
+      ${L.congrats ? `<p class="rpt-congrats">${esc(L.congrats)}</p>` : ""}
+      <h1 class="rpt-title">${esc(L.headline || "Your Mock Test Results")}</h1>
+      <p class="rpt-sub">Overall Score</p>
+      <div class="gauge">${gaugeSvg(totalNum / 9)}
+        <div class="gauge-mid"><b>${esc(totalText)}</b>${cefr ? `<span>CEFR: ${esc(cefr)}</span>` : ""}</div>
+      </div>
+    </div>
+    <p class="rpt-note">说明：本报告分数为 Hippo 入学测定级换算值（对标雅思分数段），非雅思官方考试成绩。</p>
+    ${modList.length ? `<section class="rpt-mods">
+      ${modList.map((m) => `
+        <div class="mod-card">
+          <p class="mod-name">${MOD_ICONS[m.id] || ""} ${esc(m.name)}</p>
+          ${ringSvg(m.raw / 9)}
+          <b class="mod-score">${bandText(m.shown)}</b>
+        </div>`).join("")}
+    </section>` : ""}
+    <section class="rpt-reco">
+      <p class="rpt-sub">Recommendation</p>
+      <p class="reco-main">${esc(L.recommend)}</p>
+      ${L.recommend2 ? `<p class="reco-main reco-alt">${esc(L.recommend2)}</p>` : ""}
+    </section>
+    ${notes ? `<section class="rpt-notes"><h3>各模块能力分析</h3>${notes}</section>` : ""}
+    ${L.detail ? `<p class="rpt-detail">${esc(L.detail)}</p>` : ""}
+    ${pendingCount ? `<p class="pending-note">注：${pendingCount} 道听力题因音频未上传暂未计分，当前分数按其余模块折算。</p>` : ""}
+    <section class="qr-cta" id="qr-open">
+      <p>添加剑桥考官<br><b>${esc(qrAction)}</b></p>
+      <img src="assets/qr-placeholder.svg" alt="课程顾问微信二维码">
+    </section>
+    <button class="btn-secondary" id="again-btn">重新测一次</button>
+    <a class="btn-secondary" href="#/" style="text-align:center;text-decoration:none;display:block;box-sizing:border-box">返回首页</a>
+    <div class="qr-overlay" id="qr-overlay" hidden>
+      <p class="qr-title">课程顾问微信</p>
+      <img src="assets/qr-placeholder.svg" alt="课程顾问微信二维码">
+      <p class="cta-hint">长按识别二维码，添加顾问微信<br>将测评结果拿给老师做进一步分析</p>
+      <button class="btn-secondary" id="qr-back" style="margin-top:6px">返回结果</button>
+    </div>`;
+  document.getElementById("again-btn").onclick = () => { location.hash = `#/${flow.id}`; route(); };
+  const overlay = document.getElementById("qr-overlay");
+  document.getElementById("qr-open").onclick = () => { overlay.hidden = false; window.scrollTo(0, 0); };
+  document.getElementById("qr-back").onclick = () => { overlay.hidden = true; };
+}
+
+// 旧版式（新生测 / 阶段测，未接设计稿的流程）
+function renderResultLegacy(flow, branchId, copy, ctx, qrAction) {
+  const L = copy.lines;
+  const modules = ctx.modules || {};
+  const pendingCount = (ctx.pending || []).length;
   app.innerHTML = `
     <div class="result-head">
       ${L.congrats ? `<p class="congrats">${esc(L.congrats)}</p>` : ""}
@@ -302,22 +388,23 @@ function renderResult() {
       ${L.detail ? `<p>${esc(L.detail)}</p>` : ""}
       ${L.advice ? `<p><strong>建议：</strong>${esc(L.advice)}</p>` : ""}
       ${copy.body.trim() ? mdToHtml(copy.body.trim()) : ""}
-      ${L.action ? `<p>${esc(L.action)}</p>` : ""}
     </div>
-    <button class="btn-primary" id="qr-btn">添加课程顾问微信</button>
-    <p class="cta-hint">${esc(L.action || "将本结果页出示给顾问老师，获取进一步分析")}</p>
-    ${pendingCount ? `<p class="pending-note">注：${pendingCount} 道听力题因音频/答案未上传暂未计分，当前分数按其余模块折算。</p>` : ""}
+    ${pendingCount ? `<p class="pending-note">注：${pendingCount} 道题因音频/答案未上传暂未计分，当前分数按其余模块折算。</p>` : ""}
+    <section class="qr-cta" id="qr-open">
+      <p>添加课程顾问<br><b>${esc(L.action || qrAction)}</b></p>
+      <img src="assets/qr-placeholder.svg" alt="课程顾问微信二维码">
+    </section>
     <button class="btn-secondary" id="again-btn">重新测一次</button>
     <a class="btn-secondary" href="#/" style="text-align:center;text-decoration:none;display:block;box-sizing:border-box">返回首页</a>
     <div class="qr-overlay" id="qr-overlay" hidden>
       <p class="qr-title">课程顾问微信</p>
-      <img src="assets/qr-placeholder.svg" alt="课程顾问微信二维码" onerror="this.style.display='none'">
+      <img src="assets/qr-placeholder.svg" alt="课程顾问微信二维码">
       <p class="cta-hint">长按识别二维码，添加顾问微信<br>将测评结果拿给老师做进一步分析</p>
       <button class="btn-secondary" id="qr-back" style="margin-top:6px">返回结果</button>
     </div>`;
   document.getElementById("again-btn").onclick = () => { location.hash = `#/${flow.id}`; route(); };
   const overlay = document.getElementById("qr-overlay");
-  document.getElementById("qr-btn").onclick = () => { overlay.hidden = false; window.scrollTo(0, 0); };
+  document.getElementById("qr-open").onclick = () => { overlay.hidden = false; window.scrollTo(0, 0); };
   document.getElementById("qr-back").onclick = () => { overlay.hidden = true; };
 }
 

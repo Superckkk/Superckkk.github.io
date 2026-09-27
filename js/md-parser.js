@@ -159,7 +159,7 @@ export function parseFlow(text) {
       if (h) { cur = { lines: {}, body: "" }; branchCopy[h[1]] = cur; continue; }
       if (/^##\s/.test(line)) { cur = null; continue; }
       if (!cur) continue;
-      const kv = line.match(/^(congrats|level|detail|advice|action|todo):\s*(.*)$/);
+      const kv = line.match(/^([a-z][\w-]*):\s*(.*)$/); // 宽松 key：congrats/level/headline/recommend/note-* 等任意键
       if (kv) cur.lines[kv[1]] = kv[2];
       else cur.body += line + "\n";
     }
