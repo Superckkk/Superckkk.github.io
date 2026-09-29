@@ -16,11 +16,11 @@ intro: 30 分钟 · Listening + Reading + Writing · 自动出分与班型建议
   "nodes": {
     "screen1": {
       "type": "screen",
-      "question": "孩子是否已通过以下考试？",
+      "question": "我是否已通过以下考试？",
       "options": [
-        { "label": "FCE 已通过", "goto": "result", "branch": "page1-exempt" },
+        { "label": "无 PET 或 FCE 成绩", "goto": "test" },
         { "label": "PET 已通过", "goto": "screen2" },
-        { "label": "无 PET 或 FCE 成绩", "goto": "test" }
+        { "label": "FCE 已通过", "goto": "result", "branch": "page1-exempt" }
       ]
     },
     "screen2": {

@@ -11,9 +11,9 @@ const state = {
 };
 
 const FLOWS = {
-  ielts: { name: "雅思入学测", desc: "30 分钟 · 听力+阅读+语言运用 · 自动出分与班型建议", tag: "样卷就绪" },
-  pu: { name: "新生入学测（PU2/PU3）", desc: "6–7 岁 · 词汇+语法+阅读 · 达标自动续附加卷", tag: "占位样题" },
-  level: { name: "阶段定位测（K/P 自查）", desc: "自选 KET/PET 阶段 · 判断能否进阶", tag: "占位样题" },
+  ielts: { name: "雅思水平测", tag: "样卷就绪" },
+  pu: { name: "PU 欢乐测", tag: "占位样题" },
+  level: { name: "KP 定位测", tag: "占位样题" },
 };
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -75,12 +75,12 @@ function renderHome() {
   let last = {};
   try { last = JSON.parse(localStorage.getItem("hippo-results") || "{}"); } catch { /* 忽略 */ }
   app.innerHTML = `
-    <h1 class="home-title">自助英语水平测评</h1>
+    <h1 class="home-title">Test your English</h1>
     <div class="entry-list">
       ${Object.entries(FLOWS).map(([id, f]) => `
         <a class="entry-card" href="#/${id}">
-          <h2>${esc(f.name)}<span class="tag">${esc(f.tag)}</span></h2>
-          <p>${esc(f.desc)}</p>
+          <h2>${esc(f.name)}</h2>
+          <span class="tag">${esc(f.tag)}</span>
           ${last[id] ? `<p class="last-line">上次结果 ${esc(String(last[id].total ?? "—"))} · ${esc(last[id].date)}</p>` : ""}
         </a>`).join("")}
     </div>
@@ -125,7 +125,7 @@ function renderExam(node) {
   const exam = state.exam;
   app.innerHTML = `
     <h1 class="home-title">${esc(exam.title)}</h1>
-    ${exam.timeLimit ? `<p class="progress-note">限时 ${exam.timeLimit} 分钟，到时自动交卷。</p>` : ""}
+    ${exam.hint ? `<p class="progress-note">${esc(exam.hint)}</p>` : exam.timeLimit ? `<p class="progress-note">限时 ${exam.timeLimit} 分钟，到时自动交卷。</p>` : ""}
     ${exam.sections.map((sec, si) => `
       <section class="module" data-section="${si}">
         <h2><span class="sec-no">${String(si + 1).padStart(2, "0")}</span>${esc(sec.title)}</h2>

@@ -1,7 +1,8 @@
 ---
 id: pu3-extra
-title: 新生入学测 · PU3 附加卷（占位样题）
+title: PU 欢乐测 · 附加卷
 timeLimit: 10
+hint: 和爸爸妈妈比赛，看谁的分更高
 modules: vocab=词汇 grammar=语法 reading=阅读
 ---
 

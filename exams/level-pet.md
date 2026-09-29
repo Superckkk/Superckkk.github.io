@@ -1,6 +1,6 @@
 ---
 id: level-pet
-title: 阶段定位测 · PET 卷（占位样题）
+title: KP 定位测 · PET 卷
 timeLimit: 10
 modules: vocab=词汇 grammar=语法 reading=阅读
 ---

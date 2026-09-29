@@ -20,12 +20,18 @@
   /* 成绩/徽章展示衬线：Georgia 老式数字风格（与成绩大数字同族） */
   --serif-score: Georgia, "Times New Roman", "Songti SC", "SimSun", serif;
 }
+/* 星光小熊猫体（免费商用，来源 github.com/cyberinkflow/StarPandaKidsFonts，网站使用授权） */
+@font-face {
+  font-family: "StarPandaKids";
+  src: url("../assets/fonts/StarPandaKids.woff2") format("woff2");
+  font-display: swap;
+}
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 body {
   background: var(--bg);
   color: var(--ink);
-  font: 15px/1.75 system-ui, -apple-system, "Segoe UI", "PingFang SC",
+  font: 15px/1.75 "StarPandaKids", system-ui, -apple-system, "Segoe UI", "PingFang SC",
     "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
   -webkit-font-smoothing: antialiased;
 }
@@ -56,16 +62,19 @@ body {
 .home-title { font-size: 21px; font-weight: 700; letter-spacing: .01em; margin: 8px 0 20px; }
 .entry-list { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
 .entry-card {
-  display: block; padding: 18px 20px;
+  display: block; padding: 20px 16px; text-align: center;
   text-decoration: none; color: inherit;
   border-top: 1px solid var(--line);
 }
 .entry-card:first-child { border-top: 0; }
 .entry-card:active { background: var(--brand-soft); }
-.entry-card h2 { margin: 0 0 3px; font-size: 16px; font-weight: 700; }
-.entry-card .tag { font-size: 12px; font-weight: 400; color: var(--sub); letter-spacing: .08em; margin-left: 8px; }
+.entry-card h2 {
+  margin: 0 0 4px; font-size: 24px; font-weight: 800;
+  color: var(--brand); letter-spacing: .02em;
+}
+.entry-card .tag { display: block; font-size: 12px; color: var(--sub); letter-spacing: .15em; }
 .entry-card p { margin: 0; color: var(--sub); font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
-.entry-card .last-line { margin-top: 6px; font-size: 12px; color: var(--sub); font-variant-numeric: tabular-nums; }
+.entry-card .last-line { margin-top: 8px; font-size: 12px; color: var(--ok); font-variant-numeric: tabular-nums; }
 .home-note { color: var(--sub); font-size: 12px; margin: 16px 2px 0; }
 
 /* ---------- 提示与筛选 ---------- */

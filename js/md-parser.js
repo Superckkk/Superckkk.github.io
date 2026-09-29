@@ -83,6 +83,7 @@ export function parseExam(text) {
     id: meta.id || "unnamed",
     title: meta.title || "",
     timeLimit: Number(meta.timeLimit) > 0 ? Number(meta.timeLimit) : null,
+    hint: meta.hint || null,
     modules,
     sections: [],
     questions: [],
