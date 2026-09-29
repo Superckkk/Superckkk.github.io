@@ -2,6 +2,7 @@
 id: level-pet
 title: KP 定位测 · PET 卷
 timeLimit: 10
+hint: 别紧张，10 分钟很充裕，到时会自动交卷。
 modules: vocab=词汇 grammar=语法 reading=阅读
 ---
 

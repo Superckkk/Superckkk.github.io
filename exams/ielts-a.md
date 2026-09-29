@@ -2,6 +2,7 @@
 id: ielts-a
 title: 雅思水平测 · 卷 A
 timeLimit: 30
+hint: 放轻松，30 分钟很充裕，到时会自动交卷。
 modules: listening=Listening reading=Reading writing=Writing
 ---
 
