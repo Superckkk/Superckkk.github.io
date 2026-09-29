@@ -31,9 +31,14 @@ html, body { margin: 0; padding: 0; }
 body {
   background: var(--bg);
   color: var(--ink);
-  font: 15px/1.75 "StarPandaKids", system-ui, -apple-system, "Segoe UI", "PingFang SC",
+  font: 15px/1.75 system-ui, -apple-system, "Segoe UI", "PingFang SC",
     "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+/* 仅 PU 欢乐测使用儿童字体（进入流程时由 app.js 给 body 挂 font-kids 类） */
+body.font-kids {
+  font-family: "StarPandaKids", system-ui, -apple-system, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
 }
 
 /* ---------- 顶栏 ---------- */

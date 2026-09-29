@@ -32,6 +32,7 @@ async function fetchText(url) {
 function route() {
   stopTimer();
   document.body.classList.remove("has-submitbar");
+  document.body.classList.remove("font-kids");
   const h = location.hash.replace(/^#\/?/, "").split("?")[0];
   if (!h) return renderHome();
   if (FLOWS[h]) return startFlow(h);
@@ -40,6 +41,7 @@ function route() {
 window.addEventListener("hashchange", route);
 
 async function startFlow(id) {
+  document.body.classList.toggle("font-kids", id === "pu"); // 仅 PU 欢乐测用儿童字体
   try {
     const flow = parseFlow(await fetchText(`flows/${id}.md`));
     state.flow = flow;
