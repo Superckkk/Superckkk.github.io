@@ -3,6 +3,7 @@ id: pu3-extra
 title: PU 欢乐测 · 附加卷
 timeLimit: 10
 hint: 和爸爸妈妈比赛，看谁的分更高
+flat: true
 modules: vocab=词汇 grammar=语法 reading=阅读
 ---
 

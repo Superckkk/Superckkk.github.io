@@ -125,12 +125,16 @@ async function loadExam(node) {
 
 function renderExam(node) {
   const exam = state.exam;
+  // flat 卷（如 PU 欢乐测）：不显示题型分节，题目平铺；判分仍按各题 module 统计
+  const secs = exam.flat
+    ? [{ title: "", module: "flat", audio: null, plays: 1, instructions: "", questions: exam.questions }]
+    : exam.sections;
   app.innerHTML = `
     <h1 class="home-title">${esc(exam.title)}</h1>
     ${exam.hint ? `<p class="progress-note">${esc(exam.hint)}</p>` : exam.timeLimit ? `<p class="progress-note">限时 ${exam.timeLimit} 分钟，到时自动交卷。</p>` : ""}
-    ${exam.sections.map((sec, si) => `
+    ${secs.map((sec, si) => `
       <section class="module" data-section="${si}">
-        <h2><span class="sec-no">${String(si + 1).padStart(2, "0")}</span>${esc(sec.title)}</h2>
+        ${sec.title ? `<h2><span class="sec-no">${String(si + 1).padStart(2, "0")}</span>${esc(sec.title)}</h2>` : ""}
         ${sec.instructions.trim() ? `<div class="instructions">${mdToHtml(sec.instructions.trim())}</div>` : ""}
         ${sec.audio ? audioBlockHtml(sec, si) : ""}
         ${sec.questions.map((q) => questionHtml(q)).join("")}

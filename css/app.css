@@ -257,3 +257,4 @@ button, .btn-secondary, .tag, .topbar, .entry-card h2, .sec-no { line-height: 1.
 
 /* 模块纯色图标：随品牌紫，与文字基线对齐 */
 .mod-ico { width: 1.05em; height: 1.05em; fill: var(--brand); vertical-align: -0.18em; margin-right: 5px; }
+section.module > .q:first-child { border-top: 0; padding-top: 4px; }

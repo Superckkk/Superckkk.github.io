@@ -84,6 +84,7 @@ export function parseExam(text) {
     title: meta.title || "",
     timeLimit: Number(meta.timeLimit) > 0 ? Number(meta.timeLimit) : null,
     hint: meta.hint || null,
+    flat: meta.flat === true || meta.flat === "true", // true=题目平铺不分组（UI 层）
     modules,
     sections: [],
     questions: [],
