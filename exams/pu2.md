@@ -1,6 +1,6 @@
 ---
 id: pu2
-title: PU 欢乐测 · 基础卷
+title: PU 欢乐测
 timeLimit: 10
 hint: 和爸爸妈妈比赛，看谁的分更高
 modules: vocab=词汇 grammar=语法 reading=阅读

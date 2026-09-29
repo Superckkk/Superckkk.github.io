@@ -20,10 +20,10 @@
   /* 成绩/徽章展示衬线：Georgia 老式数字风格（与成绩大数字同族） */
   --serif-score: Georgia, "Times New Roman", "Songti SC", "SimSun", serif;
 }
-/* 星光小熊猫体（免费商用，来源 github.com/cyberinkflow/StarPandaKidsFonts，网站使用授权） */
+/* 站酷快乐体（OFL 免费商用，简体儿童手写风；来源 Google Fonts / zcoolkuaile） */
 @font-face {
-  font-family: "StarPandaKids";
-  src: url("../assets/fonts/StarPandaKids.woff2") format("woff2");
+  font-family: "ZCOOL KuaiLe";
+  src: url("../assets/fonts/zcool-kuaile.woff2") format("woff2");
   font-display: swap;
 }
 * { box-sizing: border-box; }
@@ -37,7 +37,7 @@ body {
 }
 /* 仅 PU 欢乐测使用儿童字体（进入流程时由 app.js 给 body 挂 font-kids 类） */
 body.font-kids {
-  font-family: "StarPandaKids", system-ui, -apple-system, "Segoe UI", "PingFang SC",
+  font-family: "ZCOOL KuaiLe", system-ui, -apple-system, "Segoe UI", "PingFang SC",
     "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
 }
 
