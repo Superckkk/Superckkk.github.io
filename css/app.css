@@ -250,10 +250,14 @@ button, .btn-secondary, .tag, .topbar, .entry-card h2, .sec-no { line-height: 1.
 .rpt-notes p { margin: 0 0 12px; line-height: 1.6; overflow-wrap: anywhere; }
 .rpt-notes p b { margin-right: 10px; }
 .rpt-detail { color: var(--sub); font-size: 13px; text-align: center; margin: 0 6px 14px; }
-.qr-cta { display: flex; align-items: center; gap: 16px; background: #e9e8ee; border-radius: var(--radius); padding: 18px 18px; margin-bottom: 16px; cursor: pointer; }
-.qr-cta p { flex: 1; margin: 0; padding-left: 14px; font-size: 19px; font-weight: 800; line-height: 1.5; }
-.qr-cta p b { font-size: 19px; }
-.qr-cta img { width: 92px; height: 92px; flex: 0 0 auto; background: #fff; border-radius: 6px; padding: 6px; }
+.qr-cta {
+  display: block; width: 100%; min-height: 66px; border: 0; border-radius: 14px;
+  background: var(--brand); color: #fff; cursor: pointer;
+  padding: 11px 20px; margin-bottom: 16px; text-align: center;
+}
+.qr-cta:active { background: var(--brand-deep); }
+.qr-cta .q1 { display: block; font-size: 18px; font-weight: 800; line-height: 1.5; }
+.qr-cta .q2 { display: block; font-size: 13px; font-weight: 500; opacity: .88; line-height: 1.4; }
 
 /* 模块纯色图标：随品牌紫，与文字基线对齐 */
 .mod-ico { width: 1.05em; height: 1.05em; fill: var(--brand); vertical-align: -0.18em; margin-right: 5px; }
