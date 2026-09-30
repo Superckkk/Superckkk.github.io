@@ -1,7 +1,7 @@
 ---
 id: ielts
 title: 雅思入学测
-intro: 30 分钟 · Listening + Reading + Writing · 自动出分与班型建议
+intro: 40 分钟 · Listening + Reading + Use of English + Writing · 自动出分与班型建议
 ---
 
 ```json
@@ -9,8 +9,8 @@ intro: 30 分钟 · Listening + Reading + Writing · 自动出分与班型建议
   "start": "screen1",
   "bandTable": {
     "listening": { "below": 2.5, "steps": [[3, 3.0], [5, 3.5], [7, 4.0], [9, 4.5], [10, 5.0]] },
-    "reading":   { "below": 2.5, "steps": [[3, 3.0], [4, 3.5], [6, 4.0], [7, 4.5], [8, 5.0]] },
-    "writing":   { "below": 2.5, "steps": [[4, 3.0], [7, 3.5], [9, 4.0], [11, 4.5], [12, 5.0]] }
+    "reading":   { "below": 2.5, "steps": [[4, 3.0], [5, 3.5], [7, 4.0], [9, 4.5], [10, 5.0]] },
+    "writing":   { "below": 2.5, "steps": [[5, 3.0], [6, 3.5], [8, 4.0], [9, 4.5], [10, 5.0]] }
   },
   "cefrMap": { "3": "A1", "3.5": "A2", "4": "A2", "4.5": "B1", "5": "B2" },
   "nodes": {

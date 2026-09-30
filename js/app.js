@@ -1,6 +1,6 @@
 // 流程引擎 + UI。hash 路由：#/ielts #/pu #/level，#/ 为首页。
 import { parseExam, parseFlow, mdToHtml } from "./md-parser.js";
-import { gradeExam, evaluateBranches, cefrFor } from "./scoring.js";
+import { gradeExam, evaluateBranches, cefrFor, wordCount } from "./scoring.js";
 
 const app = document.getElementById("app");
 const timerEl = document.getElementById("timer");
@@ -11,9 +11,9 @@ const state = {
 };
 
 const FLOWS = {
-  ielts: { name: "雅思水平测", tag: "样卷就绪" },
-  pu: { name: "PU 欢乐测", tag: "占位样题" },
-  level: { name: "KP 定位测", tag: "占位样题" },
+  ielts: { name: "雅思水平测" },
+  pu: { name: "PU 欢乐测" },
+  level: { name: "KP 定位测" },
 };
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -82,7 +82,6 @@ function renderHome() {
       ${Object.entries(FLOWS).map(([id, f]) => `
         <a class="entry-card" href="#/${id}">
           <h2>${esc(f.name)}</h2>
-          <span class="tag">${esc(f.tag)}</span>
           ${last[id] ? `<p class="last-line">上次结果 ${esc(String(last[id].total ?? "—"))} · ${esc(last[id].date)}</p>` : ""}
         </a>`).join("")}
     </div>
@@ -153,6 +152,19 @@ function renderExam(node) {
     });
     el.addEventListener("input", updateAnsweredNote);
   });
+  app.querySelectorAll("textarea.write-box").forEach((ta) => {
+    const countEl = app.querySelector(`.word-count[data-for="${CSS.escape(ta.dataset.q)}"]`);
+    const min = Number(ta.dataset.min), max = Number(ta.dataset.max);
+    const update = () => {
+      const n = wordCount(ta.value);
+      if (countEl) {
+        countEl.textContent = `${n} 词 · 目标 ${min}–${max} 词` + (n > max ? ` · 已超过 ${max} 词上限，请精简` : "");
+        countEl.classList.toggle("over", n > max);
+      }
+    };
+    ta.addEventListener("input", update);
+    update();
+  });
   document.getElementById("submit-btn").onclick = submitExam;
   updateAnsweredNote();
   if (exam.timeLimit) startTimer(exam.timeLimit * 60, submitExam);
@@ -210,7 +222,13 @@ function questionHtml(q) {
       <label class="opt"><input type="radio" name="ans-${esc(q.id)}" value="F"><span>F · 错误</span></label>
     </div></div>`;
   }
-  // fill
+  // fill / writing
+  if (q.type === "writing") {
+    return `<div class="q" data-q="${esc(q.id)}">${stem}
+    <textarea class="write-box" data-min="${q.minWords || 60}" data-max="${q.maxWords || 100}" rows="7" placeholder="Write here…"></textarea>
+    <p class="word-count" data-for="${esc(q.id)}">0 词 · 目标 ${q.minWords || 60}–${q.maxWords || 100} 词</p>
+  </div>`;
+  }
   const hint = q.maxWords ? `（不超过 ${q.maxWords} 个词）` : "";
   return `<div class="q" data-q="${esc(q.id)}">${stem}
     <input type="text" name="ans-${esc(q.id)}" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="输入答案${hint}">
@@ -224,6 +242,8 @@ function collectAnswers() {
     if (!box) continue;
     const el = box.querySelector("input");
     if (!el) continue;
+    const ta = box.querySelector("textarea");
+    if (ta) { out[q.id] = ta.value; continue; }
     if (el.type === "radio") {
       const checked = box.querySelector("input:checked");
       out[q.id] = checked ? checked.value : "";
@@ -340,6 +360,7 @@ function renderResult() {
       })
       .filter(Boolean);
   }
+  const rv = reviewBlocks();
   const notes = modList
     .map((m) => (L[`note-${m.id}`] ? `<p><b>${MOD_ICONS[m.id] || ""} ${esc(m.name)}</b>${esc(L[`note-${m.id}`])}</p>` : ""))
     .join("");
@@ -392,6 +413,9 @@ function renderResult() {
       <p>添加剑桥考官<br><b>${esc(qrAction)}</b></p>
       <img src="assets/cambridge-examiner.jpg" alt="课程顾问微信二维码">
     </section>
+    ${rv.chips ? `<section class="rpt-review"><h3>逐题情况</h3>${rv.chips}${rv.wrong}</section>` : ""}
+    ${rv.writing}
+    <button class="btn-secondary" id="export-btn">保存 / 分享成绩单图片</button>
     <button class="btn-secondary" id="again-btn">重新测一次</button>
     <a class="btn-secondary" href="#/" style="text-align:center;text-decoration:none;display:block;box-sizing:border-box">返回首页</a>
     <div class="qr-overlay" id="qr-overlay" hidden>
@@ -399,11 +423,19 @@ function renderResult() {
       <img src="assets/cambridge-examiner.jpg" alt="课程顾问微信二维码">
       <p class="cta-hint">长按识别二维码，添加顾问微信<br>将测评结果拿给老师做进一步分析</p>
       <button class="btn-secondary" id="qr-back" style="margin-top:6px">返回结果</button>
+    </div>
+    <div class="qr-overlay" id="img-overlay" hidden>
+      <p class="qr-title">成绩单图片</p>
+      <img id="exported-img" alt="成绩单图片">
+      <p class="cta-hint">长按图片保存，发给顾问老师</p>
+      <button class="btn-secondary" id="img-back" style="margin-top:6px">返回结果</button>
     </div>`;
   document.getElementById("again-btn").onclick = () => { location.hash = `#/${flow.id}`; route(); };
   const overlay = document.getElementById("qr-overlay");
   document.getElementById("qr-open").onclick = () => { overlay.hidden = false; window.scrollTo(0, 0); };
   document.getElementById("qr-back").onclick = () => { overlay.hidden = true; };
+  document.getElementById("export-btn").onclick = () => exportScoreCard();
+  document.getElementById("img-back").onclick = () => { document.getElementById("img-overlay").hidden = true; };
 }
 
 // 旧版式（新生测 / 阶段测，未接设计稿的流程）
@@ -411,6 +443,7 @@ function renderResultLegacy(flow, branchId, copy, ctx, qrAction) {
   const L = copy.lines;
   const modules = ctx.modules || {};
   const pendingCount = (ctx.pending || []).length;
+  const rv = reviewBlocks();
   app.innerHTML = `
     <div class="result-head">
       ${L.congrats ? `<p class="congrats">${esc(L.congrats)}</p>` : ""}
@@ -436,6 +469,9 @@ function renderResultLegacy(flow, branchId, copy, ctx, qrAction) {
       <p>添加课程顾问<br><b>${esc(L.action || qrAction)}</b></p>
       <img src="assets/cambridge-examiner.jpg" alt="课程顾问微信二维码">
     </section>
+    ${rv.chips ? `<section class="rpt-review"><h3>逐题情况</h3>${rv.chips}${rv.wrong}</section>` : ""}
+    ${rv.writing}
+    <button class="btn-secondary" id="export-btn">保存 / 分享成绩单图片</button>
     <button class="btn-secondary" id="again-btn">重新测一次</button>
     <a class="btn-secondary" href="#/" style="text-align:center;text-decoration:none;display:block;box-sizing:border-box">返回首页</a>
     <div class="qr-overlay" id="qr-overlay" hidden>
@@ -443,11 +479,160 @@ function renderResultLegacy(flow, branchId, copy, ctx, qrAction) {
       <img src="assets/cambridge-examiner.jpg" alt="课程顾问微信二维码">
       <p class="cta-hint">长按识别二维码，添加顾问微信<br>将测评结果拿给老师做进一步分析</p>
       <button class="btn-secondary" id="qr-back" style="margin-top:6px">返回结果</button>
+    </div>
+    <div class="qr-overlay" id="img-overlay" hidden>
+      <p class="qr-title">成绩单图片</p>
+      <img id="exported-img" alt="成绩单图片">
+      <p class="cta-hint">长按图片保存，发给顾问老师</p>
+      <button class="btn-secondary" id="img-back" style="margin-top:6px">返回结果</button>
     </div>`;
   document.getElementById("again-btn").onclick = () => { location.hash = `#/${flow.id}`; route(); };
   const overlay = document.getElementById("qr-overlay");
   document.getElementById("qr-open").onclick = () => { overlay.hidden = false; window.scrollTo(0, 0); };
   document.getElementById("qr-back").onclick = () => { overlay.hidden = true; };
+  document.getElementById("export-btn").onclick = () => exportScoreCard();
+  document.getElementById("img-back").onclick = () => { document.getElementById("img-overlay").hidden = true; };
+}
+
+// ---------- 逐题明细 ----------
+function reviewBlocks() {
+  const exam = state.exam;
+  const review = (state.score && state.score.review) || [];
+  const answers = state.answers || {};
+  if (!review.length) return { chips: "", wrong: "", writing: "" };
+  const mods = [...new Set(review.map((r) => r.module))];
+  const chips = mods.map((mid) => {
+    const items = review.filter((r) => r.module === mid);
+    return `<p class="rv-mod">${esc(exam.modules[mid] || mid)}</p><div class="chips">${items.map((r) => {
+      const cls = r.correct === true ? "ok" : r.correct === false ? "bad" : "na";
+      const mark = r.correct === true ? "✓" : r.correct === false ? "✗" : "–";
+      return `<span class="chip ${cls}"><b>${esc(r.id.replace(/^[a-z]+/i, ""))}</b>${mark}</span>`;
+    }).join("")}</div>`;
+  }).join("");
+  const wrongs = review.filter((r) => r.correct === false);
+  const wrong = wrongs.length
+    ? `<p class="rv-wrong-title">答错题目的正确答案</p>` + wrongs.map((r) => `<p class="rv-wrong">${esc(r.id)} → <b>${esc(r.answer || "")}</b></p>`).join("")
+    : "";
+  const w = review.filter((r) => r.type === "writing" && String(answers[r.id] || "").trim());
+  const writing = w.map((r) => `<section class="rpt-writing"><h3>写作（顾问人工批改）</h3><p class="rw-text">${esc(answers[r.id])}</p><p class="wc-line">${wordCount(answers[r.id])} 词</p></section>`).join("");
+  return { chips, wrong, writing };
+}
+
+// ---------- 成绩单图片导出 ----------
+function roundRect(g, x, y, w, h, r) {
+  g.beginPath();
+  g.moveTo(x + r, y);
+  g.arcTo(x + w, y, x + w, y + h, r);
+  g.arcTo(x + w, y + h, x, y + h, r);
+  g.arcTo(x, y + h, x, y, r);
+  g.arcTo(x, y, x + w, y, r);
+  g.closePath();
+}
+const CN_FONT = '"PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif';
+
+async function exportScoreCard() {
+  const flow = state.flow;
+  const ctx = ctxForRules();
+  const branchId = state.forcedBranch || (evaluateBranches(flow.graph.rules || [], ctx) || {}).id;
+  const L = (flow.branchCopy[branchId] || { lines: {} }).lines;
+  const exam = state.exam;
+  const review = (state.score && state.score.review) || [];
+  const W = 750, PAD = 40, scale = 2;
+  const measure = document.createElement("canvas").getContext("2d");
+  const wrap = (text, maxW, font) => {
+    measure.font = font;
+    const lines = [];
+    for (const para of String(text).split(/\r?\n/)) {
+      let line = "";
+      for (const ch of para) {
+        if (measure.measureText(line + ch).width > maxW) { lines.push(line); line = ch; }
+        else line += ch;
+      }
+      lines.push(line);
+    }
+    return lines;
+  };
+  const answers = state.answers || {};
+  const wrongs = review.filter((r) => r.correct === false);
+  const perMod = [...new Set(review.map((r) => r.module))];
+  const writing = review.filter((r) => r.type === "writing" && String(answers[r.id] || "").trim());
+  const writingLines = writing.length ? wrap(answers[writing[0].id], W - PAD * 2, `400 19px ${CN_FONT}`).length : 0;
+
+  let H = PAD + 44 + 60 + 104 + perMod.length * 64 + 16;
+  H += wrongs.length * 30 + (wrongs.length ? 46 : 0);
+  H += writing.length ? 44 + writingLines * 30 + 24 : 0;
+  H += 170 + PAD;
+
+  const canvas = document.createElement("canvas");
+  canvas.width = W * scale; canvas.height = H * scale;
+  const g = canvas.getContext("2d");
+  g.scale(scale, scale);
+  g.textBaseline = "top";
+  g.fillStyle = "#f2f1f6"; g.fillRect(0, 0, W, H);
+  g.fillStyle = "#ffffff"; g.fillRect(12, 12, W - 24, H - 24);
+
+  let y = PAD;
+  g.fillStyle = "#191a1c"; g.font = `700 30px ${CN_FONT}`;
+  g.fillText("Hippo 英语测评 · 成绩单", PAD, y); y += 44;
+  const flowName = (FLOWS[flow.id] || {}).name || flow.title || flow.id;
+  g.fillStyle = "#74777d"; g.font = `400 20px ${CN_FONT}`;
+  g.fillText(`${flowName} · ${new Date().toLocaleDateString("zh-CN")}`, PAD, y); y += 60;
+  g.fillStyle = "#5b4bc4"; g.font = `800 72px ${CN_FONT}`;
+  g.fillText(L["show-total"] || (ctx.total != null ? bandText(ctx.total) : "—"), PAD, y);
+  const cefr = L.cefr || cefrFor(ctx.total, flow.graph.cefrMap);
+  if (cefr) { g.fillStyle = "#191a1c"; g.font = `600 24px ${CN_FONT}`; g.fillText(`CEFR: ${cefr}`, PAD + 250, y + 30); }
+  y += 104;
+
+  for (const mid of perMod) {
+    const items = review.filter((r) => r.module === mid);
+    g.fillStyle = "#191a1c"; g.font = `700 22px ${CN_FONT}`;
+    g.fillText(exam.modules[mid] || mid, PAD, y + 8);
+    let x = PAD + 190;
+    for (const r of items) {
+      g.fillStyle = r.correct === true ? "#e7f6ee" : r.correct === false ? "#fdecea" : "#ececf0";
+      roundRect(g, x, y, 46, 40, 8); g.fill();
+      g.fillStyle = r.correct === true ? "#129d5f" : r.correct === false ? "#d92d20" : "#74777d";
+      g.font = `700 18px ${CN_FONT}`;
+      g.fillText(r.id.replace(/^[a-z]+/i, ""), x + 10, y + 10);
+      x += 54;
+    }
+    y += 64;
+  }
+  y += 8;
+  if (wrongs.length) {
+    g.fillStyle = "#191a1c"; g.font = `600 20px ${CN_FONT}`;
+    g.fillText("答错题目的正确答案", PAD, y); y += 34;
+    for (const r of wrongs) {
+      g.fillStyle = "#5b4bc4"; g.font = `400 19px ${CN_FONT}`;
+      g.fillText(`${r.id} → ${r.answer || ""}`, PAD + 10, y); y += 30;
+    }
+    y += 16;
+  }
+  for (const w of writing) {
+    g.fillStyle = "#191a1c"; g.font = `600 20px ${CN_FONT}`;
+    g.fillText("写作（顾问人工批改）", PAD, y); y += 34;
+    g.fillStyle = "#333333"; g.font = `400 19px ${CN_FONT}`;
+    for (const line of wrap(answers[w.id], W - PAD * 2, `400 19px ${CN_FONT}`)) {
+      g.fillText(line, PAD, y); y += 30;
+    }
+    y += 20;
+  }
+  const qr = await new Promise((res) => {
+    const img = new Image();
+    img.onload = () => res(img); img.onerror = () => res(null);
+    img.src = "assets/cambridge-examiner.jpg";
+  });
+  g.fillStyle = "#74777d"; g.font = `400 18px ${CN_FONT}`;
+  g.fillText("扫码添加剑桥考官", PAD, y + 34);
+  g.fillText("获取详细报告与学习规划", PAD, y + 64);
+  if (qr) g.drawImage(qr, W - PAD - 130, y, 130, 130);
+
+  const url = canvas.toDataURL("image/png");
+  document.getElementById("exported-img").src = url;
+  const dl = document.getElementById("img-download");
+  if (dl) { dl.href = url; dl.download = `hippo-${flow.id}-${new Date().toISOString().slice(0, 10)}.png`; }
+  document.getElementById("img-overlay").hidden = false;
+  window.scrollTo(0, 0);
 }
 
 route();

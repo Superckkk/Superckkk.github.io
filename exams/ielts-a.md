@@ -1,15 +1,14 @@
 ---
 id: ielts-a
 title: 雅思水平测 · 卷 A
-timeLimit: 30
-hint: 放轻松，30 分钟很充裕，到时会自动交卷。
+timeLimit: 40
+hint: 放轻松，40 分钟很充裕，到时会自动交卷。
 modules: listening=Listening reading=Reading writing=Writing
 ---
 
-> 用时 30 分钟 ｜ 三模块：听力 10 + 阅读 8 + 语言运用 12 ｜ 口语由老师测
-> 本卷说明：全卷 30 题答案已按《教师版》录入；听力音频（media/audio/ielts-part1/2.mp3）待录音后放入，未放音频前学生仍可作答。
+> 用时 40（在线）+ 10 分钟（口语人工）｜ 四模块：听力 10 + 阅读 10 + 语言运用 10 + 写作（提交人工批改，不计分）
 
-## Listening · Part 1 {module: listening, audio: media/audio/ielts-part1.mp3, plays: 2}
+## 听力 · Listening · Part 1 听对话，补全信息（每空不超过三个词） {module: listening, audio: media/audio/ielts-part1.mp3, plays: 2}
 
 You will hear a telephone conversation about renting a room. Complete the form. **Write NO MORE THAN THREE WORDS for each answer.**
 
@@ -33,7 +32,7 @@ Room Enquiry Form
 ### l6 {id: l6, type: fill, answer: "Carter", maxWords: 3}
 6. Contact person: Mr______
 
-## Listening · Part 2 {module: listening, audio: media/audio/ielts-part2.mp3, plays: 2}
+## 听力 · Listening · Part 2 听对话，选择正确答案 {module: listening, audio: media/audio/ielts-part2.mp3, plays: 2}
 
 You will hear two friends talking. Choose the correct letter, A, B or C.
 
@@ -49,7 +48,7 @@ You will hear two friends talking. Choose the correct letter, A, B or C.
 ### l10 {id: l10, type: choice, options: "He is ill.|He is visiting his grandmother.|He has to study.", answer: B}
 **10.** Why can't Ben come with them?
 
-## Reading {module: reading}
+## 阅读 · Reading {module: reading}
 
 **Read the passage and answer the questions.**
 
@@ -65,7 +64,7 @@ Are the brands the bad guys? Not so fast. Customers want cheap shoes, and £4 of
 
 There is good news. More young people now buy second-hand trainers online, and some brands now show exactly where their shoes are made. Mia wears her £90 trainers every day — and she has decided that her next pair will be second-hand.
 
-（Questions 1–5：判断正误 T / F 或补全信息，每空不超过三个词）
+（Questions 1–6：判断正误 T / F 或补全信息，每空不超过三个词）
 
 ### r1 {id: r1, type: tf, answer: T}
 **1.** Mia saved for two months to buy the trainers.
@@ -85,15 +84,23 @@ There is good news. More young people now buy second-hand trainers online, and s
 ### r6 {id: r6, type: fill, answer: "4|four", maxWords: 3}
 **6.** If workers' pay doubled, the price of the trainers would rise by about £______ .
 
-### r7 {id: r7, type: choice, options: "Why brands are dishonest.|Why the problem has no easy answer.|Why shoppers always buy expensive shoes.", answer: B}
-**7.** What is Paragraph 4 mainly about?
+（Questions 7–10：选择正确答案）
 
-### r8 {id: r8, type: choice, options: "The life of a factory worker|What a £90 pair of trainers really costs|How to buy shoes online", answer: B}
-**8.** What is the best title for the passage?
+### r7 {id: r7, type: choice, options: "They think cheap shoes are better.|They want to spend less money.|They do not know where shoes are made.", answer: B}
+**7.** Why do many shoppers choose cheaper trainers?
 
-## 语言运用 · Writing {module: writing}
+### r8 {id: r8, type: choice, options: "Why trainers are expensive to make.|How the £90 is divided up.|Why advertising costs so much.", answer: B}
+**8.** What is Paragraph 3 mainly about?
 
-**Choose the correct answer, A, B or C.**（语法答案为整理时推导，请教研校对）
+### r9 {id: r9, type: choice, options: "The writer thinks the situation is more complicated.|The shoes are selling very quickly.|The customers need to walk faster.", answer: A}
+**9.** What does "Not so fast" suggest in Paragraph 4?
+
+### r10 {id: r10, type: choice, options: "The life of a factory worker|What a £90 pair of trainers really costs|How to buy shoes online", answer: B}
+**10.** What is the best title for the passage?
+
+## 语言运用 · Use of English {module: writing}
+
+**Choose the correct answer, A, B or C.**
 
 ### g1 {id: g1, type: choice, options: "We|Us|They", answer: A}
 **1.** Tom and I are good friends. ______ often help each other.
@@ -104,29 +111,34 @@ There is good news. More young people now buy second-hand trainers online, and s
 ### g3 {id: g3, type: choice, options: "a|an|/", answer: B}
 **3.** Jerry is such ______ honest boy.
 
-### g4 {id: g4, type: choice, options: "are|is|be", answer: A}
-**4.** There ______ a lot of beautiful flowers in the park.
+### g4 {id: g4, type: choice, options: "read|to reading|reading", answer: C}
+**4.** My sister likes ______ stories before she goes to bed.
 
-### g5 {id: g5, type: choice, options: "read|to reading|reading", answer: C}
-**5.** My sister likes ______ stories before she goes to bed.
+### g5 {id: g5, type: choice, options: "look|looks|looking", answer: A}
+**5.** You ______ tired. Why don't you take a short rest?
 
-### g6 {id: g6, type: choice, options: "ride|rides|riding", answer: B}
-**6.** Ben often ______ his bike to school in the morning.
+### g6 {id: g6, type: choice, options: "needs|spends|takes", answer: C}
+**6.** It ______ me thirty minutes to walk to school every day.
 
-### g7 {id: g7, type: choice, options: "look|looks|looking", answer: A}
-**7.** You ______ tired. Why don't you take a short rest?
+### g7 {id: g7, type: choice, options: "works|worked|has worked", answer: C}
+**7.** My uncle ______ in this factory for ten years. He likes his job very much.
 
-### g8 {id: g8, type: choice, options: "needs|spends|takes", answer: C}
-**8.** It ______ me thirty minutes to walk to school every day.
+### g8 {id: g8, type: choice, options: "early|earlier|earliest", answer: B}
+**8.** Emma always arrives at school ______ than me.
 
-### g9 {id: g9, type: choice, options: "works|worked|has worked", answer: C}
-**9.** My uncle ______ in this factory for ten years. He likes his job very much.
+### g9 {id: g9, type: choice, options: "needn't|can't|mustn't", answer: A}
+**9.** — Must I hand in the poster right now? — No, you______. Tomorrow is OK.
 
-### g10 {id: g10, type: choice, options: "early|earlier|earliest", answer: B}
-**10.** Emma always arrives at school ______ than me.
+### g10 {id: g10, type: choice, options: "or|and|but", answer: A}
+**10.** You should start your work right now, ______ you won't finish it on time.
 
-### g11 {id: g11, type: choice, options: "needn't|can't|mustn't", answer: A}
-**11.** — Must I hand in the poster right now? — No, you______. Tomorrow is OK.
+## 基础写作 · Writing 主题任选其一（不计分，提交后由顾问人工批改） {module: task}
 
-### g12 {id: g12, type: choice, options: "or|and|but", answer: A}
-**12.** You should start your work right now, ______ you won't finish it on time.
+### w1 {id: w1, type: writing, minWords: 60, maxWords: 100}
+**Write 60–80 words. 主题任选其一：**
+
+**1.** Your English foreign teacher, Ms Wilson, expects everyone in class tomorrow. You cannot go because of a family matter. Write a 60–80 word WeChat message to her to ask for the day off and explain why. Begin and end your message politely.
+Useful phrases: *Sorry to… / I can't come because… / Thank you for…*
+
+**2.** Your penfriend Tom wants to know about your school day. Write 60–80 words to him.
+Useful phrases: *I usually… / My favourite subject is… because… / At lunchtime, I…*

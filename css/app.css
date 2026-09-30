@@ -258,3 +258,30 @@ button, .btn-secondary, .tag, .topbar, .entry-card h2, .sec-no { line-height: 1.
 /* 模块纯色图标：随品牌紫，与文字基线对齐 */
 .mod-ico { width: 1.05em; height: 1.05em; fill: var(--brand); vertical-align: -0.18em; margin-right: 5px; }
 section.module > .q:first-child { border-top: 0; padding-top: 4px; }
+
+/* ---------- 写作题 / 逐题明细 / 成绩单 ---------- */
+.q textarea.write-box {
+  width: 100%; border: 1px solid var(--line-strong); border-radius: var(--radius);
+  padding: 12px 14px; font-size: 16px; color: var(--ink); background: var(--card);
+  font-family: var(--serif-en); resize: vertical; line-height: 1.6;
+}
+.q textarea.write-box:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-soft); }
+.word-count { font-size: 12px; color: var(--sub); margin: 6px 2px 0; }
+.word-count.over { color: var(--danger); font-weight: 600; }
+.rpt-review { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 16px 6px; margin-bottom: 16px; }
+.rpt-review h3 { margin: 0 0 10px; font-size: 14px; font-weight: 700; color: var(--sub); letter-spacing: .1em; }
+.rv-mod { font-size: 14px; font-weight: 700; margin: 8px 0 6px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+.chip { min-width: 34px; text-align: center; border-radius: 8px; padding: 4px 7px; font-size: 13px; }
+.chip b { margin-right: 3px; font-variant-numeric: tabular-nums; }
+.chip.ok { background: var(--ok-soft, #e7f6ee); color: #129d5f; }
+.chip.bad { background: #fdecea; color: #d92d20; }
+.chip.na { background: #ececf0; color: #74777d; }
+.rv-wrong-title { font-size: 13px; color: var(--sub); margin: 8px 0 4px; }
+.rv-wrong { font-size: 14px; margin: 2px 0; }
+.rv-wrong b { color: var(--brand-deep); }
+.rpt-writing { background: #e9e8ee; border-radius: var(--radius); padding: 14px 16px; margin-bottom: 16px; }
+.rpt-writing h3 { margin: 0 0 8px; font-size: 14px; color: var(--sub); }
+.rpt-writing .rw-text { white-space: pre-wrap; font-size: 15px; line-height: 1.7; margin: 0 0 6px; overflow-wrap: anywhere; }
+.rpt-writing .wc-line { font-size: 12px; color: var(--sub); margin: 0; }
+#img-overlay img { width: min(620px, 86vw); max-height: 62vh; object-fit: contain; background: #fff; border-radius: 8px; padding: 8px; }

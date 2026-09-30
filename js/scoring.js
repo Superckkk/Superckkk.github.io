@@ -71,14 +71,14 @@ export function checkFill(user, spec) {
   return false;
 }
 
-// 单题判分：true/false/null（null=待定题，不计入）
+// 单题判分：true/false/null（null=待定或不判分，不计入）
 export function gradeQuestion(q, userAnswer) {
   if (q.pending) return null;
   switch (q.type) {
     case "choice": return checkChoice(userAnswer, q);
     case "tf": return checkTF(userAnswer, q);
     case "fill": return checkFill(userAnswer, q);
-    default: return false;
+    default: return null; // writing 等人工批改题型
   }
 }
 
@@ -141,8 +141,15 @@ export function gradeExam(exam, answers, opts = {}) {
     if (m.raw != null) bands.push(m.raw);
   }
   const total = bands.length ? round(bands.reduce((a, b) => a + b, 0) / bands.length) : null;
-  const pending = exam.questions.filter((q) => q.pending).map((q) => q.id);
-  return { modules: mods, total, pending };
+  const pending = exam.questions.filter((q) => q.pending && q.type !== "writing").map((q) => q.id);
+  // 逐题正误明细（写作等人工题 correct=null）
+  const review = exam.questions.map((q) => ({
+    id: q.id, module: q.module, type: q.type,
+    correct: gradeQuestion(q, answers[q.id]),
+    user: answers[q.id] || "",
+    answer: q.pending || q.type === "writing" ? null : String(q.answer).split("|")[0].trim(),
+  }));
+  return { modules: mods, total, pending, review };
 }
 
 // 分支条件求值（AND 语义）。first-match-wins 由调用方保证顺序。
