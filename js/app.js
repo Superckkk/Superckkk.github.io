@@ -264,7 +264,8 @@ function updateAnsweredNote() {
 
 function submitExam() {
   state.answers = collectAnswers();
-  state.score = gradeExam(state.exam, state.answers, { bandTable: state.flow.graph.bandTable });
+  // roundMode "round" = 雅思四舍五入（需求文档口径，教研实测确认：ceil 会抬档导致 3.5/4.0 测不出）
+  state.score = gradeExam(state.exam, state.answers, { bandTable: state.flow.graph.bandTable, roundMode: "round" });
   stopTimer();
   enterNode(state.node.then);
 }
