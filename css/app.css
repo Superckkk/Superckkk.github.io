@@ -285,3 +285,10 @@ section.module > .q:first-child { border-top: 0; padding-top: 4px; }
 .rpt-writing .rw-text { white-space: pre-wrap; font-size: 15px; line-height: 1.7; margin: 0 0 6px; overflow-wrap: anywhere; }
 .rpt-writing .wc-line { font-size: 12px; color: var(--sub); margin: 0; }
 #img-overlay img { width: min(620px, 86vw); max-height: 62vh; object-fit: contain; background: #fff; border-radius: 8px; padding: 8px; }
+
+/* 双二维码（Rita 老师 / 剑桥考官） */
+.qr-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; width: 100%; max-width: 460px; margin: 8px auto 4px; }
+.qr-item { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 10px; text-align: center; }
+.qr-item img { width: 120px; height: 120px; max-width: 100%; object-fit: contain; margin: 10px 0 8px; background: #fff; border-radius: 6px; padding: 4px; }
+.qr-name { font-size: 16px; font-weight: 800; margin: 0; }
+.qr-use { font-size: 13px; color: var(--brand-deep); font-weight: 600; margin: 0; }

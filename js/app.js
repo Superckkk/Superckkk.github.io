@@ -410,7 +410,7 @@ function renderResult() {
     ${L.detail ? `<p class="rpt-detail">${esc(L.detail)}</p>` : ""}
     ${pendingCount ? `<p class="pending-note">注：${pendingCount} 道听力题因音频未上传暂未计分，当前分数按其余模块折算。</p>` : ""}
     <section class="qr-cta" id="qr-open">
-      <p>添加剑桥考官<br><b>${esc(qrAction)}</b></p>
+      <p>添加老师微信<br><b>${esc(qrAction)}</b></p>
       <img src="assets/cambridge-examiner.jpg" alt="课程顾问微信二维码">
     </section>
     ${rv.chips ? `<section class="rpt-review"><h3>逐题情况</h3>${rv.chips}${rv.wrong}</section>` : ""}
@@ -419,9 +419,20 @@ function renderResult() {
     <button class="btn-secondary" id="again-btn">重新测一次</button>
     <a class="btn-secondary" href="#/" style="text-align:center;text-decoration:none;display:block;box-sizing:border-box">返回首页</a>
     <div class="qr-overlay" id="qr-overlay" hidden>
-      <p class="qr-title">课程顾问微信</p>
-      <img src="assets/cambridge-examiner.jpg" alt="课程顾问微信二维码">
-      <p class="cta-hint">长按识别二维码，添加顾问微信<br>将测评结果拿给老师做进一步分析</p>
+      <p class="qr-title">添加老师微信</p>
+      <div class="qr-duo">
+        <div class="qr-item">
+          <p class="qr-name">Rita 老师</p>
+          <img src="assets/qr-placeholder.svg" alt="Rita 老师微信二维码">
+          <p class="qr-use">获取成绩分析</p>
+        </div>
+        <div class="qr-item">
+          <p class="qr-name">剑桥考官</p>
+          <img src="assets/cambridge-examiner.jpg" alt="剑桥考官微信二维码">
+          <p class="qr-use">获取详细报告</p>
+        </div>
+      </div>
+      <p class="cta-hint">长按识别二维码添加对应老师<br>将测评结果拿给老师做进一步分析</p>
       <button class="btn-secondary" id="qr-back" style="margin-top:6px">返回结果</button>
     </div>
     <div class="qr-overlay" id="img-overlay" hidden>
@@ -466,7 +477,7 @@ function renderResultLegacy(flow, branchId, copy, ctx, qrAction) {
     </div>
     ${pendingCount ? `<p class="pending-note">注：${pendingCount} 道题因音频/答案未上传暂未计分，当前分数按其余模块折算。</p>` : ""}
     <section class="qr-cta" id="qr-open">
-      <p>添加课程顾问<br><b>${esc(L.action || qrAction)}</b></p>
+      <p>添加老师微信<br><b>${esc(L.action || qrAction)}</b></p>
       <img src="assets/cambridge-examiner.jpg" alt="课程顾问微信二维码">
     </section>
     ${rv.chips ? `<section class="rpt-review"><h3>逐题情况</h3>${rv.chips}${rv.wrong}</section>` : ""}
@@ -475,9 +486,20 @@ function renderResultLegacy(flow, branchId, copy, ctx, qrAction) {
     <button class="btn-secondary" id="again-btn">重新测一次</button>
     <a class="btn-secondary" href="#/" style="text-align:center;text-decoration:none;display:block;box-sizing:border-box">返回首页</a>
     <div class="qr-overlay" id="qr-overlay" hidden>
-      <p class="qr-title">课程顾问微信</p>
-      <img src="assets/cambridge-examiner.jpg" alt="课程顾问微信二维码">
-      <p class="cta-hint">长按识别二维码，添加顾问微信<br>将测评结果拿给老师做进一步分析</p>
+      <p class="qr-title">添加老师微信</p>
+      <div class="qr-duo">
+        <div class="qr-item">
+          <p class="qr-name">Rita 老师</p>
+          <img src="assets/qr-placeholder.svg" alt="Rita 老师微信二维码">
+          <p class="qr-use">获取成绩分析</p>
+        </div>
+        <div class="qr-item">
+          <p class="qr-name">剑桥考官</p>
+          <img src="assets/cambridge-examiner.jpg" alt="剑桥考官微信二维码">
+          <p class="qr-use">获取详细报告</p>
+        </div>
+      </div>
+      <p class="cta-hint">长按识别二维码添加对应老师<br>将测评结果拿给老师做进一步分析</p>
       <button class="btn-secondary" id="qr-back" style="margin-top:6px">返回结果</button>
     </div>
     <div class="qr-overlay" id="img-overlay" hidden>
@@ -617,15 +639,27 @@ async function exportScoreCard() {
     }
     y += 20;
   }
-  const qr = await new Promise((res) => {
+  const loadImg = (src) => new Promise((res) => {
     const img = new Image();
     img.onload = () => res(img); img.onerror = () => res(null);
-    img.src = "assets/cambridge-examiner.jpg";
+    img.src = src;
   });
-  g.fillStyle = "#74777d"; g.font = `400 18px ${CN_FONT}`;
-  g.fillText("扫码添加剑桥考官", PAD, y + 34);
-  g.fillText("获取详细报告与学习规划", PAD, y + 64);
-  if (qr) g.drawImage(qr, W - PAD - 130, y, 130, 130);
+  const [qrRita, qrExaminer] = await Promise.all([
+    loadImg("assets/qr-placeholder.svg"),
+    loadImg("assets/cambridge-examiner.jpg"),
+  ]);
+  const colW = (W - PAD * 2 - 40) / 2;
+  g.textAlign = "center";
+  g.fillStyle = "#191a1c"; g.font = `700 20px ${CN_FONT}`;
+  g.fillText("Rita 老师", PAD + colW / 2, y);
+  g.fillText("剑桥考官", W - PAD - colW / 2, y);
+  g.fillStyle = "#74777d"; g.font = `400 17px ${CN_FONT}`;
+  g.fillText("获取成绩分析", PAD + colW / 2, y + 28);
+  g.fillText("获取详细报告", W - PAD - colW / 2, y + 28);
+  if (qrRita) g.drawImage(qrRita, PAD + (colW - 120) / 2, y + 44, 120, 120);
+  if (qrExaminer) g.drawImage(qrExaminer, W - PAD - colW + (colW - 120) / 2, y + 44, 120, 120);
+  g.textAlign = "left";
+  y += 180;
 
   const url = canvas.toDataURL("image/png");
   document.getElementById("exported-img").src = url;
