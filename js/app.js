@@ -240,10 +240,10 @@ function collectAnswers() {
   for (const q of state.exam.questions) {
     const box = app.querySelector(`.q[data-q="${CSS.escape(q.id)}"]`);
     if (!box) continue;
-    const el = box.querySelector("input");
-    if (!el) continue;
     const ta = box.querySelector("textarea");
     if (ta) { out[q.id] = ta.value; continue; }
+    const el = box.querySelector("input");
+    if (!el) continue;
     if (el.type === "radio") {
       const checked = box.querySelector("input:checked");
       out[q.id] = checked ? checked.value : "";
@@ -523,9 +523,9 @@ function reviewBlocks() {
   const review = (state.score && state.score.review) || [];
   const answers = state.answers || {};
   if (!review.length) return { chips: "", wrong: "", writing: "" };
-  const mods = [...new Set(review.map((r) => r.module))];
+  const mods = [...new Set(review.filter((r) => r.type !== "writing").map((r) => r.module))];
   const chips = mods.map((mid) => {
-    const items = review.filter((r) => r.module === mid);
+    const items = review.filter((r) => r.module === mid && r.type !== "writing");
     return `<p class="rv-mod">${esc(exam.modules[mid] || mid)}</p><div class="chips">${items.map((r) => {
       const cls = r.correct === true ? "ok" : r.correct === false ? "bad" : "na";
       const mark = r.correct === true ? "✓" : r.correct === false ? "✗" : "–";
@@ -577,7 +577,7 @@ async function exportScoreCard() {
   };
   const answers = state.answers || {};
   const wrongs = review.filter((r) => r.correct === false);
-  const perMod = [...new Set(review.map((r) => r.module))];
+  const perMod = [...new Set(review.filter((r) => r.type !== "writing").map((r) => r.module))];
   const writing = review.filter((r) => r.type === "writing" && String(answers[r.id] || "").trim());
   const writingLines = writing.length ? wrap(answers[writing[0].id], W - PAD * 2, `400 19px ${CN_FONT}`).length : 0;
 
