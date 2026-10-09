@@ -82,7 +82,7 @@ function renderHome() {
       ${Object.entries(FLOWS).map(([id, f]) => `
         <a class="entry-card" href="#/${id}">
           <h2>${esc(f.name)}</h2>
-          ${last[id] ? `<p class="last-line">上次结果 ${esc(String(last[id].total ?? "—"))} · ${esc(last[id].date)}</p>` : ""}
+
         </a>`).join("")}
     </div>
     <p class="home-note">测评结果仅供课程顾问参考，不构成正式入学承诺。</p>`;
@@ -423,13 +423,13 @@ function renderResult() {
       <p class="qr-title">添加老师微信</p>
       <div class="qr-duo">
         <div class="qr-item">
-          <p class="qr-name">Rita 老师</p>
-          <img src="assets/qr-placeholder.svg" alt="Rita 老师微信二维码">
+          <p class="qr-name">Shirley老师</p>
+          <img src="assets/shirley-teacher.jpg" alt="Shirley 老师微信二维码">
           <p class="qr-use">获取成绩分析</p>
         </div>
         <div class="qr-item">
-          <p class="qr-name">剑桥考官</p>
-          <img src="assets/cambridge-examiner.jpg" alt="剑桥考官微信二维码">
+          <p class="qr-name">Rita老师</p>
+          <img src="assets/examiner-new.jpg" alt="Rita 老师微信二维码">
           <p class="qr-use">获取详细报告</p>
         </div>
       </div>
@@ -646,14 +646,14 @@ async function exportScoreCard() {
     img.src = src;
   });
   const [qrRita, qrExaminer] = await Promise.all([
-    loadImg("assets/qr-placeholder.svg"),
-    loadImg("assets/cambridge-examiner.jpg"),
+    loadImg("assets/shirley-teacher.jpg"),
+    loadImg("assets/examiner-new.jpg"),
   ]);
   const colW = (W - PAD * 2 - 40) / 2;
   g.textAlign = "center";
   g.fillStyle = "#191a1c"; g.font = `700 20px ${CN_FONT}`;
-  g.fillText("Rita 老师", PAD + colW / 2, y);
-  g.fillText("剑桥考官", W - PAD - colW / 2, y);
+  g.fillText("Shirley老师", PAD + colW / 2, y);
+  g.fillText("Rita老师", W - PAD - colW / 2, y);
   g.fillStyle = "#74777d"; g.font = `400 17px ${CN_FONT}`;
   g.fillText("获取成绩分析", PAD + colW / 2, y + 28);
   g.fillText("获取详细报告", W - PAD - colW / 2, y + 28);
